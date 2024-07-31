@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { YMaps, Map, Placemark, GeolocationControl } from '@pbe/react-yandex-maps';
 
 const MyMap = () => {
@@ -23,14 +23,13 @@ useState(()=> {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         setUserLocation([position.coords.latitude, position.coords.longitude]);
-        console.log(userLocation);
       },
       (error) => {
         console.error("Ошибка получения местоположения:", error);
       }
     );
   } else {
-    console.warn("Геолокация не доступна");
+    setUserLocation([55.7522, 37.6156]);
   }
 },[])
 
@@ -55,7 +54,18 @@ useState(()=> {
           <Placemark
             key={point.id}
             defaultGeometry={[point.latitude, point.longitude]}
-          // ...
+            properties={{
+              balloonContentBody:
+                `<div class='ballon'>
+                                <p class='ballon__header'>${point.name}</p>
+                                <p class='balloon__text'>${point.tags.map(tag => tag.name)}</p>
+                                <p class='balloon__text'>${point.address}</p> 
+                                <div class='ballon__status'>
+                                    <div class='baloon__status-dot'></div>
+                                    <p class='balloon__text'>Открыто</p>
+                                </div>
+                            </div>`,
+            }}
           />
         ))}
 

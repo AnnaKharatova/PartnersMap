@@ -110,7 +110,7 @@ main {
 }
 
 .filter-buttons__button {
-    background-image: url('./images/Icon-filter.svg');
+    background-image: url('../images/Icon-filter.svg');
     background-repeat: no-repeat;
     background-position: 5% 50%;
     border: 1px solid #C4C4C4;

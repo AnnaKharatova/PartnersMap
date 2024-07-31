@@ -1,10 +1,17 @@
 import './App.css'
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Header from './Header/Header.jsx'
 import MyMap from './Map/MyMap.jsx'
 import Footer from './Footer/Footer.jsx'
+import PopupCitiesFilter from './PopupCitiesFilter/PopupCitiesFilter.jsx';
+import PopupFilters from './PopupFilters/PopupFilters.jsx';
 
 function App() {
+
+  const [citiesPopup, setCitiesPopup] = useState(false)
+  const [filtersPopup, setFiltersPopup] = useState(false)
+
+  
 
   return (
     <>
@@ -23,11 +30,11 @@ function App() {
         <div className="map">
           <div className="partners">
             <div className="partners__filter-buttons">
-              <button className="filter-buttons__city-button" id="city-filter-big">
+              <button className="filter-buttons__city-button" id="city-filter-big" onClick={() => setCitiesPopup(true)}>
                 Город
                 <div className="filter-buttons__delete-city">&times;</div>
               </button>
-              <button className="filter-buttons__button" id="partner-filter-big">
+              <button className="filter-buttons__button" id="partner-filter-big" onClick={() => setFiltersPopup(true)}>
                 Фильтры
                 <span className='filter-buttons__button-item'></span>
               </button>
@@ -40,10 +47,12 @@ function App() {
             <MyMap />
             <button className="map__button" id="partners-list-button">Список партнеров</button>
           </div>
-
         </div>
       </main >
       <Footer />
+      {citiesPopup&&<PopupCitiesFilter setCitiesPopup={setCitiesPopup}/>}
+      {filtersPopup&&<PopupFilters setFiltersPopup={setFiltersPopup}/>}
+
     </>
   )
 }
