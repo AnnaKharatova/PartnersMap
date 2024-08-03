@@ -43,7 +43,7 @@ function PopupFilters({ setFiltersPopup }) {
                     <h3>Типы двигателя</h3>
                     <section className="popup-filter__section" id="engines-section">
                         {engines.length > 0&&engines.map((engine) => (
-                            <label className="popup-filter__label" htmlFor={`engine-${engine.name.toString().toLowerCase()}`}>
+                            <label key={engine.id} className="popup-filter__label" htmlFor={`engine-${engine.name.toString().toLowerCase()}`}>
                                 <input className="popup-filter__engine-checkbox" type="checkbox" id={`engine-${engine.name.toString().toLowerCase()}`} name={engine.name} value={engine.id} />
                                 <span className="popup-filter__label-span">{engine.name}</span>
                             </label>
@@ -53,7 +53,7 @@ function PopupFilters({ setFiltersPopup }) {
                     <h3>Партнеры</h3>
                     <section className="popup-filter__section" id="partners-section">
                         {partners.length > 0&&partners.map((tag) => (
-                            <label className="popup-filter__label" htmlFor={`partner-${tag.id.toString().toLowerCase()}`}>
+                            <label key={tag.id} className="popup-filter__label" htmlFor={`partner-${tag.id.toString().toLowerCase()}`}>
                                 <input className="popup-filter__partners-checkbox" type="checkbox" id={`partner-${tag.id.toString().toLowerCase()}`} name={tag.name} value={tag.id} />
                                 <span className="popup-filter__label-span">{tag.name}</span>
                             </label>
