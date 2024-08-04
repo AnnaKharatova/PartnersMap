@@ -6,6 +6,7 @@ import Footer from './Footer/Footer.jsx'
 import PartnerElement from './PartnerElement/PartnerElement.jsx'
 import PopupCitiesFilter from './PopupCitiesFilter/PopupCitiesFilter.jsx';
 import PopupFilters from './PopupFilters/PopupFilters.jsx';
+import PartnerDetails from './PartnerDetails/PartnerDetails.jsx'
 import { YMaps } from '@pbe/react-yandex-maps';
 
 function App() {
@@ -15,6 +16,9 @@ function App() {
   const [storedCity, setStoredCity] = useState('')
   const [allPartners, setAllPartners] = useState([])
   const [store, setStore] = useState([])
+  const [partnerInfo, setPartnerInfo] = useState()
+
+  console.log(store)
 
   useEffect(() => {
     fetch(`${BASE_URL}/partners/`)
@@ -55,12 +59,14 @@ function App() {
               </button>
             </div>
             <div className="partners__container">
-              <ul className="popup-filter__partners-list" id="partners-list-big">
-                {allPartners && allPartners.map((partner) => (
-                  <PartnerElement partner={partner} setStore={setStore} key={partner.id} />
-                ))}
-
-              </ul>
+              {partnerInfo ?
+                <PartnerDetails partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore}/> :
+                <ul className="popup-filter__partners-list" id="partners-list-big">
+                  {allPartners && allPartners.map((partner) => (
+                    <PartnerElement partner={partner} setStore={setStore} key={partner.id} />
+                  ))}
+                </ul>
+              }
             </div>
           </div>
           <div className="map__container" id="map">
@@ -69,7 +75,7 @@ function App() {
               ns: "use-load-option",
               load: "Map,Placemark,control.ZoomControl,control.FullscreenControl,geoObject.addon.balloon",
             }}>
-              <AnotherMap storedCity={storedCity} partners={allPartners} partner={store} />
+              <AnotherMap storedCity={storedCity} partners={allPartners} partner={store} setPartnerInfo={setPartnerInfo} />
             </YMaps>
             <button className="map__button" id="partners-list-button">Список партнеров</button>
           </div>
