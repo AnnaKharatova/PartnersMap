@@ -15,10 +15,8 @@ function App() {
   const [filtersPopup, setFiltersPopup] = useState(false)
   const [storedCity, setStoredCity] = useState('')
   const [allPartners, setAllPartners] = useState([])
-  const [store, setStore] = useState([])
+  const [store, setStore] = useState(null)
   const [partnerInfo, setPartnerInfo] = useState()
-
-  console.log(store)
 
   useEffect(() => {
     fetch(`${BASE_URL}/partners/`)
@@ -83,7 +81,7 @@ function App() {
       </main >
       <Footer />
       {citiesPopup && <PopupCitiesFilter setCitiesPopup={setCitiesPopup} setStoredCity={setStoredCity} />}
-      {filtersPopup && <PopupFilters setFiltersPopup={setFiltersPopup} />}
+      {filtersPopup && <PopupFilters setFiltersPopup={setFiltersPopup} setAllPartners={setAllPartners}/>}
 
     </>
   )
