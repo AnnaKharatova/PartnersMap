@@ -1,29 +1,39 @@
 import './PopupFilters.css'
 import React, { useState, useEffect } from 'react';
 
-function PopupFilters({ setFiltersPopup, setAllPartners }) {
+function PopupFilters({ filteredData, setFiltersPopup, getQuery, setAllPartners, setFilterMark, filterMark, delFilterMark, selectedTags, setSelectedTags, selectedParts, setSelectedParts }) {
     const BASE_URL = `https://yurasstroy.ddns.net/api`
     const [engines, setEngines] = useState([])
     const [tags, setTags] = useState([])
-    const [selectedParts, setSelectedParts] = useState([]);
-    const [selectedTags, setSelectedTags] = useState([]);
-    const [filteredData, setFilteredData] = useState([])
 
-    const handleEngineCheckboxChange = (event) => {
-        const { value, checked } = event.target;
-        if (checked) {
-            setSelectedParts([...selectedParts, value]);
-        } else {
-            setSelectedParts(selectedParts.filter(part => part !== value));
+     const handleEngineCheckboxChange = (event) => {
+            const { value, checked, name } = event.target;
+        
+            if (checked) {
+              setSelectedParts([...selectedParts, value]);
+              if (filterMark.includes(name)) {
+                setFilterMark(filterMark.filter((item) => item !== name));
+              } else {
+                setFilterMark([...filterMark, name]);
+              }
+            } else {
+              setSelectedParts(selectedParts.filter((part) => part !== value));
+              setFilterMark(filterMark.filter((item) => item !== name));
+            }
         }
-    };
 
     const handleTagsCheckboxChange = (event) => {
-        const { value, checked } = event.target;
+        const { value, checked, name } = event.target;
         if (checked) {
             setSelectedTags([...selectedTags, value]);
+            if (filterMark.includes(name)) {
+                setFilterMark(filterMark.filter((item) => item !== name));
+              } else {
+                setFilterMark([...filterMark, name]);
+              }
         } else {
             setSelectedTags(selectedTags.filter(part => part !== value));
+            setFilterMark(filterMark.filter((item) => item !== name));
         }
     };
 
@@ -34,7 +44,6 @@ function PopupFilters({ setFiltersPopup, setAllPartners }) {
             setAllPartners(opened)
         }
     }
-
 
     useEffect(() => {
         fetch(`${BASE_URL}/tags/`)
@@ -61,25 +70,10 @@ function PopupFilters({ setFiltersPopup, setAllPartners }) {
     function submitFilters(e) {
         e.preventDefault()
         setFiltersPopup(false);
+        getQuery()
     }
 
-    useEffect(() => {
-        if (selectedParts || selectedTags) {
-            const queryParams = selectedTags.map(tag => `tags=${tag}`).join('&') + `&` + selectedParts.map(id => `parts_available=${id}`).join('&')
-            const url = `${BASE_URL}/partners/?${queryParams}`
-            console.log(url)
-            fetch(url)
-                .then(response => response.json())
-                .then((data) => {
-                    setFilteredData(data);
-                    setAllPartners(data)
-                }).catch(error => {
-                    console.error("Ошибка при получении данных:", error);
-                });
-        } else {
-            console.log('фильтры не выбраны')
-        }
-    }, [selectedParts, selectedTags])
+
 
 
     function getOpenStores(stores) {
@@ -106,48 +100,49 @@ function PopupFilters({ setFiltersPopup, setAllPartners }) {
                     && (currentHour < closeHour || (currentHour === closeHour && currentMinute < closeMinute));
             }
         });
-}
+    }
 
-return (
-    <div className="popup-filter" id="popup-city-filter">
-        <div className="popup-filter__content">
-            <button className="popup-filter__close-button" onClick={() => { setFiltersPopup(false) }}>&times;</button>
-            <h2 className="popup-filter__title">Фильтры</h2>
-            <form className="popup-filter__form" onSubmit={submitFilters}>
-                <h3>Типы двигателя</h3>
-                <section className="popup-filter__section" id="engines-section">
-                    {engines.length > 0 && engines.map((engine) => (
-                        <label key={engine.id} className="popup-filter__label" htmlFor={`engine-${engine.name.toString().toLowerCase()}`}>
-                            <input onChange={handleEngineCheckboxChange} className="popup-filter__engine-checkbox" type="checkbox" id={`engine-${engine.name.toString().toLowerCase()}`} name={engine.name} value={engine.id} />
-                            <span className="popup-filter__label-span">{engine.name}</span>
+    return (
+        <div className="popup-filter" id="popup-city-filter">
+            <div className="popup-filter__content">
+                <button className="popup-filter__close-button" onClick={() => { setFiltersPopup(false) }}>&times;</button>
+                <h2 className="popup-filter__title">Фильтры</h2>
+                <form className="popup-filter__form" onSubmit={submitFilters}>
+                    <h3>Типы двигателя</h3>
+                    <section className="popup-filter__section" id="engines-section">
+                        {engines.length > 0 && engines.map((engine) => (
+                            
+                            <label key={engine.id} className="popup-filter__label" htmlFor={`engine-${engine.name.toString().toLowerCase()}`}>
+                                <input checked={filterMark.includes(engine.name)} onChange={handleEngineCheckboxChange} className="popup-filter__engine-checkbox" type="checkbox" id={`engine-${engine.name.toString().toLowerCase()}`} name={engine.name} value={engine.id} />
+                                <span className="popup-filter__label-span">{engine.name}</span>
+                            </label>
+                        ))}
+                    </section>
+
+                    <h3>Партнеры</h3>
+                    <section className="popup-filter__section" id="partners-section">
+                        {tags.length > 0 && tags.map((tag) => (
+                            <label key={tag.id} className="popup-filter__label" htmlFor={`partner-${tag.id.toString().toLowerCase()}`}>
+                                <input checked={filterMark.includes(tag.name)} onChange={handleTagsCheckboxChange} className="popup-filter__partners-checkbox" type="checkbox" id={`partner-${tag.id.toString().toLowerCase()}`} name={tag.name} value={tag.id} />
+                                <span className="popup-filter__label-span">{tag.name}</span>
+                            </label>
+                        ))}
+                    </section>
+
+                    <div className="popup-filter__item">
+                        <label className="popup-filter__toggle">
+                            <input onClick={handleOpenChange} className="popup-filter__input-slider" type="checkbox" id="toggleButton"
+                                value="Открыто сейчас" name="Открыто сейчас" />
+                            <span className="popup-filter__slider popup-filter__round"></span>
                         </label>
-                    ))}
-                </section>
+                        <span className="popup-filter__slider-title">Открыто сейчас</span>
+                    </div>
 
-                <h3>Партнеры</h3>
-                <section className="popup-filter__section" id="partners-section">
-                    {tags.length > 0 && tags.map((tag) => (
-                        <label key={tag.id} className="popup-filter__label" htmlFor={`partner-${tag.id.toString().toLowerCase()}`}>
-                            <input onChange={handleTagsCheckboxChange} className="popup-filter__partners-checkbox" type="checkbox" id={`partner-${tag.id.toString().toLowerCase()}`} name={tag.name} value={tag.id} />
-                            <span className="popup-filter__label-span">{tag.name}</span>
-                        </label>
-                    ))}
-                </section>
-
-                <div className="popup-filter__item">
-                    <label className="popup-filter__toggle">
-                        <input onClick={handleOpenChange} className="popup-filter__input-slider" type="checkbox" id="toggleButton"
-                            value="Открыто сейчас" name="Открыто сейчас" />
-                        <span className="popup-filter__slider popup-filter__round"></span>
-                    </label>
-                    <span className="popup-filter__slider-title">Открыто сейчас</span>
-                </div>
-
-                <button className="popup-filter__submit-button" id="filter-submit-button" type="submit" >Применить</button>
-            </form>
+                    <button className="popup-filter__submit-button" id="filter-submit-button" type="submit" >Применить</button>
+                </form>
+            </div>
         </div>
-    </div>
-)
+    )
 }
 
 export default PopupFilters

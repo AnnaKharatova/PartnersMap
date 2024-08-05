@@ -189,11 +189,21 @@ main {
     height: 90vh;
     width: 100%;
     margin: 0;
+    position: relative;
 }
 
 .map {
     display: flex;
     flex-direction: row;
+}
+
+.map__filters {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    position: absolute;
+    z-index: 2;
+    flex-wrap: wrap;
 }
 
 

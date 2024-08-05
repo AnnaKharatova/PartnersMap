@@ -16,6 +16,8 @@ function AnotherMap({ partners, partner, setPartnerInfo }) {
         'control.RoutePanel',
     ]);
 
+    console.log(partners)
+
     // Получение местоположения пользователя
     useEffect(() => {
         if (navigator.geolocation) {
@@ -61,6 +63,8 @@ function AnotherMap({ partners, partner, setPartnerInfo }) {
     }
     useEffect(() => {
         if (map) {
+            map.geoObjects.removeAll()
+
             getCenter(userLocation);
             partners.forEach(store => {
                 const placemark = new ymaps.Placemark([store.latitude, store.longitude], {
@@ -90,7 +94,7 @@ function AnotherMap({ partners, partner, setPartnerInfo }) {
             function setStoreInfo(store) {
                 setPartnerInfo(store)
             }
-        }
+                  }
     }, [ymaps, partners, userLocation, map]);
 
 
