@@ -23,6 +23,7 @@ function App() {
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedParts, setSelectedParts] = useState([]);
   const [filteredData, setFilteredData] = useState([])
+  const [selectedPartner, setSelectedPartner] = useState(null)
 
   useEffect(() => {
     if (filterMark.length < 1) {
@@ -108,7 +109,7 @@ function App() {
                 <PartnerDetails partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore} /> :
                 <ul className="popup-filter__partners-list" id="partners-list-big">
                   {allPartners && allPartners.map((partner) => (
-                    <PartnerElement partner={partner} setStore={setStore} key={partner.id} />
+                    <PartnerElement  setSelectedPartner={setSelectedPartner}  partner={partner} setStore={setStore} key={partner.id} />
                   ))}
                 </ul>
               }
@@ -131,7 +132,7 @@ function App() {
               ns: "use-load-option",
               load: "Map,Placemark,control.ZoomControl,control.FullscreenControl,geoObject.addon.balloon",
             }}>
-              <AnotherMap storedCity={storedCity} partners={allPartners} partner={store} setPartnerInfo={setPartnerInfo} />
+              <AnotherMap selectedPartner={selectedPartner} storedCity={storedCity} partners={allPartners} partner={store} setPartnerInfo={setPartnerInfo} />
             </YMaps>
             <button className="map__button" id="partners-list-button">Список партнеров</button>
           </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { YMaps, useYMaps } from '@pbe/react-yandex-maps';
 
-function AnotherMap({ partners, partner, setPartnerInfo }) {
+function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner }) {
     const mapRef = useRef(null);
     const multiRouteRef = useRef(null);
     const [userLocation, setUserLocation] = useState([]);
@@ -17,6 +17,25 @@ function AnotherMap({ partners, partner, setPartnerInfo }) {
     ]);
 
     console.log(partners)
+
+    
+    function getCenter(city) {
+        ymaps.geocode(city)
+            .then(function (result) {
+                const coords = result.geoObjects.get(0).geometry.getCoordinates();
+                map.setCenter(coords, 10);
+            })
+            .catch(function (error) {
+                console.log('Ошибка геокодирования:', error);
+            });
+    }
+
+    // центрирование карты при клике на партнера
+    useEffect(() => {
+        if (selectedPartner && map) {
+            map.setCenter([selectedPartner.latitude, selectedPartner.longitude], 12)
+        }
+    }, [selectedPartner, map])
 
     // Получение местоположения пользователя
     useEffect(() => {
@@ -36,12 +55,11 @@ function AnotherMap({ partners, partner, setPartnerInfo }) {
         }
     }, []);
 
-
+    // инициализация карты
     useEffect(() => {
         if (!ymaps || !mapRef.current) {
             return;
         }
-
         const mapInstance = new ymaps.Map(mapRef.current, {
             center: [55.76, 37.64],
             zoom: 10,
@@ -51,20 +69,10 @@ function AnotherMap({ partners, partner, setPartnerInfo }) {
 
     }, [mapRef, ymaps]);
 
-    function getCenter(city) {
-        ymaps.geocode(city)
-            .then(function (result) {
-                const coords = result.geoObjects.get(0).geometry.getCoordinates();
-                map.setCenter(coords, 10);
-            })
-            .catch(function (error) {
-                console.log('Ошибка геокодирования:', error);
-            });
-    }
+    // метки
     useEffect(() => {
         if (map) {
             map.geoObjects.removeAll()
-
             getCenter(userLocation);
             partners.forEach(store => {
                 const placemark = new ymaps.Placemark([store.latitude, store.longitude], {
@@ -90,48 +98,47 @@ function AnotherMap({ partners, partner, setPartnerInfo }) {
 
                 map.geoObjects.add(placemark)
             });
-            
+
             function setStoreInfo(store) {
                 setPartnerInfo(store)
             }
-                  }
+        }
     }, [ymaps, partners, userLocation, map]);
 
-
-useEffect (()=>{
     // Обработка обновлений маршрута (когда изменяется partner)
-    if (map && partner && userLocation.length > 0) {
-        console.log('userLocation:', userLocation);
-        console.log('partner:', partner);
-        console.log('multiRouteRef.current:', multiRouteRef.current);
+    useEffect(() => {
+        if (map && partner && userLocation.length > 0) {
+            console.log('userLocation:', userLocation);
+            console.log('partner:', partner);
+            console.log('multiRouteRef.current:', multiRouteRef.current);
 
-        if (multiRouteRef.current) {
-            console.log('Обновляем маршрут');
-            console.log('Точки маршрута:', [
-                [userLocation],
-                [partner.latitude, partner.longitude],
-            ]);
-            multiRouteRef.current.model.setReferencePoints([
-                [userLocation],
-                [partner.latitude, partner.longitude],
-            ]);
-            multiRouteRef.current.model.getRoutes();
-        } else {
-            console.log('Создаем новый маршрут');
-            const multiRoute = new ymaps.multiRouter.MultiRoute({
-                referencePoints: [
+            if (multiRouteRef.current) {
+                console.log('Обновляем маршрут');
+                console.log('Точки маршрута:', [
                     [userLocation],
                     [partner.latitude, partner.longitude],
-                ],
-                params: {
-                    routingMode: 'auto',
-                },
-            });
-            map.geoObjects.add(multiRoute);
-            multiRouteRef.current = multiRoute;
+                ]);
+                multiRouteRef.current.model.setReferencePoints([
+                    [userLocation],
+                    [partner.latitude, partner.longitude],
+                ]);
+                multiRouteRef.current.model.getRoutes();
+            } else {
+                console.log('Создаем новый маршрут');
+                const multiRoute = new ymaps.multiRouter.MultiRoute({
+                    referencePoints: [
+                        [userLocation],
+                        [partner.latitude, partner.longitude],
+                    ],
+                    params: {
+                        routingMode: 'auto',
+                    },
+                });
+                map.geoObjects.add(multiRoute);
+                multiRouteRef.current = multiRoute;
+            }
         }
-    }
-}, [map, partner, userLocation])
+    }, [map, partner, userLocation])
 
     return (
         <div ref={mapRef} style={{ width: '100%', height: '100%' }} />

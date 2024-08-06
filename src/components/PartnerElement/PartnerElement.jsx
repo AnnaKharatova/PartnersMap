@@ -1,14 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './PartnerElement.css'
 
-const PartnerElement = ({ partner, setStore }) => {
+const PartnerElement = ({ partner, setStore,  setSelectedPartner }) => {
+
+
+function handleClick() {
+    setSelectedPartner(partner)
+}
 
     function handleRouteButton() {
         setStore(partner)
     }
 
     return (
-        <li className='partner'>
+        <li className='partner'onClick={handleClick}>
             <p className='partner__engines'> {partner.parts_available.map((part, index) => (
                 <React.Fragment key={part.id}>
                     {part.name}
