@@ -18,7 +18,7 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner }) {
 
     console.log(partners)
 
-    
+
     function getCenter(city) {
         ymaps.geocode(city)
             .then(function (result) {

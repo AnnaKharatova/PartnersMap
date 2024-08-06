@@ -14,16 +14,34 @@ function App() {
   const BASE_URL = `https://yurasstroy.ddns.net/api`
   const [citiesPopup, setCitiesPopup] = useState(false)
   const [filtersPopup, setFiltersPopup] = useState(false)
-  const [storedCity, setStoredCity] = useState('')
+  const [selectedCity, setSelectedCity] = useState(null)
   const [allPartners, setAllPartners] = useState([])
   const [store, setStore] = useState(null)
   const [partnerInfo, setPartnerInfo] = useState()
   const [filterMark, setFilterMark] = useState([])
-  const [delFilterMark, setDelFilterMark] = useState(false)
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedParts, setSelectedParts] = useState([]);
-  const [filteredData, setFilteredData] = useState([])
+  const [filteredData, setFilteredData] = useState(allPartners)
   const [selectedPartner, setSelectedPartner] = useState(null)
+  const [filteredByCityData, setFilteredByCityData] = useState(null)
+
+  console.log(filteredByCityData)
+
+  useEffect(() => {
+    if (selectedCity) {
+      const array = filteredData.length > 0 ? filteredData : allPartners
+      const matchingObjects = array.filter(obj => obj.city === selectedCity.id);
+      setFilteredByCityData(matchingObjects)
+    }
+  }, [selectedCity, filteredData]);
+
+  useEffect(() => {
+    if (filteredByCityData) {
+      setAllPartners(filteredByCityData)
+    } else {
+      setAllPartners(filteredData)
+    }
+  }, [filteredByCityData, filteredData])
 
   useEffect(() => {
     if (filterMark.length < 1) {
@@ -43,7 +61,6 @@ function App() {
       });
   }
 
-
   useEffect(() => {
     getAllPartners()
   }, [])
@@ -51,13 +68,16 @@ function App() {
   function clearFilters() {
     setFilterMark([])
     getAllPartners()
+    setSelectedCity(null)
   }
 
   function deleteMarkItem(item) {
     setFilterMark(filterMark.filter((mark) => mark !== item));
-    console.log(filterMark)
-    setDelFilterMark(true)
+    console.log(item)
     getQuery()
+    if (selectedCity&&(item === selectedCity.name)) {
+      setSelectedCity(null)
+    }
   }
 
   function getQuery() {
@@ -69,7 +89,6 @@ function App() {
         .then(response => response.json())
         .then((data) => {
           setFilteredData(data);
-          setAllPartners(data)
         }).catch(error => {
           console.error("Ошибка при получении данных:", error);
         });
@@ -96,7 +115,7 @@ function App() {
           <div className="partners">
             <div className="partners__filter-buttons">
               <button className="filter-buttons__city-button" id="city-filter-big" onClick={() => setCitiesPopup(true)}>
-                {storedCity ? storedCity : 'Город'}
+                {selectedCity ? selectedCity.name : 'Город'}
                 <div className="filter-buttons__delete-city">&times;</div>
               </button>
               <button className="filter-buttons__button" id="partner-filter-big" onClick={() => setFiltersPopup(true)}>
@@ -109,7 +128,7 @@ function App() {
                 <PartnerDetails partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore} /> :
                 <ul className="popup-filter__partners-list" id="partners-list-big">
                   {allPartners && allPartners.map((partner) => (
-                    <PartnerElement  setSelectedPartner={setSelectedPartner}  partner={partner} setStore={setStore} key={partner.id} />
+                    <PartnerElement setSelectedPartner={setSelectedPartner} partner={partner} setStore={setStore} key={partner.id} />
                   ))}
                 </ul>
               }
@@ -132,15 +151,15 @@ function App() {
               ns: "use-load-option",
               load: "Map,Placemark,control.ZoomControl,control.FullscreenControl,geoObject.addon.balloon",
             }}>
-              <AnotherMap selectedPartner={selectedPartner} storedCity={storedCity} partners={allPartners} partner={store} setPartnerInfo={setPartnerInfo} />
+              <AnotherMap selectedPartner={selectedPartner} partners={allPartners} partner={store} setPartnerInfo={setPartnerInfo} />
             </YMaps>
             <button className="map__button" id="partners-list-button">Список партнеров</button>
           </div>
         </div>
       </main >
       <Footer />
-      {citiesPopup && <PopupCitiesFilter setCitiesPopup={setCitiesPopup} setStoredCity={setStoredCity} />}
-      {filtersPopup && <PopupFilters filteredData={filteredData} getQuery={getQuery} selectedParts={selectedParts} setSelectedParts={setSelectedParts} selectedTags={selectedTags} setSelectedTags={setSelectedTags} delFilterMark={delFilterMark} setDelFilterMark={setDelFilterMark} setFiltersPopup={setFiltersPopup} setAllPartners={setAllPartners} setFilterMark={setFilterMark} filterMark={filterMark} />}
+      {citiesPopup && <PopupCitiesFilter setFilterMark={setFilterMark} filterMark={filterMark} setCitiesPopup={setCitiesPopup} setSelectedCity={setSelectedCity} />}
+      {filtersPopup && <PopupFilters filteredData={filteredData} setFilteredData={setFilteredData} getQuery={getQuery} selectedParts={selectedParts} setSelectedParts={setSelectedParts} selectedTags={selectedTags} setSelectedTags={setSelectedTags} setFiltersPopup={setFiltersPopup} setFilterMark={setFilterMark} filterMark={filterMark} />}
 
     </>
   )
