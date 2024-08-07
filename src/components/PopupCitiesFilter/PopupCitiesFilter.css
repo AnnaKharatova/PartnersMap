@@ -63,20 +63,6 @@
     background-color: inherit;
 }
 
-.popup-filter__close-button {
-    color: #191919;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.popup-filter__close-button:hover,
-.popup-filter__close-button:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
 .popup-filter__back-button {
     font-size: 24px;
     font-weight: bold;

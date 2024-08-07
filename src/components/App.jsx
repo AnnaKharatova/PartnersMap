@@ -1,7 +1,7 @@
 import './App.css'
 import React, { useState, useEffect } from 'react';
 import Header from './Header/Header.jsx'
-import AnotherMap from './AnotherMap/AnotherMap.jsx'
+import MyMap from './MyMap/MyMap.jsx'
 import Footer from './Footer/Footer.jsx'
 import PartnerElement from './PartnerElement/PartnerElement.jsx'
 import PopupCitiesFilter from './PopupCitiesFilter/PopupCitiesFilter.jsx';
@@ -24,8 +24,9 @@ function App() {
   const [filteredData, setFilteredData] = useState(allPartners)
   const [selectedPartner, setSelectedPartner] = useState(null)
   const [filteredByCityData, setFilteredByCityData] = useState(null)
-
-  console.log(filteredByCityData)
+  const [displayedPartners, setDisplayedPartners] = useState(allPartners)
+  const [engines, setEngines] = useState([])
+  const [tags, setTags] = useState([])
 
   useEffect(() => {
     if (selectedCity) {
@@ -33,21 +34,21 @@ function App() {
       const matchingObjects = array.filter(obj => obj.city === selectedCity.id);
       setFilteredByCityData(matchingObjects)
     }
-  }, [selectedCity, filteredData]);
+  }, [selectedCity])
 
   useEffect(() => {
     if (filteredByCityData) {
-      setAllPartners(filteredByCityData)
+      setDisplayedPartners(filteredByCityData)
     } else {
-      setAllPartners(filteredData)
+      setDisplayedPartners(filteredData)
     }
   }, [filteredByCityData, filteredData])
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (filterMark.length < 1) {
       getAllPartners()
     }
-  }, [filterMark])
+  }, [filterMark]) */
 
   function getAllPartners() {
     fetch(`${BASE_URL}/partners/`)
@@ -56,6 +57,7 @@ function App() {
         const fetchedData = JSON.parse(JSON.stringify(resData))
         console.log(fetchedData)
         setAllPartners(fetchedData)
+        setDisplayedPartners(fetchedData)
       }).catch(error => {
         console.error("Ошибка при получении данных:", error);
       });
@@ -63,19 +65,36 @@ function App() {
 
   useEffect(() => {
     getAllPartners()
+    setDisplayedPartners(allPartners)
   }, [])
+
+
 
   function clearFilters() {
     setFilterMark([])
     getAllPartners()
     setSelectedCity(null)
+    setSelectedPartner([])
+    setSelectedTags([])
+  }
+
+  function deleteFilterMark(name) {
+    const tag = tags.find((tag) => tag.name === name);
+    const part = engines.find((part) => part.name === name);
+    if (tag) {
+      const findTag = selectedTags.filter((i) => String(i) !== String(tag.id))
+      setSelectedTags(findTag);
+    } else if (part) {
+      setSelectedParts(selectedParts.filter((i) => String(i) !== String(part.id)));
+      console.log(selectedParts)
+    } 
   }
 
   function deleteMarkItem(item) {
+    deleteFilterMark(item)
     setFilterMark(filterMark.filter((mark) => mark !== item));
-    console.log(item)
     getQuery()
-    if (selectedCity&&(item === selectedCity.name)) {
+    if (selectedCity && (item === selectedCity.name)) {
       setSelectedCity(null)
     }
   }
@@ -92,6 +111,16 @@ function App() {
         }).catch(error => {
           console.error("Ошибка при получении данных:", error);
         });
+    } else {
+      getAllPartners()
+    }
+  }
+
+  function handleClearCityButton(e) {
+    e.stopPropagation();
+    setSelectedCity(null)
+    if (filteredData.length > 0) {
+      setAllPartners(filteredData)
     } else {
       getAllPartners()
     }
@@ -116,7 +145,7 @@ function App() {
             <div className="partners__filter-buttons">
               <button className="filter-buttons__city-button" id="city-filter-big" onClick={() => setCitiesPopup(true)}>
                 {selectedCity ? selectedCity.name : 'Город'}
-                <div className="filter-buttons__delete-city">&times;</div>
+                <div className="filter-buttons__delete-city" onClick={handleClearCityButton}>&times;</div>
               </button>
               <button className="filter-buttons__button" id="partner-filter-big" onClick={() => setFiltersPopup(true)}>
                 Фильтры
@@ -127,7 +156,7 @@ function App() {
               {partnerInfo ?
                 <PartnerDetails partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore} /> :
                 <ul className="popup-filter__partners-list" id="partners-list-big">
-                  {allPartners && allPartners.map((partner) => (
+                  {displayedPartners.length > 0 && displayedPartners.map((partner) => (
                     <PartnerElement setSelectedPartner={setSelectedPartner} partner={partner} setStore={setStore} key={partner.id} />
                   ))}
                 </ul>
@@ -135,32 +164,32 @@ function App() {
             </div>
           </div>
           <div className="map__container" id="map">
-            {filterMark.length > 0 &&
+            {filterMark.length > 0 || selectedCity !== null ?
               <ul className='map__filters'>
                 {filterMark.map((item, index) => (
                   <FilterMarkItem key={index} item={item} deleteMarkItem={deleteMarkItem} />
                 ))}
+                {selectedCity && <FilterMarkItem item={selectedCity.name} deleteMarkItem={deleteMarkItem} />}
                 <button onClick={clearFilters} className='filter-marker'>
                   <div className="filter-marker__label-span" style={{ color: 'black' }}>Очистить все</div>
                   <span className='filter-marker__del-button' style={{ color: 'black' }}>x</span>
                 </button>
-              </ul>
+              </ul> : null
             }
             <YMaps query={{
               apikey: '6fb19312-2127-40e5-8c22-75d1f84f2daa&lang=ru_RU',
               ns: "use-load-option",
               load: "Map,Placemark,control.ZoomControl,control.FullscreenControl,geoObject.addon.balloon",
             }}>
-              <AnotherMap selectedPartner={selectedPartner} partners={allPartners} partner={store} setPartnerInfo={setPartnerInfo} />
+              <MyMap selectedPartner={selectedPartner} partners={displayedPartners} partner={store} setPartnerInfo={setPartnerInfo} selectedCity={selectedCity} />
             </YMaps>
             <button className="map__button" id="partners-list-button">Список партнеров</button>
           </div>
         </div>
       </main >
       <Footer />
-      {citiesPopup && <PopupCitiesFilter setFilterMark={setFilterMark} filterMark={filterMark} setCitiesPopup={setCitiesPopup} setSelectedCity={setSelectedCity} />}
-      {filtersPopup && <PopupFilters filteredData={filteredData} setFilteredData={setFilteredData} getQuery={getQuery} selectedParts={selectedParts} setSelectedParts={setSelectedParts} selectedTags={selectedTags} setSelectedTags={setSelectedTags} setFiltersPopup={setFiltersPopup} setFilterMark={setFilterMark} filterMark={filterMark} />}
-
+      {citiesPopup && <PopupCitiesFilter setCitiesPopup={setCitiesPopup} setSelectedCity={setSelectedCity} />}
+      {filtersPopup && <PopupFilters tags={tags} setTags={setTags} engines={engines} setEngines={setEngines} filteredData={filteredData} setFilteredData={setFilteredData} getQuery={getQuery} selectedParts={selectedParts} setSelectedParts={setSelectedParts} selectedTags={selectedTags} setSelectedTags={setSelectedTags} setFiltersPopup={setFiltersPopup} setFilterMark={setFilterMark} filterMark={filterMark} />}
     </>
   )
 }

@@ -1,15 +1,16 @@
 import './PopupFilters.css'
 import React, { useState, useEffect } from 'react';
 
-function PopupFilters({ filteredData, setFilteredData, setFiltersPopup, getQuery, setFilterMark, filterMark, selectedTags, setSelectedTags, selectedParts, setSelectedParts }) {
+function PopupFilters({ engines, setEngines, tags, setTags, filteredData, setFilteredData, setFiltersPopup, getQuery, setFilterMark, filterMark, selectedTags, setSelectedTags, selectedParts, setSelectedParts }) {
     const BASE_URL = `https://yurasstroy.ddns.net/api`
-    const [engines, setEngines] = useState([])
-    const [tags, setTags] = useState([])
+
+    const [allEnginesChecked, setAllEnginesChecked] = useState(true)
 
     const handleEngineCheckboxChange = (event) => {
         const { value, checked, name } = event.target;
 
         if (checked) {
+            setAllEnginesChecked(false)
             setSelectedParts([...selectedParts, value]);
             if (filterMark.includes(name)) {
                 setFilterMark(filterMark.filter((item) => item !== name));
@@ -73,7 +74,15 @@ function PopupFilters({ filteredData, setFilteredData, setFiltersPopup, getQuery
         getQuery()
     }
 
-
+    /* function handleAllEngines(event) {
+        const { value, checked } = event.target;
+        if (allEnginesChecked) {
+            setSelectedParts([...value]);
+            setAllEnginesChecked(false)
+        } else {
+            setAllEnginesChecked(true)
+        }
+    } */
 
 
     function getOpenStores(stores) {
@@ -108,10 +117,13 @@ function PopupFilters({ filteredData, setFilteredData, setFiltersPopup, getQuery
                 <button className="popup-filter__close-button" onClick={() => { setFiltersPopup(false) }}>&times;</button>
                 <h2 className="popup-filter__title">Фильтры</h2>
                 <form className="popup-filter__form" onSubmit={submitFilters}>
-                    <h3>Типы двигателя</h3>
+                    <h3 className='popup-filter__subtitle'>Типы двигателя</h3>
                     <section className="popup-filter__section" id="engines-section">
+                        {/*<label className="popup-filter__label" htmlFor='all-engines'>
+                            <input checked={allEnginesChecked} onChange={handleAllEngines} className="popup-filter__partners-checkbox" type="checkbox" id='all-engines' name='all-engines' value={engines.map((engine) => (engine.id))} />
+                            <span className="popup-filter__label-span">Все</span>
+                        </label>*/}
                         {engines.length > 0 && engines.map((engine) => (
-
                             <label key={engine.id} className="popup-filter__label" htmlFor={`engine-${engine.name.toString().toLowerCase()}`}>
                                 <input checked={filterMark.includes(engine.name)} onChange={handleEngineCheckboxChange} className="popup-filter__engine-checkbox" type="checkbox" id={`engine-${engine.name.toString().toLowerCase()}`} name={engine.name} value={engine.id} />
                                 <span className="popup-filter__label-span">{engine.name}</span>
@@ -119,7 +131,7 @@ function PopupFilters({ filteredData, setFilteredData, setFiltersPopup, getQuery
                         ))}
                     </section>
 
-                    <h3>Партнеры</h3>
+                    <h3 className='popup-filter__subtitle'>Партнеры</h3>
                     <section className="popup-filter__section" id="partners-section">
                         {tags.length > 0 && tags.map((tag) => (
                             <label key={tag.id} className="popup-filter__label" htmlFor={`partner-${tag.id.toString().toLowerCase()}`}>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { YMaps, useYMaps } from '@pbe/react-yandex-maps';
 
-function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner }) {
+function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, selectedCity }) {
     const mapRef = useRef(null);
     const multiRouteRef = useRef(null);
     const [userLocation, setUserLocation] = useState([]);
@@ -15,9 +15,6 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner }) {
         'control.RouteButton',
         'control.RoutePanel',
     ]);
-
-    console.log(partners)
-
 
     function getCenter(city) {
         ymaps.geocode(city)

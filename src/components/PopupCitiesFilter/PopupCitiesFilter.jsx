@@ -2,7 +2,7 @@ import './PopupCitiesFilter.css'
 import React, { useState, useEffect } from 'react';
 import BackIcon from '../../images/Icon arrow-back.svg'
 
-function PopupCitiesFilter({ setCitiesPopup, setSelectedCity, setFilterMark, filterMark}) {
+function PopupCitiesFilter({ setCitiesPopup, setSelectedCity }) {
     const BASE_URL = `https://yurasstroy.ddns.net/api`
     const [cities, setCities] = useState([])
 
@@ -20,14 +20,9 @@ function PopupCitiesFilter({ setCitiesPopup, setSelectedCity, setFilterMark, fil
 
 
     function selectCity(selectedCity) {
-        setSelectedCity(selectedCity); // Сохраняем выбранный город в состояние
+        setSelectedCity(selectedCity);
         setCitiesPopup(false);
-        if (filterMark.includes(selectedCity.name)) {
-            setFilterMark(filterMark.filter((item) => item !== selectedCity.name));
-        } else {
-            setFilterMark([...filterMark, selectedCity.name]);
-        }
-
+        
     }
 
     return (
