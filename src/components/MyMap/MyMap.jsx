@@ -12,7 +12,6 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
         'Placemark',
         'geolocation',
         'multiRouter.MultiRoute',
-        'control.RouteButton',
         'control.RoutePanel',
     ]);
 
@@ -60,7 +59,7 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
         const mapInstance = new ymaps.Map(mapRef.current, {
             center: [55.76, 37.64],
             zoom: 10,
-            controls: ['zoomControl', 'fullscreenControl'],
+            controls: ['zoomControl', 'fullscreenControl',],
         });
         setMap(mapInstance);
 
@@ -102,6 +101,7 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
         }
     }, [ymaps, partners, userLocation, map]);
 
+
     // Обработка обновлений маршрута (когда изменяется partner)
     useEffect(() => {
         if (map && partner && userLocation.length > 0) {
@@ -131,6 +131,14 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
                         routingMode: 'auto',
                     },
                 });
+
+                const routePanel = new ymaps.control.RoutePanel({
+                    options: {
+                        float: 'right',
+                    },
+                });
+
+                map.controls.add(routePanel);
                 map.geoObjects.add(multiRoute);
                 multiRouteRef.current = multiRoute;
             }

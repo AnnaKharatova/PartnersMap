@@ -44,9 +44,9 @@ main {
 
   .bunner {
     width: 100%;
-    height: 120px;
+    height: 480px;
     background-color:  #E8E8E8;
-    margin: 90px auto 0;
+    margin: auto 0;
 }
 
 .title {

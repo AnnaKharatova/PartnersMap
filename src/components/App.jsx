@@ -9,6 +9,7 @@ import PopupFilters from './PopupFilters/PopupFilters.jsx';
 import PartnerDetails from './PartnerDetails/PartnerDetails.jsx'
 import FilterMarkItem from './FilterMarkItem/FilterMarkItem.jsx';
 import { YMaps } from '@pbe/react-yandex-maps';
+import Bunner from '../images/Banner_1440.png' 
 
 function App() {
   const BASE_URL = `https://yurasstroy.ddns.net/api`
@@ -68,13 +69,11 @@ function App() {
     setDisplayedPartners(allPartners)
   }, [])
 
-
-
   function clearFilters() {
     setFilterMark([])
     getAllPartners()
     setSelectedCity(null)
-    setSelectedPartner([])
+    setSelectedParts([])
     setSelectedTags([])
   }
 
@@ -85,9 +84,9 @@ function App() {
       const findTag = selectedTags.filter((i) => String(i) !== String(tag.id))
       setSelectedTags(findTag);
     } else if (part) {
-      setSelectedParts(selectedParts.filter((i) => String(i) !== String(part.id)));
-      console.log(selectedParts)
-    } 
+      const findPart = selectedParts.filter((i) => String(i) !== String(part.id))
+      setSelectedParts(findPart);
+    }
   }
 
   function deleteMarkItem(item) {
@@ -130,7 +129,7 @@ function App() {
     <>
       <Header />
       <main>
-        <div className="bunner">Баннер</div>
+        <img alt='баннер' className="bunner" src={Bunner}/>
         <h1 className="title">Официальные партнёры завода</h1>
         <div className="filter-buttons">
           <button className="filter-buttons__button" id="partner-filter">Фильтры</button>
