@@ -35,21 +35,25 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
 
     // Получение местоположения пользователя
     useEffect(() => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    setUserLocation([position.coords.latitude, position.coords.longitude]);
-                },
-                (error) => {
-                    console.error('Ошибка получения местоположения:', error);
-                    // Установка значений по умолчанию, если geolocation не доступен
-                    setUserLocation([55.7522, 37.6156]);
-                }
-            );
+        if (!selectedCity) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        setUserLocation([position.coords.latitude, position.coords.longitude]);
+                    },
+                    (error) => {
+                        console.error('Ошибка получения местоположения:', error);
+                        // Установка значений по умолчанию, если geolocation не доступен
+                        setUserLocation([55.7522, 37.6156]);
+                    }
+                );
+            } else {
+                setUserLocation([55.7522, 37.6156]);
+            }
         } else {
-            setUserLocation([55.7522, 37.6156]);
+            setUserLocation([selectedCity.latitude, selectedCity.longitude]);
         }
-    }, []);
+    }, [selectedCity]);
 
     // инициализация карты
     useEffect(() => {
