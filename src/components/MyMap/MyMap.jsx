@@ -136,18 +136,27 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
                     },
                 });
 
-                const routePanel = new ymaps.control.RoutePanel({
+                const myRoutePanel = new ymaps.control.RoutePanel({
                     options: {
                         float: 'right',
                     },
                 });
 
-                map.controls.add(routePanel);
+                myRoutePanel.routePanel.state.set({
+                    fromEnabled: true,
+                    from: userLocation,
+                    toEnabled: true,
+                    to: `${partner.latitude}, ${partner.longitude}`
+                })
+
+                map.controls.add(myRoutePanel);
                 map.geoObjects.add(multiRoute);
                 multiRouteRef.current = multiRoute;
             }
         }
     }, [map, partner, userLocation])
+
+
 
     return (
         <div ref={mapRef} style={{ width: '100%', height: '100%' }} />
