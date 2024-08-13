@@ -1,7 +1,7 @@
 import './Header.css'
 import React from 'react'
 
-function Header() {
+function Header({ maxWidth760, setBurgerMenuOpen }) {
 
   return (
     <header className="header">
@@ -9,11 +9,11 @@ function Header() {
         <div className="header__logo"></div>
         <p className="header__title">Имя сайта</p>
       </div>
-      <button className="header__nav-burger" id="header-nav-burger"></button>
-      <nav className="header__nav">
-        <a className="header__item-catalog" href="#">КАТАЛОГ</a>
-        <a className="header__item" href="#">ДОБАВИТЬ ПАРТНЁРА</a>
-      </nav>
+      {maxWidth760 ? <button className="header__nav-burger" onClick={()=>{setBurgerMenuOpen(true)}} id="header-nav-burger"></button> :
+        <nav className="header__nav">
+          <a className="header__item-catalog" href="#">КАТАЛОГ</a>
+          <a className="header__item" href="#">ДОБАВИТЬ ПАРТНЁРА</a>
+        </nav>}
     </header>
   )
 }

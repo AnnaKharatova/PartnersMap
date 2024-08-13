@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { YMaps, useYMaps } from '@pbe/react-yandex-maps';
 
-function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, selectedCity }) {
+function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, selectedCity, setPopupPartnersListOpen, maxWidth760 }) {
     const mapRef = useRef(null);
     const multiRouteRef = useRef(null);
     const [userLocation, setUserLocation] = useState([]);
@@ -94,6 +94,9 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
 
                 placemark.events.add('balloonopen', () => {
                     setStoreInfo(store)
+                    if(maxWidth760) {
+                        setPopupPartnersListOpen(true)
+                    }
                 })
 
                 map.geoObjects.add(placemark)

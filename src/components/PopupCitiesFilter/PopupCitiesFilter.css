@@ -34,25 +34,13 @@
     box-sizing: border-box;
     background-color: #fefefe;
     padding: 20px 24px 20px 64px;
-    width: 100vw;
     border-radius: 10px;
-    position: absolute;
     bottom: -5px;
-    animation: slideUp 0.5s ease-in-out forwards;
-    max-height: 80%;
-    min-height: 30%;
     overflow: auto;
-}
-
-@media screen and (min-width: 750px) {
-    .popup-filter__content {
-        animation: slideLeft 0.5s ease-in-out forwards;
-        bottom: 0;
-        max-height: 69%;
-        min-height: 69%;
-        width: 33vw;
-        position: fixed;
-    }
+    min-width: 39vw;
+    animation: slideLeft 0.5s ease-in-out forwards;
+    bottom: 0;
+    position: fixed;
 }
 
 .popup-filter__del-button {
@@ -88,7 +76,7 @@
     border-radius: 8px;
     border: 1px solid #E8E8E8;
     background: inherit;
-    width: 374px;
+    width: 97%;
     height: 45px;
     padding: 4px 8px 4px 15px;
     color: #191919;
@@ -146,4 +134,26 @@
     font-style: normal;
     font-weight: 400;
     line-height: 130%;
+}
+
+
+@media screen and (max-width: 1024px) {
+    .popup-filter__content {
+        padding-left: 36px;
+    }
+
+    .popup-filter__title {
+        margin-top: 20px;
+    }
+
+    .popup-filter__content {
+        width: 35vw;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .popup-filter__content {
+        min-width: 100vw;
+        animation: slideUP 0.5s ease-in-out forwards;
+    }
 }

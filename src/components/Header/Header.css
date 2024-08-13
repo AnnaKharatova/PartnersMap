@@ -1,5 +1,5 @@
 .header {
-    background-color: black;
+    background-color: #191919;
     width: 100vw;
     position: fixed;
     top: 0;
@@ -32,12 +32,13 @@
 
 .header__nav-burger {
     background-color: inherit;
-    background-image: url('../../images/icon-menu-burger.svg');
+    background-image: url('../../images/BurgerMenuButton.svg');
     background-repeat: no-repeat;
     width: 30px;
     height: 30px;
     border: none;
     margin-top: 10px;
+    margin-right: 16px;
     cursor: pointer;
 }
 
@@ -72,8 +73,33 @@
     gap: 30px;
 }
 
-@media screen and (min-width: 750px) {
-    .header__nav-burger {
-        display: none;
+@media screen and (max-width: 1024px) {
+    .header__main {
+        padding-left: 36px;
+    }
+
+    .header__item {
+        padding-right: 30px;
+    }
+
+    .header__nav {
+        padding-right: 6px;
+    }
+}
+
+@media screen and (max-width: 760px) {
+
+    .header__main {
+        padding-left: 16px;
+    }
+
+    .header__title {
+        font-size: 16px;
+        line-height: 130%;
+    }
+
+    .header__logo {
+        height: 24px;
+        width: 24px;
     }
 }

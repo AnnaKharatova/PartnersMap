@@ -42,20 +42,19 @@
     text-align: center;
 }
 
-.partner__name {
-    color: #191919;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 130%;
-}
-
 .partner-details__contacts {
     margin-bottom: 10px;
     display: flex;
     flex-direction: column;
     gap: 0;
     align-items: start;
+}
+.partner-details__name {
+    color: #191919;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 130%;
 }
 
 .partner-details__address {
@@ -73,7 +72,7 @@
     align-content: center;
 }
 
-.partner__phone {
+.partner-details__phone {
     color: #1347FF;
     font-size: 16px;
     font-style: normal;
@@ -91,7 +90,7 @@
     align-content: center;
 }
 
-.partner__website {
+.partner-details__website {
     color: #1347FF;
     font-size: 16px;
     font-style: normal;
@@ -105,24 +104,24 @@
     background-repeat: no-repeat;
 }
 
-.partner-details__block {
-    display: flex;
-    flex-direction: column;
-
-}
-
-.partner__open {
+.partner-details__open {
     padding-left: 30px;
     background-image: url('../../images/Icon-time.svg');
     background-position: top left;
     background-repeat: no-repeat;
 }
 
-.partner__open-time {
+.partner-details__open-time {
     margin: 0 0 7px 0;
 }
 
-.route-button {
+
+.partner-details__block {
+    display: flex;
+    flex-direction: column;
+}
+
+.partner-details__route-button {
     border-radius: 12px;
     border: 1px solid #7D9AFF;
     padding: 4px 4px 4px 30px;
@@ -130,6 +129,7 @@
     background-position: 5px 2px;
     background-repeat: no-repeat;
     color: #1347FF;
+    font-family: "IBM Plex Sans";
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -138,5 +138,12 @@
     height: 29px;
     width: 105px;
     cursor: pointer;
+}
 
+@media screen and (max-width: 760px) {
+    .partner-details {
+        padding: 20px 16px;
+        display: flex;
+        flex-direction: column;
+    }
 }

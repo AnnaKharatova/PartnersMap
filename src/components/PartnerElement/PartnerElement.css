@@ -1,6 +1,7 @@
 .partner {
     border-bottom: 1px solid #858582;
     padding: 16px 64px 24px 64px;
+    box-sizing: border-box;
 }
 
 .partner:hover {
@@ -120,5 +121,61 @@
     height: 29px;
     width: 105px;
     cursor: pointer;
+}
 
+@media screen and (max-width: 1024px) {
+    .partner {
+        max-width: 462px;
+        padding: 16px 20px 20px 36px;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .partner {
+        min-width: 100%;
+        border-bottom: 1px solid #e8e8e8;
+        padding: 20px 16px;
+    }
+
+    .partner__engines {
+        color: #1347FF;
+    }
+
+    .partner__engines-dot {
+        width: 4px;
+        height: 4px;
+        background-color: #1347FF;
+    }
+
+    .partner__name {
+        font-size: 22px;
+        font-style: normal;
+    }
+
+    .partner__contacts {
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .partner__phone {
+        background-image: none;
+        margin-right: 0;
+        padding: 5px;
+    }
+
+    .partner__website {
+        padding: 5px;
+        background-image: none;
+
+    }
+
+    .partner__open {
+        padding-left: 4px;
+        background-image: none;
+    }
+
+    .route-button {
+        padding: 4px;
+        background-image: none;
+    }
 }

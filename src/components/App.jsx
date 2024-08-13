@@ -9,7 +9,10 @@ import PopupFilters from './PopupFilters/PopupFilters.jsx';
 import PartnerDetails from './PartnerDetails/PartnerDetails.jsx'
 import FilterMarkItem from './FilterMarkItem/FilterMarkItem.jsx';
 import { YMaps } from '@pbe/react-yandex-maps';
-import Bunner from '../images/Banner_1440.png' 
+import Bunner1440 from '../images/Banner_1440.png'
+import Bunner1024 from '../images/Banner_1024.png'
+import BurgerMenu from './BurgerMenu/BurgerMenu.jsx'
+import Banner375 from './Banner375/Banner375.jsx'
 
 function App() {
   const BASE_URL = `https://yurasstroy.ddns.net/api`
@@ -28,6 +31,55 @@ function App() {
   const [displayedPartners, setDisplayedPartners] = useState(allPartners)
   const [engines, setEngines] = useState([])
   const [tags, setTags] = useState([])
+  const [maxWidth1024, setMaxWidth1024] = useState()
+  const [maxWidth760, setMaxWidth760] = useState()
+  const [burgerMenuOpen, setBurgerMenuOpen] = useState(false)
+  const [popupPartnersListOpen, setPopupPartnersListOpen] = useState(false)
+  const [banner375Open, setBanner375Open] = useState(true)
+  /* const [onScroll, setOnScroll] = useState(false)
+
+ const content = document.querySelector('.popup-partners__content');
+ const header = document.querySelector('.popup-partners__header');
+
+// Функция для проверки наличия скролла
+function hasVerticalScroll() {
+ return content.scrollHeight > content.clientHeight;
+}
+
+// Добавляем класс при появлении скролла
+const addShadowClass = () => {
+ if (hasVerticalScroll()) {
+   header.classList.add('has-shadow');
+ } else {
+   header.classList.remove('has-shadow');
+ }
+};
+
+// Вызываем функцию при загрузке страницы и при изменении размера окна
+window.addEventListener('load', addShadowClass);
+window.addEventListener('resize', addShadowClass); */
+
+  console.log(maxWidth760);
+
+  const handleResize = () => {
+    if (window.innerWidth < 760) {
+      setMaxWidth1024(false);
+      setMaxWidth760(true);
+    } else if (window.innerWidth < 1024) {
+      setMaxWidth1024(true);
+      setMaxWidth760(false);
+    } else {
+      setMaxWidth1024(false);
+      setMaxWidth760(false);
+    }
+  };
+  window.addEventListener('resize', handleResize);
+
+  useEffect(() => {
+    handleResize();
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, [window.innerWidth]);
 
   useEffect(() => {
     if (selectedCity) {
@@ -44,12 +96,6 @@ function App() {
       setDisplayedPartners(filteredData)
     }
   }, [filteredByCityData, filteredData])
-
-  /* useEffect(() => {
-    if (filterMark.length < 1) {
-      getAllPartners()
-    }
-  }, [filterMark]) */
 
   function getAllPartners() {
     fetch(`${BASE_URL}/partners/`)
@@ -127,18 +173,14 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header maxWidth760={maxWidth760} setBurgerMenuOpen={setBurgerMenuOpen} />
       <main>
-        <img alt='баннер' className="bunner" src={Bunner}/>
+        <img alt='баннер' className="bunner" src={maxWidth1024 ? Bunner1440 : Bunner1024} />
         <h1 className="title">Официальные партнёры завода</h1>
-        <div className="filter-buttons">
-          <button className="filter-buttons__button" id="partner-filter">Фильтры</button>
-          <button className="filter-buttons__button" id="city-filter">Город</button>
-        </div>
-        <div className="filters-checked">
+        {/*<div className="filters-checked">
           <ul className="filters-checked__partners"></ul>
           <p className="filters-checked__city"></p>
-        </div>
+        </div>*/}
         <div className="map">
           <div className="partners">
             <div className="partners__filter-buttons">
@@ -180,15 +222,35 @@ function App() {
               ns: "use-load-option",
               load: "Map,Placemark,control.ZoomControl,control.FullscreenControl,geoObject.addon.balloon",
             }}>
-              <MyMap selectedPartner={selectedPartner} partners={displayedPartners} partner={store} setPartnerInfo={setPartnerInfo} selectedCity={selectedCity} />
+              <MyMap setPopupPartnersListOpen={setPopupPartnersListOpen} maxWidth760={maxWidth760} selectedPartner={selectedPartner} partners={displayedPartners} partner={store} setPartnerInfo={setPartnerInfo} selectedCity={selectedCity} />
             </YMaps>
-            <button className="map__button" id="partners-list-button">Список партнеров</button>
+            {maxWidth760 && <button className="map__button" onClick={() => { setPopupPartnersListOpen(true) }}>Список партнеров</button>}
           </div>
         </div>
       </main >
-      <Footer />
+      <Footer maxWidth760={maxWidth760} />
       {citiesPopup && <PopupCitiesFilter setCitiesPopup={setCitiesPopup} setSelectedCity={setSelectedCity} />}
       {filtersPopup && <PopupFilters tags={tags} setTags={setTags} engines={engines} setEngines={setEngines} filteredData={filteredData} setFilteredData={setFilteredData} getQuery={getQuery} selectedParts={selectedParts} setSelectedParts={setSelectedParts} selectedTags={selectedTags} setSelectedTags={setSelectedTags} setFiltersPopup={setFiltersPopup} setFilterMark={setFilterMark} filterMark={filterMark} />}
+      {burgerMenuOpen && <BurgerMenu setBurgerMenuOpen={setBurgerMenuOpen} />}
+      {popupPartnersListOpen &&
+        <div className="popup-partners">
+          <div className="popup-partners__container">
+            {!partnerInfo && <div className="popup-partners__header">
+              <button className="popup-partners__close-button" onClick={() => { setPopupPartnersListOpen(false) }}>&times;</button>
+            </div>}
+            <div className='popup-partners__content'>
+              {partnerInfo ?
+                <PartnerDetails partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore} /> :
+                <ul className="popup-filter__partners-list">
+                  {displayedPartners.length > 0 && displayedPartners.map((partner) => (
+                    <PartnerElement setPopupPartnersListOpen={setPopupPartnersListOpen} setSelectedPartner={setSelectedPartner} partner={partner} setStore={setStore} key={partner.id} />
+                  ))}
+                </ul>
+              }
+            </div>
+          </div>
+        </div>}
+      {(maxWidth760 && banner375Open) ? <Banner375 setBanner375Open={setBanner375Open}/> : null}
     </>
   )
 }

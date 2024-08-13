@@ -1,0 +1,29 @@
+.banner__container {
+    box-sizing: border-box;
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 60%;
+    background-color: inherit;
+    overflow: hidden;
+}
+
+.banner__close-button {
+    position: absolute;
+    top: 2%;
+    right: 5%;
+    color: #e8e8e8;
+    float: right;
+    font-size: 28px;
+    font-weight: normal;
+    background-color: inherit;
+    border: none;
+}
+
+.banner__image {
+    width: 100%;
+    border-radius: 20px;
+    animation: slideUp 0.5s ease-in-out forwards;
+}

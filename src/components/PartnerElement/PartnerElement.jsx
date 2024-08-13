@@ -1,19 +1,29 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './PartnerElement.css'
 
-const PartnerElement = ({ partner, setStore,  setSelectedPartner }) => {
+const PartnerElement = ({ partner, setStore, setSelectedPartner , setPopupPartnersListOpen}) => {
 
 
-function handleClick() {
-    setSelectedPartner(partner)
-}
+    function handleClick() {
+        setSelectedPartner(partner)
+        setPopupPartnersListOpen(false)
+    }
 
     function handleRouteButton() {
         setStore(partner)
     }
 
+    const handlePhoneClick = () => {
+        if (navigator.userAgent.match(/Android|iPhone|iPad|iPod/i)) { 
+          window.location.href = `tel:${partner.phone}`; 
+        } else {
+          window.location.href = `https://wa.me/${partner.phone}`;
+        }
+      };
+
+
     return (
-        <li className='partner'onClick={handleClick}>
+        <li className='partner' onClick={handleClick}>
             <p className='partner__engines'> {partner.parts_available.map((part, index) => (
                 <React.Fragment key={part.id}>
                     {part.name}
@@ -23,8 +33,8 @@ function handleClick() {
             <h2 className='partner__name'>{partner.name}</h2>
             <p className='partner__address'>{partner.address}</p>
             <div className='partner__contacts'>
-                <a href={partner.phone} className="partner__phone">{partner.phone}</a>
-                <a href={partner.website} className="partner__website" target="_blank">{partner.website}</a>
+                {partner.phone && <a href={partner.phone} className="partner__phone" onClick={handlePhoneClick}>{partner.phone}</a>}
+                {partner.website && <a href={partner.website} className="partner__website" target="_blank">{partner.website}</a>}
             </div>
             <div className='partner__block'>
                 {partner.time_open_weekdays || partner.time_open_saturday || partner.time_open_sunday ?

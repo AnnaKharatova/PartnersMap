@@ -5,7 +5,7 @@ function Footer() {
 
     return (
         <footer className="footer">
-            <div className="footer__nav">
+            <div className="footer__nav footer-760__nav">
                 <a className="footer__item" href="#">КАТАЛОГ</a>
                 <a className="footer__item" href="#">ДОБАВИТЬ ПАРТНЁРА</a>
             </div>

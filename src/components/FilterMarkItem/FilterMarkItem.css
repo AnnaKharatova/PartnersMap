@@ -31,4 +31,22 @@
     font-weight: 400;
     line-height: 140%;
     color: #1347FF;
+    text-align: center;
+}
+
+@media screen and (max-width: 760px) {
+    .filter-marker {
+        padding: 6px 8px;
+    }
+    
+    .filter-marker__del-button {
+        font-size: 14px;
+    }
+    
+    .filter-marker__label-span {
+        font-size: 14px;
+        line-height: 130%;
+        padding-top: 1px;
+    }
+    
 }
