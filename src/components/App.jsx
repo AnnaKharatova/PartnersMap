@@ -27,8 +27,6 @@ function App() {
   const [selectedParts, setSelectedParts] = useState([]);
   const [filteredData, setFilteredData] = useState(allPartners)
   const [selectedPartner, setSelectedPartner] = useState(null)
-  const [filteredByCityData, setFilteredByCityData] = useState(null)
-  const [displayedPartners, setDisplayedPartners] = useState(allPartners)
   const [engines, setEngines] = useState([])
   const [tags, setTags] = useState([])
   const [maxWidth1024, setMaxWidth1024] = useState()
@@ -36,16 +34,15 @@ function App() {
   const [burgerMenuOpen, setBurgerMenuOpen] = useState(false)
   const [popupPartnersListOpen, setPopupPartnersListOpen] = useState(false)
   const [banner375Open, setBanner375Open] = useState(true)
-  /* const [onScroll, setOnScroll] = useState(false)
 
+  console.log(filteredData)
+  /* const [onScroll, setOnScroll] = useState(false)
  const content = document.querySelector('.popup-partners__content');
  const header = document.querySelector('.popup-partners__header');
-
 // Функция для проверки наличия скролла
 function hasVerticalScroll() {
  return content.scrollHeight > content.clientHeight;
 }
-
 // Добавляем класс при появлении скролла
 const addShadowClass = () => {
  if (hasVerticalScroll()) {
@@ -54,12 +51,9 @@ const addShadowClass = () => {
    header.classList.remove('has-shadow');
  }
 };
-
 // Вызываем функцию при загрузке страницы и при изменении размера окна
 window.addEventListener('load', addShadowClass);
 window.addEventListener('resize', addShadowClass); */
-
-  console.log(maxWidth760);
 
   const handleResize = () => {
     if (window.innerWidth < 760) {
@@ -77,25 +71,8 @@ window.addEventListener('resize', addShadowClass); */
 
   useEffect(() => {
     handleResize();
-
     return () => window.removeEventListener('resize', handleResize);
   }, [window.innerWidth]);
-
-  useEffect(() => {
-    if (selectedCity) {
-      const array = filteredData.length > 0 ? filteredData : allPartners
-      const matchingObjects = array.filter(obj => obj.city === selectedCity.id);
-      setFilteredByCityData(matchingObjects)
-    }
-  }, [selectedCity])
-
-  useEffect(() => {
-    if (filteredByCityData) {
-      setDisplayedPartners(filteredByCityData)
-    } else {
-      setDisplayedPartners(filteredData)
-    }
-  }, [filteredByCityData, filteredData])
 
   function getAllPartners() {
     fetch(`${BASE_URL}/partners/`)
@@ -104,7 +81,7 @@ window.addEventListener('resize', addShadowClass); */
         const fetchedData = JSON.parse(JSON.stringify(resData))
         console.log(fetchedData)
         setAllPartners(fetchedData)
-        setDisplayedPartners(fetchedData)
+        setFilteredData(fetchedData)
       }).catch(error => {
         console.error("Ошибка при получении данных:", error);
       });
@@ -112,7 +89,6 @@ window.addEventListener('resize', addShadowClass); */
 
   useEffect(() => {
     getAllPartners()
-    setDisplayedPartners(allPartners)
   }, [])
 
   function clearFilters() {
@@ -144,9 +120,27 @@ window.addEventListener('resize', addShadowClass); */
     }
   }
 
+  useEffect(() => {
+    if (selectedCity) {
+      getQuery()
+    }
+  }, [selectedCity])
+
+  useEffect(() => {
+    if (selectedParts) {
+      getQuery()
+    }
+  }, [selectedParts])
+
+  useEffect(() => {
+    if (selectedTags) {
+      getQuery()
+    }
+  }, [selectedTags])
+
   function getQuery() {
-    if (selectedParts || selectedTags) {
-      const queryParams = selectedTags.map(tag => `tags=${tag}`).join('&') + `&` + selectedParts.map(id => `parts_available=${id}`).join('&')
+    if (selectedParts || selectedTags || selectedCity) {
+      const queryParams = !selectedCity ? (selectedTags.map(tag => `tags=${tag}`).join('&') + `&` + selectedParts.map(id => `parts_available=${id}`).join('&')) : (`city=${selectedCity.id}` + `&` + selectedTags.map(tag => `tags=${tag}`).join('&') + `&` + selectedParts.map(id => `parts_available=${id}`).join('&'))
       const url = `${BASE_URL}/partners/?${queryParams}`
       console.log(url)
       fetch(url)
@@ -156,7 +150,8 @@ window.addEventListener('resize', addShadowClass); */
         }).catch(error => {
           console.error("Ошибка при получении данных:", error);
         });
-    } else {
+    }
+    else {
       getAllPartners()
     }
   }
@@ -177,10 +172,6 @@ window.addEventListener('resize', addShadowClass); */
       <main>
         <img alt='баннер' className="bunner" src={maxWidth1024 ? Bunner1440 : Bunner1024} />
         <h1 className="title">Официальные партнёры завода</h1>
-        {/*<div className="filters-checked">
-          <ul className="filters-checked__partners"></ul>
-          <p className="filters-checked__city"></p>
-        </div>*/}
         <div className="map">
           <div className="partners">
             <div className="partners__filter-buttons">
@@ -196,8 +187,8 @@ window.addEventListener('resize', addShadowClass); */
             <div className="partners__container">
               {partnerInfo ?
                 <PartnerDetails partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore} /> :
-                <ul className="popup-filter__partners-list" id="partners-list-big">
-                  {displayedPartners.length > 0 && displayedPartners.map((partner) => (
+                <ul className="popup-filter__partners-list">
+                  {filteredData.length > 0 && filteredData.map((partner) => (
                     <PartnerElement setSelectedPartner={setSelectedPartner} partner={partner} setStore={setStore} key={partner.id} />
                   ))}
                 </ul>
@@ -220,16 +211,16 @@ window.addEventListener('resize', addShadowClass); */
             <YMaps query={{
               apikey: '6fb19312-2127-40e5-8c22-75d1f84f2daa&lang=ru_RU',
               ns: "use-load-option",
-              load: "Map,Placemark,control.ZoomControl,control.FullscreenControl,geoObject.addon.balloon",
+              load: "Map,Placemark,control.FullscreenControl,geoObject.addon.balloon",
             }}>
-              <MyMap setPopupPartnersListOpen={setPopupPartnersListOpen} maxWidth760={maxWidth760} selectedPartner={selectedPartner} partners={displayedPartners} partner={store} setPartnerInfo={setPartnerInfo} selectedCity={selectedCity} />
+              <MyMap setPopupPartnersListOpen={setPopupPartnersListOpen} maxWidth760={maxWidth760} selectedPartner={selectedPartner} partners={filteredData} partner={store} setPartnerInfo={setPartnerInfo} selectedCity={selectedCity} />
             </YMaps>
             {maxWidth760 && <button className="map__button" onClick={() => { setPopupPartnersListOpen(true) }}>Список партнеров</button>}
           </div>
         </div>
       </main >
       <Footer maxWidth760={maxWidth760} />
-      {citiesPopup && <PopupCitiesFilter setCitiesPopup={setCitiesPopup} setSelectedCity={setSelectedCity} />}
+      {citiesPopup && <PopupCitiesFilter setCitiesPopup={setCitiesPopup} setSelectedCity={setSelectedCity} getQuery={getQuery} />}
       {filtersPopup && <PopupFilters tags={tags} setTags={setTags} engines={engines} setEngines={setEngines} filteredData={filteredData} setFilteredData={setFilteredData} getQuery={getQuery} selectedParts={selectedParts} setSelectedParts={setSelectedParts} selectedTags={selectedTags} setSelectedTags={setSelectedTags} setFiltersPopup={setFiltersPopup} setFilterMark={setFilterMark} filterMark={filterMark} />}
       {burgerMenuOpen && <BurgerMenu setBurgerMenuOpen={setBurgerMenuOpen} />}
       {popupPartnersListOpen &&
@@ -242,7 +233,7 @@ window.addEventListener('resize', addShadowClass); */
               {partnerInfo ?
                 <PartnerDetails partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore} /> :
                 <ul className="popup-filter__partners-list">
-                  {displayedPartners.length > 0 && displayedPartners.map((partner) => (
+                  {fetchedData.length > 0 && fetchedData.map((partner) => (
                     <PartnerElement setPopupPartnersListOpen={setPopupPartnersListOpen} setSelectedPartner={setSelectedPartner} partner={partner} setStore={setStore} key={partner.id} />
                   ))}
                 </ul>
@@ -250,7 +241,7 @@ window.addEventListener('resize', addShadowClass); */
             </div>
           </div>
         </div>}
-      {(maxWidth760 && banner375Open) ? <Banner375 setBanner375Open={setBanner375Open}/> : null}
+      {(maxWidth760 && banner375Open) ? <Banner375 setBanner375Open={setBanner375Open} /> : null}
     </>
   )
 }

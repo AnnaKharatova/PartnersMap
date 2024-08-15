@@ -2,7 +2,7 @@ import './PopupCitiesFilter.css'
 import React, { useState, useEffect } from 'react';
 import BackIcon from '../../images/Icon arrow-back.svg'
 
-function PopupCitiesFilter({ setCitiesPopup, setSelectedCity }) {
+function PopupCitiesFilter({ setCitiesPopup, setSelectedCity, getQuery }) {
     const BASE_URL = `https://yurasstroy.ddns.net/api`
     const [cities, setCities] = useState([])
 
@@ -21,9 +21,10 @@ function PopupCitiesFilter({ setCitiesPopup, setSelectedCity }) {
 
     function selectCity(selectedCity) {
         setSelectedCity(selectedCity);
-        setCitiesPopup(false);
-        
+        setCitiesPopup(false);    
     }
+
+
 
     return (
         <div className="popup-filter" id="popup-city-filter">

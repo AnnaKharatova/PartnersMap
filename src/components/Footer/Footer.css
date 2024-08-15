@@ -1,6 +1,8 @@
 .footer {
+    box-sizing: border-box;
     max-width: 100vw;
-    z-index: 2;
+    min-width: 375px;
+    z-index: 15;
     background-color: #191919;
     color: #E8E8E8;
     display: flex;

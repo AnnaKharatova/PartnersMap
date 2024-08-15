@@ -13,7 +13,9 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
         'geolocation',
         'multiRouter.MultiRoute',
         'control.RoutePanel',
+        'control.ZoomControl',
     ]);
+    const [zoom, setZoom] = useState(8);
 
     function getCenter(city) {
         ymaps.geocode(city)
@@ -61,9 +63,15 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
             return;
         }
         const mapInstance = new ymaps.Map(mapRef.current, {
+            
             center: [55.76, 37.64],
-            zoom: 10,
-            controls: ['zoomControl', 'fullscreenControl',],
+            zoom: 8,
+            controls: ['fullscreenControl'],
+
+        },
+        {
+            minZoom: 1,
+            maxZoom: 15
         });
         setMap(mapInstance);
 
@@ -94,7 +102,7 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
 
                 placemark.events.add('balloonopen', () => {
                     setStoreInfo(store)
-                    if(maxWidth760) {
+                    if (maxWidth760) {
                         setPopupPartnersListOpen(true)
                     }
                 })
@@ -158,6 +166,18 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
             }
         }
     }, [map, partner, userLocation])
+
+    useEffect(() => {
+        if (map) {
+            const zoomControl = new ymaps.control.ZoomControl({
+                options: {
+                    size: "small",
+                    zoomRange: { min: 1, max: 10 },
+                }
+            });
+            map.controls.add(zoomControl);
+        }
+    }, [map])
 
 
 
