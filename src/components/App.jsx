@@ -1,5 +1,5 @@
 import './App.css'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Header from './Header/Header.jsx'
 import MyMap from './MyMap/MyMap.jsx'
 import Footer from './Footer/Footer.jsx'
@@ -36,8 +36,27 @@ function App() {
   const [popupPartnersListOpen, setPopupPartnersListOpen] = useState(false)
   const [banner375Open, setBanner375Open] = useState(true)
   const [showNoContentInfo, setshowNoContentInfo] = useState(false)
+  const [showTitle, setShowTitle] = useState(false)
 
   console.log(filteredData)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const header = document.querySelector(".header"); // Добавьте свой селектор для фиксированной шапки
+      const title = document.querySelector("h1"); // Добавьте свой селектор для заголовка
+
+      if (header && title) {
+        if (window.scrollY > title.offsetTop) {
+          setShowTitle(true)
+        } else {
+          setShowTitle(false)
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   /* const [onScroll, setOnScroll] = useState(false)
  const content = document.querySelector('.popup-partners__content');
  const header = document.querySelector('.popup-partners__header');
@@ -56,6 +75,40 @@ const addShadowClass = () => {
 // Вызываем функцию при загрузке страницы и при изменении размера окна
 window.addEventListener('load', addShadowClass);
 window.addEventListener('resize', addShadowClass); */
+
+ /*const containerRef = useRef(null);
+const buttonRef = useRef(null);
+
+useEffect(() => {
+  const handleScroll = () => {
+    if (containerRef.current && buttonRef.current) {
+      const containerBottom = containerRef.current.scrollHeight - containerRef.current.scrollTop;
+      const buttonHeight = buttonRef.current.offsetHeight;
+
+      // Если кнопка почти достигает нижнего края контейнера, делаем ее фиксированной 
+      if (containerBottom < buttonHeight + 10) { 
+        buttonRef.current.style.position = 'fixed';
+        buttonRef.current.style.bottom = '10px'; // Позиционируем на 10 пикселей от нижнего края
+        buttonRef.current.style.right = '10px';
+      } else {
+        buttonRef.current.style.position = 'absolute';
+        buttonRef.current.style.bottom = '10px';
+        buttonRef.current.style.right = '10px';
+      }
+    }
+  };
+
+  if (containerRef.current) {
+    containerRef.current.addEventListener('scroll', handleScroll);
+  }
+
+  return () => {
+    if (containerRef.current) {
+      containerRef.current.removeEventListener('scroll', handleScroll);
+    }
+  };
+}, []); */
+
 
   const handleResize = () => {
     if (window.innerWidth < 760) {
@@ -176,7 +229,7 @@ window.addEventListener('resize', addShadowClass); */
 
   return (
     <>
-      <Header maxWidth760={maxWidth760} setBurgerMenuOpen={setBurgerMenuOpen} />
+      <Header maxWidth760={maxWidth760} setBurgerMenuOpen={setBurgerMenuOpen} showTitle={showTitle}/>
       <main>
         <img alt='баннер' className="bunner" src={maxWidth1024 ? Bunner1440 : Bunner1024} />
         <h1 className="title">Официальные партнёры завода</h1>
@@ -224,7 +277,7 @@ window.addEventListener('resize', addShadowClass); */
             }}>
               <MyMap setPopupPartnersListOpen={setPopupPartnersListOpen} maxWidth760={maxWidth760} selectedPartner={selectedPartner} partners={filteredData} partner={store} setPartnerInfo={setPartnerInfo} selectedCity={selectedCity} />
             </YMaps>
-            {maxWidth760 && <button className="map__button" onClick={() => { setPopupPartnersListOpen(true) }}>Список партнеров</button>}
+            {maxWidth760 && <button  className="map__button" onClick={() => { setPopupPartnersListOpen(true) }}>Список партнеров</button>}
           </div>
         </div>
       </main >

@@ -189,6 +189,7 @@ popup-filter__partners-list
     flex-direction: row;
     position: relative;
     height: 100vh;
+    overflow-y: auto; 
 }
 
 .map__filters {
@@ -202,10 +203,10 @@ popup-filter__partners-list
 
 
 .map__button {
-    position: absolute;
-    z-index: 1;
-    top: 93%;
-    left: 4%;
+    position: fixed; 
+    z-index: 3;
+ bottom: 100px;
+    left: 20px;
     background-color: #191919;
     height: 35px;
     background-image: url('../images/IconListPartnersWhite.svg');
