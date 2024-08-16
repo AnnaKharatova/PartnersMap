@@ -13,6 +13,7 @@ import Bunner1440 from '../images/Banner_1440.png'
 import Bunner1024 from '../images/Banner_1024.png'
 import BurgerMenu from './BurgerMenu/BurgerMenu.jsx'
 import Banner375 from './Banner375/Banner375.jsx'
+import NothingFoundInFilter from './NothingFoundInFilter/NothingFoundInFilter.jsx';
 
 function App() {
   const BASE_URL = `https://yurasstroy.ddns.net/api`
@@ -34,6 +35,7 @@ function App() {
   const [burgerMenuOpen, setBurgerMenuOpen] = useState(false)
   const [popupPartnersListOpen, setPopupPartnersListOpen] = useState(false)
   const [banner375Open, setBanner375Open] = useState(true)
+  const [showNoContentInfo, setshowNoContentInfo] = useState(false)
 
   console.log(filteredData)
   /* const [onScroll, setOnScroll] = useState(false)
@@ -166,6 +168,12 @@ window.addEventListener('resize', addShadowClass); */
     }
   }
 
+  useEffect(() => {
+    if ((selectedCity || filterMark) && filteredData.length == 0) {
+      setshowNoContentInfo(true)
+    }
+  }, [selectedCity, filterMark, filteredData.length])
+
   return (
     <>
       <Header maxWidth760={maxWidth760} setBurgerMenuOpen={setBurgerMenuOpen} />
@@ -193,6 +201,7 @@ window.addEventListener('resize', addShadowClass); */
                   ))}
                 </ul>
               }
+              {showNoContentInfo ? <NothingFoundInFilter clearFilters={clearFilters} /> : null}
             </div>
           </div>
           <div className="map__container" id="map">
@@ -238,6 +247,7 @@ window.addEventListener('resize', addShadowClass); */
                   ))}
                 </ul>
               }
+              {showNoContentInfo && <NothingFoundInFilter clearFilters={clearFilters} />}
             </div>
           </div>
         </div>}

@@ -51,6 +51,12 @@
     box-sizing: border-box;
     border-radius: 100px;
     background-color: #E8E8E8;
+    cursor: pointer;
+}
+
+.popup-filter__label-span:hover {
+    background-color: #C4C4C4;
+
 }
 
 .popup-filter__partners-checkbox:checked+.popup-filter__label-span {

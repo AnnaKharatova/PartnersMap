@@ -38,6 +38,7 @@
     bottom: -5px;
     overflow: auto;
     min-width: 39vw;
+    min-height: 80%;
     animation: slideLeft 0.5s ease-in-out forwards;
     bottom: 0;
     position: fixed;
