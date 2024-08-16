@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { YMaps, useYMaps } from '@pbe/react-yandex-maps';
+import DefaultIcon from '../../images/Map_default.svg'
+import HoverIcon from '../../images/Map_hover.svg'
+
 
 function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, selectedCity, setPopupPartnersListOpen, maxWidth760 }) {
     const mapRef = useRef(null);
@@ -14,8 +17,8 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
         'multiRouter.MultiRoute',
         'control.RoutePanel',
         'control.ZoomControl',
+        'control.GeolocationControl'
     ]);
-    const [zoom, setZoom] = useState(8);
 
     function getCenter(city) {
         ymaps.geocode(city)
@@ -63,15 +66,9 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
             return;
         }
         const mapInstance = new ymaps.Map(mapRef.current, {
-            
             center: [55.76, 37.64],
             zoom: 8,
-            controls: ['fullscreenControl'],
-
-        },
-        {
-            minZoom: 1,
-            maxZoom: 15
+            controls: []
         });
         setMap(mapInstance);
 
@@ -96,6 +93,7 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
                     </div>`
                 }, {
                     iconLayout: 'default#image',
+                    iconImageHref: HoverIcon,
                     iconImageSize: [25, 25],
                     iconImageOffset: [0, 0]
                 });
@@ -107,6 +105,25 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
                     }
                 })
 
+                /* Изменение маркера при наведении (не работает)
+                
+                placemark.events.add('mouseenter', () => {
+                    placemark.options.set('iconImageHref', '../../images/Map_hover.svg');
+                    placemark.balloon.open();
+                });
+                
+                placemark.events.add('mouseleave', () => {
+                    placemark.options.set('iconImageHref', '../../images/Map_default.svg');
+                    placemark.balloon.close();
+                }); */
+
+                placemark.events.add('click', () => {
+                    setStoreInfo(store);
+                    if (maxWidth760) {
+                        setPopupPartnersListOpen(true);
+                    }
+                });
+
                 map.geoObjects.add(placemark)
             });
 
@@ -115,7 +132,6 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
             }
         }
     }, [ymaps, partners, userLocation, map]);
-
 
     // Обработка обновлений маршрута (когда изменяется partner)
     useEffect(() => {
@@ -149,7 +165,11 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
 
                 const myRoutePanel = new ymaps.control.RoutePanel({
                     options: {
-                        float: 'right',
+                        float: 'none',
+                        position: {
+                            top: 150,
+                            right: 10,
+                        }
                     },
                 });
 
@@ -172,14 +192,27 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
             const zoomControl = new ymaps.control.ZoomControl({
                 options: {
                     size: "small",
-                    zoomRange: { min: 1, max: 10 },
+                    float: 'none',
+                    position: {
+                        top: 375,
+                        right: 5,
+                    }
                 }
             });
+
+            const geoControl = new ymaps.control.GeolocationControl({
+                options: {
+                    float: 'none',
+                    position: {
+                        top: 335,
+                        right: 5
+                    }
+                }
+            })
             map.controls.add(zoomControl);
+            map.controls.add(geoControl);
         }
     }, [map])
-
-
 
     return (
         <div ref={mapRef} style={{ width: '100%', height: '100%' }} />

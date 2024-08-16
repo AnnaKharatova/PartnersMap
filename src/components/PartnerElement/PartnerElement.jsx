@@ -1,25 +1,31 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './PartnerElement.css'
 
-const PartnerElement = ({ partner, setStore, setSelectedPartner , setPopupPartnersListOpen}) => {
+const PartnerElement = ({ partner, setStore, setSelectedPartner, setPopupPartnersListOpen }) => {
 
 
     function handleClick() {
         setSelectedPartner(partner)
-        setPopupPartnersListOpen(false)
+        if (setPopupPartnersListOpen) {
+            setPopupPartnersListOpen(false)
+        }
     }
 
     function handleRouteButton() {
         setStore(partner)
+        if (setPopupPartnersListOpen) {
+            setPopupPartnersListOpen(false)
+        }
+
     }
 
     const handlePhoneClick = () => {
-        if (navigator.userAgent.match(/Android|iPhone|iPad|iPod/i)) { 
-          window.location.href = `tel:${partner.phone}`; 
+        if (navigator.userAgent.match(/Android|iPhone|iPad|iPod/i)) {
+            window.location.href = `tel:${partner.phone}`;
         } else {
-          window.location.href = `https://wa.me/${partner.phone}`;
+            window.location.href = `https://wa.me/${partner.phone}`;
         }
-      };
+    };
 
 
     return (
