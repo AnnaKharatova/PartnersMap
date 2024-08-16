@@ -37,8 +37,7 @@ function App() {
   const [banner375Open, setBanner375Open] = useState(true)
   const [showNoContentInfo, setshowNoContentInfo] = useState(false)
   const [showTitle, setShowTitle] = useState(false)
-
-  console.log(filteredData)
+  const [buttonsShadow, setButtonsShadow] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,62 +52,46 @@ function App() {
         }
       }
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  /* const [onScroll, setOnScroll] = useState(false)
- const content = document.querySelector('.popup-partners__content');
- const header = document.querySelector('.popup-partners__header');
-// Функция для проверки наличия скролла
-function hasVerticalScroll() {
- return content.scrollHeight > content.clientHeight;
-}
-// Добавляем класс при появлении скролла
-const addShadowClass = () => {
- if (hasVerticalScroll()) {
-   header.classList.add('has-shadow');
- } else {
-   header.classList.remove('has-shadow');
- }
-};
-// Вызываем функцию при загрузке страницы и при изменении размера окна
-window.addEventListener('load', addShadowClass);
-window.addEventListener('resize', addShadowClass); */
 
- /*const containerRef = useRef(null);
-const buttonRef = useRef(null);
+  const listRef = useRef(null);
+  const listPopupRef = useRef(null)
 
-useEffect(() => {
-  const handleScroll = () => {
-    if (containerRef.current && buttonRef.current) {
-      const containerBottom = containerRef.current.scrollHeight - containerRef.current.scrollTop;
-      const buttonHeight = buttonRef.current.offsetHeight;
-
-      // Если кнопка почти достигает нижнего края контейнера, делаем ее фиксированной 
-      if (containerBottom < buttonHeight + 10) { 
-        buttonRef.current.style.position = 'fixed';
-        buttonRef.current.style.bottom = '10px'; // Позиционируем на 10 пикселей от нижнего края
-        buttonRef.current.style.right = '10px';
-      } else {
-        buttonRef.current.style.position = 'absolute';
-        buttonRef.current.style.bottom = '10px';
-        buttonRef.current.style.right = '10px';
+  useEffect(() => {
+    const handleScroll = () => {
+      const list = listPopupRef.current;
+      if (list) {
+        setButtonsShadow(list.scrollTop > 0); // Проверяем, есть ли скролл
       }
+    };
+    if (listPopupRef.current) {
+      listPopupRef.current.addEventListener('scroll', handleScroll);
     }
-  };
+    return () => {
+      if (listPopupRef.current) {
+        listPopupRef.current.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, []);
 
-  if (containerRef.current) {
-    containerRef.current.addEventListener('scroll', handleScroll);
-  }
-
-  return () => {
-    if (containerRef.current) {
-      containerRef.current.removeEventListener('scroll', handleScroll);
+  useEffect(() => {
+    const handleScroll = () => {
+      const list = listRef.current;
+      if (list) {
+        setButtonsShadow(list.scrollTop > 0); // Проверяем, есть ли скролл
+      }
+    };
+    if (listRef.current) {
+      listRef.current.addEventListener('scroll', handleScroll);
     }
-  };
-}, []); */
-
+    return () => {
+      if (listRef.current) {
+        listRef.current.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, []);
 
   const handleResize = () => {
     if (window.innerWidth < 760) {
@@ -221,21 +204,25 @@ useEffect(() => {
     }
   }
 
+  console.log(buttonsShadow)
+
   useEffect(() => {
     if ((selectedCity || filterMark) && filteredData.length == 0) {
       setshowNoContentInfo(true)
+    } else if (filteredData || allPartners) {
+      setshowNoContentInfo(false)
     }
-  }, [selectedCity, filterMark, filteredData.length])
+  }, [selectedCity, filterMark, filteredData, allPartners])
 
   return (
     <>
-      <Header maxWidth760={maxWidth760} setBurgerMenuOpen={setBurgerMenuOpen} showTitle={showTitle}/>
+      <Header maxWidth760={maxWidth760} setBurgerMenuOpen={setBurgerMenuOpen} showTitle={showTitle} />
       <main>
         <img alt='баннер' className="bunner" src={maxWidth1024 ? Bunner1440 : Bunner1024} />
         <h1 className="title">Официальные партнёры завода</h1>
         <div className="map">
           <div className="partners">
-            <div className="partners__filter-buttons">
+            <div className={!buttonsShadow ? "partners__filter-buttons" : "partners__filter-buttons buttons__box-shadow"}>
               <button className="filter-buttons__city-button" id="city-filter-big" onClick={() => setCitiesPopup(true)}>
                 {selectedCity ? selectedCity.name : 'Город'}
                 <div className="filter-buttons__delete-city" onClick={handleClearCityButton}>&times;</div>
@@ -245,7 +232,7 @@ useEffect(() => {
                 {filterMark.length > 0 ? <span className='filter-buttons__button-item'>{filterMark.length}</span> : null}
               </button>
             </div>
-            <div className="partners__container">
+            <div className="partners__container" ref={listRef}>
               {partnerInfo ?
                 <PartnerDetails partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore} /> :
                 <ul className="popup-filter__partners-list">
@@ -277,7 +264,7 @@ useEffect(() => {
             }}>
               <MyMap setPopupPartnersListOpen={setPopupPartnersListOpen} maxWidth760={maxWidth760} selectedPartner={selectedPartner} partners={filteredData} partner={store} setPartnerInfo={setPartnerInfo} selectedCity={selectedCity} />
             </YMaps>
-            {maxWidth760 && <button  className="map__button" onClick={() => { setPopupPartnersListOpen(true) }}>Список партнеров</button>}
+            {maxWidth760 && <button className="map__button" onClick={() => { setPopupPartnersListOpen(true) }}>Список партнеров</button>}
           </div>
         </div>
       </main >
@@ -287,11 +274,11 @@ useEffect(() => {
       {burgerMenuOpen && <BurgerMenu setBurgerMenuOpen={setBurgerMenuOpen} />}
       {popupPartnersListOpen &&
         <div className="popup-partners">
-          <div className="popup-partners__container">
-            {!partnerInfo && <div className="popup-partners__header">
+          <div className="popup-partners__container" >
+            {!partnerInfo && <div className={!buttonsShadow ? "popup-partners__header" : "popup-partners__header buttons__box-shadow"}>
               <button className="popup-partners__close-button" onClick={() => { setPopupPartnersListOpen(false) }}>&times;</button>
             </div>}
-            <div className='popup-partners__content'>
+            <div className='popup-partners__content' ref={listPopupRef} >
               {partnerInfo ?
                 <PartnerDetails partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore} /> :
                 <ul className="popup-filter__partners-list">

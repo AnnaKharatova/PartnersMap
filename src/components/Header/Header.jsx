@@ -13,7 +13,7 @@ function Header({ maxWidth760, setBurgerMenuOpen, showTitle }) {
 
 
         {maxWidth760 & !showTitle ? <p className="header__title">Имя сайта</p> : <p style={{display:'none'}}></p>}
-        {maxWidth760 & showTitle ? <p className="header__title">Официальные партнеры завода</p> : <p></p>}
+        {maxWidth760 & showTitle ? <p className="header__title" style={{paddingRight:'0'}}>Официальные партнеры завода</p> : <p></p>}
 
       </div>
       {maxWidth760 ? <button className="header__nav-burger" onClick={() => { setBurgerMenuOpen(true) }} id="header-nav-burger"></button> :

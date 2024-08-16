@@ -1,5 +1,5 @@
 .partner {
-    border-bottom: 1px solid #858582;
+    border-bottom: 2px solid #858582;
     padding: 16px 64px 24px 64px;
     box-sizing: border-box;
 }
@@ -7,7 +7,6 @@
 .partner:hover {
     cursor: pointer;
     background-color: #F5F5F5;
-    border-bottom: none;
 }
 
 .partner__engines {
