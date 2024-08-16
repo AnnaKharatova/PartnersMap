@@ -233,7 +233,7 @@ window.addEventListener('resize', addShadowClass); */
               {partnerInfo ?
                 <PartnerDetails partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore} /> :
                 <ul className="popup-filter__partners-list">
-                  {fetchedData.length > 0 && fetchedData.map((partner) => (
+                  {filteredData.length > 0 && filteredData.map((partner) => (
                     <PartnerElement setPopupPartnersListOpen={setPopupPartnersListOpen} setSelectedPartner={setSelectedPartner} partner={partner} setStore={setStore} key={partner.id} />
                   ))}
                 </ul>

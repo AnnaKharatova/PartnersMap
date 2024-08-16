@@ -6,6 +6,7 @@ const Banner375 = ({setBanner375Open}) => {
 
     const windowHeight = window.innerHeight;
 
+
 // Определение высоты документа
 const documentHeight = document.documentElement.clientHeight;
 
@@ -20,7 +21,7 @@ console.log("Координата нижнего края окна:", bottomEdge
     return (
         <div className='banner__container'>
             <button className="banner__close-button" onClick={() => { setBanner375Open(false) }}>&times;</button>
-            <img className='banner__image' alt='рекламный баннер' src={Banner} />
+            <img className='banner__image' alt='баннер' src={Banner} />
         </div>
     );
 };
