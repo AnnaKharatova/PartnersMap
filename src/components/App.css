@@ -67,7 +67,8 @@ main {
 
 .partners {
     box-sizing: border-box;
-    min-width: 32%;
+    min-width: 25%;
+    max-width: 32%;
     padding: 20px 0 8px 0;
     position: relative;
 }
@@ -154,7 +155,7 @@ main {
 .partners__container {
     box-sizing: border-box;
     max-height: 93vh;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 
@@ -177,9 +178,7 @@ main {
     margin: 0 10px 10px;
 }
 
-
 /* MAP */
-
 
 .map__container {
     height: 100vh;
@@ -204,7 +203,6 @@ main {
     z-index: 2;
     flex-wrap: wrap;
 }
-
 
 .map__button {
     position: fixed; 
@@ -314,10 +312,10 @@ main {
 
 .popup-partners__content {
     border-top: 1px solid #E8E8E8;
-    overflow: scroll;
+    overflow: auto;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1100px) {
     .title {
         color: #191919;
         font-size: 52px;
@@ -329,9 +327,13 @@ main {
         padding-bottom: 16px;
         margin-top: 16px;
     }
+}
 
+@media screen and (max-width: 1024px) {
     .partners {
         padding: 16px 0 16px 0;
+        max-width: 41%;
+        min-width: 40%;
     }
 
     .partners__filter-buttons {

@@ -14,7 +14,6 @@
         box-sizing: border-box;
         background-color: #191919;
         padding: 20px 24px 20px 5px;
-        border-radius: 10px;
         position: absolute;
         bottom: -5px;
         animation: slideUp 0.5s ease-in-out forwards;
@@ -29,12 +28,13 @@
     }
 
     .popup-menu__close-button {
-        color: #E8E8E8;
-        float: right;
-        font-size: 50px;
-        font-weight: normal;
-        background-color: inherit;
-        border: none;
+             color: #E8E8E8;
+            float: right;
+            font-size: 28px;
+            font-weight: normal;
+            background-color: inherit;
+            border: none;
+        
     }
 
     .popup-menu__main {

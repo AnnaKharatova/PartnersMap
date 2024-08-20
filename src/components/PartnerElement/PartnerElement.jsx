@@ -20,6 +20,7 @@ const PartnerElement = ({ partner, setStore, setSelectedPartner, setPopupPartner
     }
 
     const handlePhoneClick = () => {
+        e.preventDefault()
         if (navigator.userAgent.match(/Android|iPhone|iPad|iPod/i)) {
             window.location.href = `tel:${partner.phone}`;
         } else {
@@ -39,7 +40,7 @@ const PartnerElement = ({ partner, setStore, setSelectedPartner, setPopupPartner
             <h2 className='partner__name'>{partner.name}</h2>
             <p className='partner__address'>{partner.address}</p>
             <div className='partner__contacts'>
-                {partner.phone && <a href={partner.phone} className="partner__phone" onClick={handlePhoneClick}>{partner.phone}</a>}
+                {partner.phone && <a href='#' className="partner__phone" onClick={handlePhoneClick}>{partner.phone}</a>}
                 {partner.website && <a href={partner.website} className="partner__website" target="_blank">{partner.website}</a>}
             </div>
             <div className='partner__block'>

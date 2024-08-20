@@ -42,7 +42,6 @@ function PopupCitiesFilter({ setCitiesPopup, setSelectedCity, getQuery }) {
         const results = cities.filter(city => city.name.toLowerCase().startsWith(event.target.value.toLowerCase()))
         setSearchValue(event.target.value)
         setSearchCities(results)
-        console.log(results)
     };
 
     return (

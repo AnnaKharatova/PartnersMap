@@ -41,8 +41,8 @@ function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const header = document.querySelector(".header"); // Добавьте свой селектор для фиксированной шапки
-      const title = document.querySelector("h1"); // Добавьте свой селектор для заголовка
+      const header = document.querySelector(".header");
+      const title = document.querySelector("h1"); 
 
       if (header && title) {
         if (window.scrollY > title.offsetTop) {
@@ -63,7 +63,7 @@ function App() {
     const handleScroll = () => {
       const list = listPopupRef.current;
       if (list) {
-        setButtonsShadow(list.scrollTop > 0); // Проверяем, есть ли скролл
+        setButtonsShadow(list.scrollTop > 0);
       }
     };
     if (listPopupRef.current) {
@@ -80,7 +80,7 @@ function App() {
     const handleScroll = () => {
       const list = listRef.current;
       if (list) {
-        setButtonsShadow(list.scrollTop > 0); // Проверяем, есть ли скролл
+        setButtonsShadow(list.scrollTop > 0);
       }
     };
     if (listRef.current) {
@@ -203,8 +203,6 @@ function App() {
       getAllPartners()
     }
   }
-
-  console.log(buttonsShadow)
 
   useEffect(() => {
     if ((selectedCity || filterMark) && filteredData.length == 0) {

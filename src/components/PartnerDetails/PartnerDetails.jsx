@@ -8,6 +8,14 @@ const PartnerDetails = ({ partner, setPartnerInfo, setStore }) => {
         setStore(partner)
     }
 
+    const handlePhoneClick = (e) => {
+        e.preventDefault()
+        if (navigator.userAgent.match(/Android|iPhone|iPad|iPod/i)) {
+            window.location.href = `tel:${partner.phone}`;
+        } else {
+            window.location.href = `https://wa.me/${partner.phone}`;
+        }
+    };
 
     return (
         <div className='partner-details'>
@@ -23,8 +31,8 @@ const PartnerDetails = ({ partner, setPartnerInfo, setStore }) => {
             <h2 className='partner-details__name'>{partner.name}</h2>
             <p className='partner-details__address'>{partner.address}</p>
             <div className='partner-details__contacts'>
-                <a href={partner.phone} className="partner-details__phone">{partner.phone}</a>
-                <a href={partner.website} className="partner-details__website" target="_blank">{partner.website}</a>
+            {partner.phone && <a href='#' className="partner__phone" onClick={handlePhoneClick}>{partner.phone}</a>}
+            {partner.website && <a href={partner.website} className="partner__website" target="_blank">{partner.website}</a>}
             </div>
             <div className='partner-details__block'>
                 {partner.time_open_weekdays || partner.time_open_saturday || partner.time_open_sunday ?

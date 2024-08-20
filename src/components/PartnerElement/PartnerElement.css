@@ -54,6 +54,8 @@
 }
 
 .partner__phone {
+    display: flex;
+    justify-content: center;
     color: #1347FF;
     font-size: 16px;
     font-style: normal;
@@ -62,9 +64,9 @@
     height: 30px;
     text-decoration: none;
     cursor: pointer;
-    padding: 5px 0 5px 30px;
+    padding: 0 0 0 30px;
     background-image: url('../../images/Icon-phone.svg');
-    background-position: left;
+    background-position: left top;
     background-repeat: no-repeat;
     margin-right: 15px;
     text-align: center;

@@ -3,7 +3,6 @@ import { YMaps, useYMaps } from '@pbe/react-yandex-maps';
 import DefaultIcon from '../../images/Map_default.svg'
 import HoverIcon from '../../images/Map_hover.svg'
 
-
 function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, selectedCity, setPopupPartnersListOpen, maxWidth760 }) {
     const mapRef = useRef(null);
     const multiRouteRef = useRef(null);
@@ -141,7 +140,6 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
             console.log('multiRouteRef.current:', multiRouteRef.current);
 
             if (multiRouteRef.current) {
-                console.log('Обновляем маршрут');
                 console.log('Точки маршрута:', [
                     [userLocation],
                     [partner.latitude, partner.longitude],
@@ -182,9 +180,12 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
 
                 map.controls.add(myRoutePanel);
                 map.geoObjects.add(multiRoute);
-                multiRouteRef.current = multiRoute;
+                multiRouteRef.current = multiRoute;                    
+
             }
         }
+
+        
     }, [map, partner, userLocation])
 
     useEffect(() => {

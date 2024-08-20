@@ -62,9 +62,6 @@
     font-weight: 400;
     line-height: 20.8px;
     text-align: center;
-    background-image: url('../../images/icon-arrow-down-white.svg');
-    background-repeat: no-repeat;
-    background-position: right;
 }
 
 .header__nav {
