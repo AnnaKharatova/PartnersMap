@@ -207,7 +207,7 @@ main {
 .map__button {
     position: fixed;
     z-index: 3;
-    bottom: 30vh;
+    bottom: 20px;
     left: 20px;
     background-color: #191919;
     height: 35px;

@@ -242,7 +242,7 @@ function App() {
             </div>
           </div>
           <div className="map__container" id="map">
-            {filterMark.length > 0 || selectedCity !== null ?
+            {(filterMark.length > 0 || selectedCity !== null)&!maxWidth760 ?
               <ul className='map__filters'>
                 {filterMark.map((item, index) => (
                   <FilterMarkItem key={index} item={item} deleteMarkItem={deleteMarkItem} />
