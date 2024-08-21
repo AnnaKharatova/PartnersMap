@@ -2,7 +2,6 @@ import './App.css'
 import React, { useState, useEffect, useRef } from 'react';
 import Header from './Header/Header.jsx'
 import MyMap from './MyMap/MyMap.jsx'
-import Footer from './Footer/Footer.jsx'
 import PartnerElement from './PartnerElement/PartnerElement.jsx'
 import PopupCitiesFilter from './PopupCitiesFilter/PopupCitiesFilter.jsx';
 import PopupFilters from './PopupFilters/PopupFilters.jsx';
@@ -42,7 +41,7 @@ function App() {
   useEffect(() => {
     const handleScroll = () => {
       const header = document.querySelector(".header");
-      const title = document.querySelector("h1"); 
+      const title = document.querySelector("h1");
 
       if (header && title) {
         if (window.scrollY > title.offsetTop) {
@@ -262,11 +261,15 @@ function App() {
             }}>
               <MyMap setPopupPartnersListOpen={setPopupPartnersListOpen} maxWidth760={maxWidth760} selectedPartner={selectedPartner} partners={filteredData} partner={store} setPartnerInfo={setPartnerInfo} selectedCity={selectedCity} />
             </YMaps>
+            <div className="map__footer-nav">
+              <a className="map__footer-item" href="#">Пользовательское соглашение</a>
+              <p className="map__copyright">© 2024 Название</p>
+            </div>
             {maxWidth760 && <button className="map__button" onClick={() => { setPopupPartnersListOpen(true) }}>Список партнеров</button>}
           </div>
         </div>
       </main >
-      <Footer maxWidth760={maxWidth760} />
+
       {citiesPopup && <PopupCitiesFilter setCitiesPopup={setCitiesPopup} setSelectedCity={setSelectedCity} getQuery={getQuery} />}
       {filtersPopup && <PopupFilters tags={tags} setTags={setTags} engines={engines} setEngines={setEngines} filteredData={filteredData} setFilteredData={setFilteredData} getQuery={getQuery} selectedParts={selectedParts} setSelectedParts={setSelectedParts} selectedTags={selectedTags} setSelectedTags={setSelectedTags} setFiltersPopup={setFiltersPopup} setFilterMark={setFilterMark} filterMark={filterMark} />}
       {burgerMenuOpen && <BurgerMenu setBurgerMenuOpen={setBurgerMenuOpen} />}

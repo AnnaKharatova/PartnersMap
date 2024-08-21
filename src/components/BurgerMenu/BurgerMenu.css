@@ -28,13 +28,14 @@
     }
 
     .popup-menu__close-button {
-             color: #E8E8E8;
-            float: right;
-            font-size: 28px;
-            font-weight: normal;
-            background-color: inherit;
-            border: none;
-        
+        color: #E8E8E8;
+        float: right;
+        font-size: 28px;
+        font-weight: normal;
+        background-color: inherit;
+        border: none;
+
+
     }
 
     .popup-menu__main {
@@ -49,12 +50,20 @@
     .popup-menu__item {
         text-decoration: none;
         cursor: pointer;
+        color: #E8E8E8;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 130%;
+        margin-top: 30px;
+    }
+
+    .popup-menu__item-contacts {
         color: #858582;
         font-size: 14px;
         font-style: normal;
         font-weight: 400;
         line-height: 130%;
-        margin-top: 40px;
     }
 
     .popup-menu__contacts {
@@ -65,5 +74,24 @@
         line-height: 130%;
         text-decoration: none;
         cursor: pointer;
+        margin: 10px 0 0 0;
+    }
+
+    .popup-menu__item-copyright {
+        margin-top: 25px;
+        text-decoration: none;
+        color: #858582;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+    }
+
+    .popup-menu__copyright {
         margin-top: 10px;
+        color: #858582;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
     }
