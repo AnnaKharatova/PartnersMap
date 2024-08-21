@@ -4,10 +4,12 @@ import DefaultIcon from '../../images/Map_default.svg'
 import HoverIcon from '../../images/Map_hover.svg'
 
 function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, selectedCity, setPopupPartnersListOpen, maxWidth760 }) {
+
     const mapRef = useRef(null);
     const multiRouteRef = useRef(null);
     const [userLocation, setUserLocation] = useState([]);
     const [map, setMap] = useState()
+    const [hoverIcon, setHoverIcon] = useState(null)
     const ymaps = useYMaps([
         'Map',
         'geocode',
@@ -16,7 +18,8 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
         'multiRouter.MultiRoute',
         'control.RoutePanel',
         'control.ZoomControl',
-        'control.GeolocationControl'
+        'control.GeolocationControl',
+        'control.RouteButton'
     ]);
 
     function getCenter(city) {
@@ -92,7 +95,7 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
                     </div>`
                 }, {
                     iconLayout: 'default#image',
-                    iconImageHref: HoverIcon,
+                    iconImageHref: DefaultIcon,
                     iconImageSize: [25, 25],
                     iconImageOffset: [0, 0]
                 });
@@ -104,23 +107,38 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
                     }
                 })
 
-                /* Изменение маркера при наведении (не работает)
-                
-                placemark.events.add('mouseenter', () => {
-                    placemark.options.set('iconImageHref', '../../images/Map_hover.svg');
-                    placemark.balloon.open();
-                });
-                
-                placemark.events.add('mouseleave', () => {
-                    placemark.options.set('iconImageHref', '../../images/Map_default.svg');
-                    placemark.balloon.close();
-                }); */
+                // Изменение маркера при наведении (не работает)
 
-                placemark.events.add('click', () => {
+                placemark.events.add('mouseenter', () => {
+                    placemark.options.set('iconImageHref', HoverIcon);
+                });
+
+                placemark.events.add('mouseleave', () => {
+                    placemark.options.set('iconImageHref', DefaultIcon);
+                });
+
+                function resetPlacemarkIcons() {
+                    map.geoObjects.each((placemark) => {
+                        if (placemark !== hoverIcon) {
+                            placemark.options.set('iconImageHref', DefaultIcon);
+                        }
+                    });
+                }
+
+                placemark.events.add('click', (e) => {
+                    e.preventDefault()
+                    placemark.events.add('mouseenter', () => {
+                        placemark.options.set('iconImageHref', HoverIcon);
+                    });
+                    setHoverIcon(placemark)
+                    placemark.events.add('mouseleave', () => {
+                        placemark.options.set('iconImageHref', HoverIcon);
+                    });
                     setStoreInfo(store);
                     if (maxWidth760) {
                         setPopupPartnersListOpen(true);
                     }
+                    resetPlacemarkIcons()
                 });
 
                 map.geoObjects.add(placemark)
@@ -161,13 +179,14 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
                     },
                 });
 
-                const myRoutePanel = new ymaps.control.RoutePanel({
+                const myRoutePanel = new ymaps.control.RouteButton({
                     options: {
                         float: 'none',
                         position: {
-                            top: 150,
-                            right: 10,
-                        }
+                            top: 450,
+                            right: 5,
+                        },
+                        size: 'small'
                     },
                 });
 
@@ -175,17 +194,15 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
                     fromEnabled: true,
                     from: userLocation,
                     toEnabled: true,
-                    to: `${partner.latitude}, ${partner.longitude}`
-                })
+                    to: `${partner.latitude}, ${partner.longitude}`,
+                    state: "expanded",
 
+                })
                 map.controls.add(myRoutePanel);
                 map.geoObjects.add(multiRoute);
-                multiRouteRef.current = multiRoute;                    
-
+                multiRouteRef.current = multiRoute;
             }
         }
-
-        
     }, [map, partner, userLocation])
 
     useEffect(() => {
@@ -207,7 +224,8 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
                     position: {
                         top: 335,
                         right: 5
-                    }
+                    },
+
                 }
             })
             map.controls.add(zoomControl);

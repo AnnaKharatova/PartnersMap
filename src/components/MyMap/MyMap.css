@@ -1,21 +1,5 @@
-.my-balloon {
-    display: inline-block;
-    padding: 4px 10px;
-    height: 75px;
-    position: relative;
-    bottom: 80px;
-    left: -10px;
-    width: 158px;
-    font-size: 11px;
-    line-height: 15px;
-    color: #333333;
-    text-align: left;
-    vertical-align: middle;
-    background-color: #FFFFF6;
-    border: 1px solid #CDB7B5;
-    border-radius: 6px;
-    font-family: Arial;
-}
-.close {
-    margin-top: -3px;
+.route__button {
+    background-color: #191919;
+    text-align: right;
+    color: blue;
 }
