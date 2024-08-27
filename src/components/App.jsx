@@ -259,7 +259,7 @@ function App() {
               ns: "use-load-option",
               load: "Map,Placemark,control.FullscreenControl,geoObject.addon.balloon",
             }}>
-              <MyMap setPopupPartnersListOpen={setPopupPartnersListOpen} maxWidth760={maxWidth760} selectedPartner={selectedPartner} partners={filteredData} partner={store} setPartnerInfo={setPartnerInfo} selectedCity={selectedCity} />
+              <MyMap setPopupPartnersListOpen={setPopupPartnersListOpen} maxWidth760={maxWidth760} selectedPartner={selectedPartner} partners={filteredData} partner={store} setPartnerInfo={setPartnerInfo} partnerInfo={partnerInfo} selectedCity={selectedCity} />
             </YMaps>
             <div className="map__footer-nav">
               <a className="map__footer-item" href="#">Пользовательское соглашение</a>

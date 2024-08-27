@@ -3,13 +3,12 @@ import { YMaps, useYMaps } from '@pbe/react-yandex-maps';
 import DefaultIcon from '../../images/Map_default.svg'
 import HoverIcon from '../../images/Map_hover.svg'
 
-function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, selectedCity, setPopupPartnersListOpen, maxWidth760 }) {
+function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, selectedCity, setPopupPartnersListOpen, maxWidth760, partnerInfo }) {
 
     const mapRef = useRef(null);
     const multiRouteRef = useRef(null);
     const [userLocation, setUserLocation] = useState([]);
     const [map, setMap] = useState()
-    const [hoverIcon, setHoverIcon] = useState(null)
     const ymaps = useYMaps([
         'Map',
         'geocode',
@@ -21,6 +20,13 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
         'control.GeolocationControl',
         'control.RouteButton'
     ]);
+
+
+    useEffect (()=>{
+        if(!partner) {
+
+        }
+    })
 
     function getCenter(city) {
         ymaps.geocode(city)
@@ -107,40 +113,46 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
                     }
                 })
 
-                // Изменение маркера при наведении (не работает)
+                // Изменение маркера при наведении
 
                 placemark.events.add('mouseenter', () => {
                     placemark.options.set('iconImageHref', HoverIcon);
+                    placemark.options.set('iconImageSize', [35, 35])
                 });
 
                 placemark.events.add('mouseleave', () => {
                     placemark.options.set('iconImageHref', DefaultIcon);
+                    placemark.options.set('iconImageSize', [25, 25])
                 });
-
-                function resetPlacemarkIcons() {
-                    map.geoObjects.each((placemark) => {
-                        if (placemark !== hoverIcon) {
-                            placemark.options.set('iconImageHref', DefaultIcon);
-                        }
-                    });
-                }
-
+  
                 placemark.events.add('click', (e) => {
                     e.preventDefault()
+                    map.geoObjects.each((placemark) => {
+                        if (placemark !== e.placemark) {
+                            placemark.options.set('iconImageHref', DefaultIcon);
+                            placemark.options.set('iconImageSize', [25, 25])
+
+                        }
+                    });
                     placemark.events.add('mouseenter', () => {
                         placemark.options.set('iconImageHref', HoverIcon);
+                        placemark.options.set('iconImageSize', [30, 30])
+
                     });
-                    setHoverIcon(placemark)
                     placemark.events.add('mouseleave', () => {
                         placemark.options.set('iconImageHref', HoverIcon);
+                        placemark.options.set('iconImageSize', [30, 30])
+
                     });
                     setStoreInfo(store);
                     if (maxWidth760) {
                         setPopupPartnersListOpen(true);
                     }
-                    resetPlacemarkIcons()
-                });
+                    placemark.options.set('iconImageHref', HoverIcon);
+                    placemark.options.set('iconImageSize', [30, 30])
 
+
+                });
                 map.geoObjects.add(placemark)
             });
 
