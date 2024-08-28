@@ -3,7 +3,7 @@ import { YMaps, useYMaps } from '@pbe/react-yandex-maps';
 import DefaultIcon from '../../images/Map_default.svg'
 import HoverIcon from '../../images/Map_hover.svg'
 
-function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, selectedCity, setPopupPartnersListOpen, maxWidth760, partnerInfo }) {
+function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, selectedCity, setPopupPartnersListOpen, maxWidth760, partnerInfo, setStore }) {
 
     const mapRef = useRef(null);
     const multiRouteRef = useRef(null);
@@ -18,15 +18,9 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
         'control.RoutePanel',
         'control.ZoomControl',
         'control.GeolocationControl',
-        'control.RouteButton'
+        'control.RouteButton',
+        'control.Button'
     ]);
-
-
-    useEffect (()=>{
-        if(!partner) {
-
-        }
-    })
 
     function getCenter(city) {
         ymaps.geocode(city)
@@ -106,25 +100,19 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
                     iconImageOffset: [0, 0]
                 });
 
-                placemark.events.add('balloonopen', () => {
-                    setStoreInfo(store)
-                    if (maxWidth760) {
-                        setPopupPartnersListOpen(true)
-                    }
-                })
-
                 // Изменение маркера при наведении
 
                 placemark.events.add('mouseenter', () => {
                     placemark.options.set('iconImageHref', HoverIcon);
-                    placemark.options.set('iconImageSize', [35, 35])
+                    placemark.options.set('iconImageSize', [30, 30]);
+
                 });
 
                 placemark.events.add('mouseleave', () => {
                     placemark.options.set('iconImageHref', DefaultIcon);
                     placemark.options.set('iconImageSize', [25, 25])
                 });
-  
+
                 placemark.events.add('click', (e) => {
                     e.preventDefault()
                     map.geoObjects.each((placemark) => {
@@ -150,7 +138,7 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
                     }
                     placemark.options.set('iconImageHref', HoverIcon);
                     placemark.options.set('iconImageSize', [30, 30])
-
+                    map.setCenter(placemark, 10)
 
                 });
                 map.geoObjects.add(placemark)
@@ -162,6 +150,7 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
         }
     }, [ymaps, partners, userLocation, map]);
 
+    // Обработка обновлений маршрута (когда изменяется partner)
     // Обработка обновлений маршрута (когда изменяется partner)
     useEffect(() => {
         if (map && partner && userLocation.length > 0) {
@@ -210,15 +199,47 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
                     state: "expanded",
 
                 })
-                map.controls.add(myRoutePanel);
+
+                // myRoutePanel.state.set('expanded', true)
+                // map.controls.add(myRoutePanel);
                 map.geoObjects.add(multiRoute);
                 multiRouteRef.current = multiRoute;
+
+                // кнопка сброса маршрута
+
+                const button = new ymaps.control.Button({
+                    data: {
+                        content: 'Сбросить маршрут',
+                        title: 'Очистить данные маршрута'
+                    },
+                    options: {
+                        selectOnClick: false,
+                        maxWidth: [30, 100, 150],
+                        float: 'none',
+                        position: {
+                            bottom: 40,
+                            right: 20,
+                        },
+                        floatIndex: 100,
+                    }
+                });
+
+                map.controls.add(button);
+
+                button.events.add('click', () => {
+                    map.geoObjects.remove(multiRoute);
+                    map.controls.remove(button);
+                    map.controls.remove(myRoutePanel);
+                    setStore(null)
+                    multiRouteRef.current = null
+                })
             }
         }
     }, [map, partner, userLocation])
 
     useEffect(() => {
         if (map) {
+
             const zoomControl = new ymaps.control.ZoomControl({
                 options: {
                     size: "small",

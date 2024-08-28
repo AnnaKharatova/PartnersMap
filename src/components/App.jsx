@@ -259,7 +259,7 @@ function App() {
               ns: "use-load-option",
               load: "Map,Placemark,control.FullscreenControl,geoObject.addon.balloon",
             }}>
-              <MyMap setPopupPartnersListOpen={setPopupPartnersListOpen} maxWidth760={maxWidth760} selectedPartner={selectedPartner} partners={filteredData} partner={store} setPartnerInfo={setPartnerInfo} partnerInfo={partnerInfo} selectedCity={selectedCity} />
+              <MyMap setStore={setStore} setPopupPartnersListOpen={setPopupPartnersListOpen} maxWidth760={maxWidth760} selectedPartner={selectedPartner} partners={filteredData} partner={store} setPartnerInfo={setPartnerInfo} partnerInfo={partnerInfo} selectedCity={selectedCity} />
             </YMaps>
             <div className="map__footer-nav">
               <a className="map__footer-item" href="#">Пользовательское соглашение</a>
@@ -292,7 +292,6 @@ function App() {
             </div>
           </div>
         </div>}
-      {(maxWidth760 && banner375Open) ? <Banner375 setBanner375Open={setBanner375Open} /> : null}
     </>
   )
 }

@@ -20,7 +20,7 @@ const PartnerDetails = ({ partner, setPartnerInfo, setStore }) => {
     return (
         <div className='partner-details'>
             <button className="partner-details__back-button" onClick={() => { setPartnerInfo(null) }}>Все партнеры</button>
-            <img className='partner-details__photo' alt='Пример фото партнера' src={PartnerPhoto} />
+            <img className='partner-details__photo' alt='Фото точки продаж' src={PartnerPhoto} />
             <p className='partner-details__engines'>
                 {partner.parts_available.map((part, index) => (
                     <React.Fragment key={part.id}>

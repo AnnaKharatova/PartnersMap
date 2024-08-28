@@ -37,6 +37,8 @@ const PartnerElement = ({ partner, setStore, setSelectedPartner, setPopupPartner
                     {index < partner.parts_available.length - 1 && <span className='partner__engines-dot'></span>}
                 </React.Fragment>
             ))}</p>
+            <p className="partner__tag">{partner.tags.map((tag) => tag.name).join(', ')}</p>
+            
             <h2 className='partner__name'>{partner.name}</h2>
             <p className='partner__address'>{partner.address}</p>
             <div className='partner__contacts'>

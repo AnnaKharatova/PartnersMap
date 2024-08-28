@@ -2,6 +2,8 @@
     padding: 24px 24px 24px 64px;
     display: flex;
     flex-direction: column;
+    min-width: 460px;
+    max-width: 460px;
 }
 
 
@@ -21,6 +23,10 @@
     margin-right: 15px;
     margin-bottom: 20px;
     text-align: start;
+}
+
+.partner-details__photo {
+    max-width: 80%;
 }
 
 .partner-details__engines {
@@ -49,6 +55,7 @@
     gap: 0;
     align-items: start;
 }
+
 .partner-details__name {
     color: #191919;
     font-size: 20px;
@@ -138,6 +145,13 @@
     height: 29px;
     width: 105px;
     cursor: pointer;
+}
+
+@media screen and (max-width: 760px) {
+    .partner-details {
+        min-width: 409px;
+        max-width: 409px;
+    }
 }
 
 @media screen and (max-width: 760px) {
