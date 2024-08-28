@@ -33,7 +33,6 @@ function App() {
   const [maxWidth760, setMaxWidth760] = useState()
   const [burgerMenuOpen, setBurgerMenuOpen] = useState(false)
   const [popupPartnersListOpen, setPopupPartnersListOpen] = useState(false)
-  const [banner375Open, setBanner375Open] = useState(true)
   const [showNoContentInfo, setshowNoContentInfo] = useState(false)
   const [showTitle, setShowTitle] = useState(false)
   const [buttonsShadow, setButtonsShadow] = useState(false)
@@ -231,7 +230,7 @@ function App() {
             </div>
             <div className="partners__container" ref={listRef}>
               {partnerInfo ?
-                <PartnerDetails partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore} /> :
+                <PartnerDetails partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore}/> :
                 <ul className="popup-filter__partners-list">
                   {filteredData.length > 0 && filteredData.map((partner) => (
                     <PartnerElement setSelectedPartner={setSelectedPartner} partner={partner} setStore={setStore} key={partner.id} />
@@ -281,7 +280,7 @@ function App() {
             </div>}
             <div className='popup-partners__content' ref={listPopupRef} >
               {partnerInfo ?
-                <PartnerDetails partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore} /> :
+                <PartnerDetails setPopupPartnersListOpen={setPopupPartnersListOpen} partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore} /> :
                 <ul className="popup-filter__partners-list">
                   {filteredData.length > 0 && filteredData.map((partner) => (
                     <PartnerElement setPopupPartnersListOpen={setPopupPartnersListOpen} setSelectedPartner={setSelectedPartner} partner={partner} setStore={setStore} key={partner.id} />

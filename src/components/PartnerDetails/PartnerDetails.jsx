@@ -2,10 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import './PartnerDetails.css'
 import PartnerPhoto from '../../images/PartnerPhoto.png'
 
-const PartnerDetails = ({ partner, setPartnerInfo, setStore }) => {
+const PartnerDetails = ({ partner, setPartnerInfo, setStore, setPopupPartnersListOpen }) => {
 
     function handleRouteButton() {
         setStore(partner)
+        setPartnerInfo(null)
+        setPopupPartnersListOpen(false)
     }
 
     const handlePhoneClick = (e) => {
