@@ -2,7 +2,6 @@
     padding: 24px 24px 24px 64px;
     display: flex;
     flex-direction: column;
-    min-width: 460px;
     max-width: 460px;
 }
 

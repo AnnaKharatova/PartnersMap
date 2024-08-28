@@ -151,13 +151,8 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
     }, [ymaps, partners, userLocation, map]);
 
     // Обработка обновлений маршрута (когда изменяется partner)
-    // Обработка обновлений маршрута (когда изменяется partner)
     useEffect(() => {
         if (map && partner && userLocation.length > 0) {
-            console.log('userLocation:', userLocation);
-            console.log('partner:', partner);
-            console.log('multiRouteRef.current:', multiRouteRef.current);
-
             if (multiRouteRef.current) {
                 console.log('Точки маршрута:', [
                     [userLocation],
@@ -169,7 +164,6 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
                 ]);
                 multiRouteRef.current.model.getRoutes();
             } else {
-                console.log('Создаем новый маршрут');
                 const multiRoute = new ymaps.multiRouter.MultiRoute({
                     referencePoints: [
                         [userLocation],
@@ -179,8 +173,7 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
                         routingMode: 'auto',
                     },
                 });
-
-                const myRoutePanel = new ymaps.control.RouteButton({
+              /*   const myRoutePanel = new ymaps.control.RouteButton({
                     options: {
                         float: 'none',
                         position: {
@@ -189,19 +182,19 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
                         },
                         size: 'small'
                     },
-                });
+                }); */
 
-                myRoutePanel.routePanel.state.set({
+               /*  myRoutePanel.routePanel.state.set({
                     fromEnabled: true,
                     from: userLocation,
                     toEnabled: true,
                     to: `${partner.latitude}, ${partner.longitude}`,
                     state: "expanded",
-
-                })
+                }) */
 
                 // myRoutePanel.state.set('expanded', true)
                 // map.controls.add(myRoutePanel);
+
                 map.geoObjects.add(multiRoute);
                 multiRouteRef.current = multiRoute;
 
@@ -229,7 +222,7 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
                 button.events.add('click', () => {
                     map.geoObjects.remove(multiRoute);
                     map.controls.remove(button);
-                    map.controls.remove(myRoutePanel);
+                    // map.controls.remove(myRoutePanel);
                     setStore(null)
                     multiRouteRef.current = null
                 })
@@ -239,7 +232,6 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
 
     useEffect(() => {
         if (map) {
-
             const zoomControl = new ymaps.control.ZoomControl({
                 options: {
                     size: "small",
