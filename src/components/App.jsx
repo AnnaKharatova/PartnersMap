@@ -11,7 +11,6 @@ import { YMaps } from '@pbe/react-yandex-maps';
 import Bunner1440 from '../images/Banner_1440.png'
 import Bunner1024 from '../images/Banner_1024.png'
 import BurgerMenu from './BurgerMenu/BurgerMenu.jsx'
-import Banner375 from './Banner375/Banner375.jsx'
 import NothingFoundInFilter from './NothingFoundInFilter/NothingFoundInFilter.jsx';
 
 function App() {
@@ -41,7 +40,6 @@ function App() {
     const handleScroll = () => {
       const header = document.querySelector(".header");
       const title = document.querySelector("h1");
-
       if (header && title) {
         if (window.scrollY > title.offsetTop) {
           setShowTitle(true)
@@ -150,9 +148,12 @@ function App() {
   function deleteMarkItem(item) {
     deleteFilterMark(item)
     setFilterMark(filterMark.filter((mark) => mark !== item));
-    getQuery()
     if (selectedCity && (item === selectedCity.name)) {
       setSelectedCity(null)
+      console.log(selectedCity)
+      if (filterMark.length == 0) {
+        getAllPartners()
+      }
     }
   }
 
@@ -230,7 +231,7 @@ function App() {
             </div>
             <div className="partners__container" ref={listRef}>
               {partnerInfo ?
-                <PartnerDetails partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore}/> :
+                <PartnerDetails partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore} /> :
                 <ul className="popup-filter__partners-list">
                   {filteredData.length > 0 && filteredData.map((partner) => (
                     <PartnerElement setSelectedPartner={setSelectedPartner} partner={partner} setStore={setStore} key={partner.id} />
@@ -241,7 +242,7 @@ function App() {
             </div>
           </div>
           <div className="map__container" id="map">
-            {(filterMark.length > 0 || selectedCity !== null)&!maxWidth760 ?
+            {(filterMark.length > 0 || selectedCity !== null) & !maxWidth760 ?
               <ul className='map__filters'>
                 {filterMark.map((item, index) => (
                   <FilterMarkItem key={index} item={item} deleteMarkItem={deleteMarkItem} />

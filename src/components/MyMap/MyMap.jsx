@@ -42,25 +42,29 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
 
     // Получение местоположения пользователя
     useEffect(() => {
-        if (!selectedCity) {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        setUserLocation([position.coords.latitude, position.coords.longitude]);
-                    },
-                    (error) => {
-                        console.error('Ошибка получения местоположения:', error);
-                        // Установка значений по умолчанию, если geolocation не доступен
-                        setUserLocation([55.7522, 37.6156]);
-                    }
-                );
-            } else {
-                setUserLocation([55.7522, 37.6156]);
-            }
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    setUserLocation([position.coords.latitude, position.coords.longitude]);
+                },
+                (error) => {
+                    console.error('Ошибка получения местоположения:', error);
+                    // Установка значений по умолчанию, если geolocation не доступен
+                    setUserLocation([55.7522, 37.6156]);
+                }
+            );
         } else {
-            setUserLocation([selectedCity.latitude, selectedCity.longitude]);
+            setUserLocation([55.7522, 37.6156]);
         }
-    }, [selectedCity]);
+
+    }, []);
+
+    useEffect(() => {
+        if (selectedCity) {
+            map.setCenter([selectedCity.latitude, selectedCity.longitude], 10)
+            console.log(selectedCity)
+        }
+    }, [selectedCity])
 
     // инициализация карты
     useEffect(() => {
@@ -76,11 +80,16 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
 
     }, [mapRef, ymaps]);
 
+    useEffect(() => {
+        if (map) {
+            getCenter(userLocation);
+        }
+    }, [map])
+
     // метки
     useEffect(() => {
         if (map) {
             map.geoObjects.removeAll()
-            getCenter(userLocation);
             partners.forEach(store => {
                 const placemark = new ymaps.Placemark([store.latitude, store.longitude], {
                     balloonContentBody:
@@ -173,24 +182,24 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
                         routingMode: 'auto',
                     },
                 });
-              /*   const myRoutePanel = new ymaps.control.RouteButton({
-                    options: {
-                        float: 'none',
-                        position: {
-                            top: 450,
-                            right: 5,
-                        },
-                        size: 'small'
-                    },
-                }); */
+                /*   const myRoutePanel = new ymaps.control.RouteButton({
+                      options: {
+                          float: 'none',
+                          position: {
+                              top: 450,
+                              right: 5,
+                          },
+                          size: 'small'
+                      },
+                  }); */
 
-               /*  myRoutePanel.routePanel.state.set({
-                    fromEnabled: true,
-                    from: userLocation,
-                    toEnabled: true,
-                    to: `${partner.latitude}, ${partner.longitude}`,
-                    state: "expanded",
-                }) */
+                /*  myRoutePanel.routePanel.state.set({
+                     fromEnabled: true,
+                     from: userLocation,
+                     toEnabled: true,
+                     to: `${partner.latitude}, ${partner.longitude}`,
+                     state: "expanded",
+                 }) */
 
                 // myRoutePanel.state.set('expanded', true)
                 // map.controls.add(myRoutePanel);
