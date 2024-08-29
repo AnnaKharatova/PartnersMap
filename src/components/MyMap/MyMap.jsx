@@ -7,6 +7,8 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
 
     const mapRef = useRef(null);
     const multiRouteRef = useRef(null);
+    const myRoutePanelRef = useRef(null)
+    const resetButtonRef = useRef(null)
     const [userLocation, setUserLocation] = useState([]);
     const [map, setMap] = useState()
     const ymaps = useYMaps([
@@ -163,6 +165,12 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
                 map.geoObjects.remove(multiRouteRef.current);
                 multiRouteRef.current = null;
             }
+
+            if (resetButtonRef.current) {
+                map.controls.remove(resetButtonRef.current);
+                resetButtonRef.current = null;
+            }
+
             const multiRoute = new ymaps.multiRouter.MultiRoute({
                 referencePoints: [
                     [userLocation],
@@ -172,7 +180,7 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
                     routingMode: 'auto',
                 },
             });
-            /*   const myRoutePanel = new ymaps.control.RouteButton({
+             const myRoutePanel = new ymaps.control.RouteButton({
                   options: {
                       float: 'none',
                       position: {
@@ -181,21 +189,27 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
                       },
                       size: 'small'
                   },
-              }); */
+              });
 
-            /*  myRoutePanel.routePanel.state.set({
+             myRoutePanel.routePanel.state.set({
                  fromEnabled: true,
                  from: userLocation,
                  toEnabled: true,
                  to: `${partner.latitude}, ${partner.longitude}`,
                  state: "expanded",
-             }) */
+             }) 
 
-            // myRoutePanel.state.set('expanded', true)
-            // map.controls.add(myRoutePanel);
+             if (myRoutePanelRef.current) {
+                map.controls.remove(myRoutePanelRef.current);
+                myRoutePanelRef.current = null;
+            }
+
+            myRoutePanel.state.set('expanded', true)
+             map.controls.add(myRoutePanel);
 
             map.geoObjects.add(multiRoute);
             multiRouteRef.current = multiRoute;
+            myRoutePanelRef.current = myRoutePanel;
 
             // кнопка сброса маршрута
 
@@ -217,15 +231,19 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
             });
 
             map.controls.add(button);
+            resetButtonRef.current = button;
 
             button.events.add('click', () => {
                 map.geoObjects.remove(multiRoute);
+                map.geoObjects.remove(multiRouteRef.current)
                 map.controls.remove(button);
-                // map.controls.remove(myRoutePanel);
+                map.controls.remove(myRoutePanel);
+                map.controls.remove(myRoutePanelRef.current);
                 setStore(null)
                 multiRouteRef.current = null
+                myRoutePanelRef.current = null;
+                resetButtonRef.current = null;
             })
-            /*    }*/
         }
     }, [map, partner, userLocation])
 

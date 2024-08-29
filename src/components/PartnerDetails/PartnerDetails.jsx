@@ -2,11 +2,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import './PartnerDetails.css'
 import PartnerPhoto from '../../images/PartnerPhoto.png'
 
-const PartnerDetails = ({ partner, setPartnerInfo, setStore, setPopupPartnersListOpen }) => {
+const PartnerDetails = ({ partner, setPartnerInfo, maxWidth760, setStore, setPopupPartnersListOpen }) => {
 
     function handleRouteButton() {
         setStore(partner)
-        setPartnerInfo(null)
+        if (maxWidth760) {
+            setPartnerInfo(null)
+        }
         if (setPopupPartnersListOpen) {
             setPopupPartnersListOpen(false)
         }

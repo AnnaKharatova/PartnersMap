@@ -232,7 +232,7 @@ function App() {
             </div>
             <div className="partners__container" ref={listRef}>
               {partnerInfo ?
-                <PartnerDetails partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore} /> :
+                <PartnerDetails maxWidth760={maxWidth760} partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore} /> :
                 <ul className="popup-filter__partners-list">
                   {filteredData.length > 0 && filteredData.map((partner) => (
                     <PartnerElement setSelectedPartner={setSelectedPartner} partner={partner} setStore={setStore} key={partner.id} />
@@ -282,7 +282,7 @@ function App() {
             </div>}
             <div className='popup-partners__content' ref={listPopupRef} >
               {partnerInfo ?
-                <PartnerDetails setPopupPartnersListOpen={setPopupPartnersListOpen} partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore} /> :
+                <PartnerDetails maxWidth760={maxWidth760} setPopupPartnersListOpen={setPopupPartnersListOpen} partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore} /> :
                 <ul className="popup-filter__partners-list">
                   {filteredData.length > 0 && filteredData.map((partner) => (
                     <PartnerElement setPopupPartnersListOpen={setPopupPartnersListOpen} setSelectedPartner={setSelectedPartner} partner={partner} setStore={setStore} key={partner.id} />
