@@ -7,7 +7,10 @@ const PartnerDetails = ({ partner, setPartnerInfo, setStore, setPopupPartnersLis
     function handleRouteButton() {
         setStore(partner)
         setPartnerInfo(null)
-        setPopupPartnersListOpen(false)
+        if (setPopupPartnersListOpen) {
+            setPopupPartnersListOpen(false)
+        }
+
     }
 
     const handlePhoneClick = (e) => {
@@ -33,8 +36,8 @@ const PartnerDetails = ({ partner, setPartnerInfo, setStore, setPopupPartnersLis
             <h2 className='partner-details__name'>{partner.name}</h2>
             <p className='partner-details__address'>{partner.address}</p>
             <div className='partner-details__contacts'>
-            {partner.phone && <a href='#' className="partner__phone" onClick={handlePhoneClick}>{partner.phone}</a>}
-            {partner.website && <a href={partner.website} className="partner__website" target="_blank">{partner.website}</a>}
+                {partner.phone && <a href='#' className="partner__phone" onClick={handlePhoneClick}>{partner.phone}</a>}
+                {partner.website && <a href={partner.website} className="partner__website" target="_blank">{partner.website}</a>}
             </div>
             <div className='partner-details__block'>
                 {partner.time_open_weekdays || partner.time_open_saturday || partner.time_open_sunday ?

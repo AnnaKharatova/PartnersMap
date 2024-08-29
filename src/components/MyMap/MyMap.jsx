@@ -3,7 +3,7 @@ import { YMaps, useYMaps } from '@pbe/react-yandex-maps';
 import DefaultIcon from '../../images/Map_default.svg'
 import HoverIcon from '../../images/Map_hover.svg'
 
-function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, selectedCity, setPopupPartnersListOpen, maxWidth760, partnerInfo, setStore }) {
+function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, selectedCity, setPopupPartnersListOpen, maxWidth760, setStore }) {
 
     const mapRef = useRef(null);
     const multiRouteRef = useRef(null);
@@ -56,13 +56,11 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
         } else {
             setUserLocation([55.7522, 37.6156]);
         }
-
     }, []);
 
     useEffect(() => {
         if (selectedCity) {
             map.setCenter([selectedCity.latitude, selectedCity.longitude], 10)
-            console.log(selectedCity)
         }
     }, [selectedCity])
 
@@ -77,7 +75,6 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
             controls: []
         });
         setMap(mapInstance);
-
     }, [mapRef, ymaps]);
 
     useEffect(() => {
@@ -163,79 +160,72 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
     useEffect(() => {
         if (map && partner && userLocation.length > 0) {
             if (multiRouteRef.current) {
-                console.log('Точки маршрута:', [
-                    [userLocation],
-                    [partner.latitude, partner.longitude],
-                ]);
-                multiRouteRef.current.model.setReferencePoints([
-                    [userLocation],
-                    [partner.latitude, partner.longitude],
-                ]);
-                multiRouteRef.current.model.getRoutes();
-            } else {
-                const multiRoute = new ymaps.multiRouter.MultiRoute({
-                    referencePoints: [
-                        [userLocation],
-                        [partner.latitude, partner.longitude],
-                    ],
-                    params: {
-                        routingMode: 'auto',
-                    },
-                });
-                /*   const myRoutePanel = new ymaps.control.RouteButton({
-                      options: {
-                          float: 'none',
-                          position: {
-                              top: 450,
-                              right: 5,
-                          },
-                          size: 'small'
-                      },
-                  }); */
-
-                /*  myRoutePanel.routePanel.state.set({
-                     fromEnabled: true,
-                     from: userLocation,
-                     toEnabled: true,
-                     to: `${partner.latitude}, ${partner.longitude}`,
-                     state: "expanded",
-                 }) */
-
-                // myRoutePanel.state.set('expanded', true)
-                // map.controls.add(myRoutePanel);
-
-                map.geoObjects.add(multiRoute);
-                multiRouteRef.current = multiRoute;
-
-                // кнопка сброса маршрута
-
-                const button = new ymaps.control.Button({
-                    data: {
-                        content: 'Сбросить маршрут',
-                        title: 'Очистить данные маршрута'
-                    },
-                    options: {
-                        selectOnClick: false,
-                        maxWidth: [30, 100, 150],
-                        float: 'none',
-                        position: {
-                            bottom: 40,
-                            right: 20,
-                        },
-                        floatIndex: 100,
-                    }
-                });
-
-                map.controls.add(button);
-
-                button.events.add('click', () => {
-                    map.geoObjects.remove(multiRoute);
-                    map.controls.remove(button);
-                    // map.controls.remove(myRoutePanel);
-                    setStore(null)
-                    multiRouteRef.current = null
-                })
+                map.geoObjects.remove(multiRouteRef.current);
+                multiRouteRef.current = null;
             }
+            const multiRoute = new ymaps.multiRouter.MultiRoute({
+                referencePoints: [
+                    [userLocation],
+                    [partner.latitude, partner.longitude],
+                ],
+                params: {
+                    routingMode: 'auto',
+                },
+            });
+            /*   const myRoutePanel = new ymaps.control.RouteButton({
+                  options: {
+                      float: 'none',
+                      position: {
+                          top: 450,
+                          right: 5,
+                      },
+                      size: 'small'
+                  },
+              }); */
+
+            /*  myRoutePanel.routePanel.state.set({
+                 fromEnabled: true,
+                 from: userLocation,
+                 toEnabled: true,
+                 to: `${partner.latitude}, ${partner.longitude}`,
+                 state: "expanded",
+             }) */
+
+            // myRoutePanel.state.set('expanded', true)
+            // map.controls.add(myRoutePanel);
+
+            map.geoObjects.add(multiRoute);
+            multiRouteRef.current = multiRoute;
+
+            // кнопка сброса маршрута
+
+            const button = new ymaps.control.Button({
+                data: {
+                    content: 'Сбросить маршрут',
+                    title: 'Очистить данные маршрута'
+                },
+                options: {
+                    selectOnClick: false,
+                    maxWidth: [30, 100, 150],
+                    float: 'none',
+                    position: {
+                        bottom: 40,
+                        right: 20,
+                    },
+                    floatIndex: 100,
+                }
+            });
+
+            map.controls.add(button);
+
+            button.events.add('click', () => {
+                map.geoObjects.remove(multiRoute);
+                map.controls.remove(button);
+                // map.controls.remove(myRoutePanel);
+                setStore(null)
+                multiRouteRef.current = null
+            })
+            /*    }*/
         }
     }, [map, partner, userLocation])
 

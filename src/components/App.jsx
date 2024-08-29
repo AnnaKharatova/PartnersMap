@@ -15,6 +15,10 @@ import NothingFoundInFilter from './NothingFoundInFilter/NothingFoundInFilter.js
 
 function App() {
   const BASE_URL = `https://yurasstroy.ddns.net/api`
+
+  const listRef = useRef(null);
+  const listPopupRef = useRef(null)
+
   const [citiesPopup, setCitiesPopup] = useState(false)
   const [filtersPopup, setFiltersPopup] = useState(false)
   const [selectedCity, setSelectedCity] = useState(null)
@@ -51,9 +55,6 @@ function App() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const listRef = useRef(null);
-  const listPopupRef = useRef(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -259,7 +260,7 @@ function App() {
               ns: "use-load-option",
               load: "Map,Placemark,control.FullscreenControl,geoObject.addon.balloon",
             }}>
-              <MyMap setStore={setStore} setPopupPartnersListOpen={setPopupPartnersListOpen} maxWidth760={maxWidth760} selectedPartner={selectedPartner} partners={filteredData} partner={store} setPartnerInfo={setPartnerInfo} partnerInfo={partnerInfo} selectedCity={selectedCity} />
+              <MyMap setStore={setStore} setPopupPartnersListOpen={setPopupPartnersListOpen} maxWidth760={maxWidth760} selectedPartner={selectedPartner} partners={filteredData} partner={store} setPartnerInfo={setPartnerInfo} selectedCity={selectedCity} />
             </YMaps>
             <div className="map__footer-nav">
               <a className="map__footer-item" href="#">Пользовательское соглашение</a>
