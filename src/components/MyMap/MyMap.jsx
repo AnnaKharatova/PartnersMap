@@ -212,7 +212,6 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
             myRoutePanelRef.current = myRoutePanel;
 
             // кнопка сброса маршрута
-
             const button = new ymaps.control.Button({
                 data: {
                     content: 'Сбросить маршрут',

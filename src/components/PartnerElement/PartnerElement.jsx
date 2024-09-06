@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import './PartnerElement.css'
 
 const PartnerElement = ({ partner, setStore, setSelectedPartner, setPopupPartnersListOpen }) => {
-
 
     function handleClick() {
         setSelectedPartner(partner)
@@ -16,7 +15,6 @@ const PartnerElement = ({ partner, setStore, setSelectedPartner, setPopupPartner
         if (setPopupPartnersListOpen) {
             setPopupPartnersListOpen(false)
         }
-
     }
 
     const handlePhoneClick = () => {
@@ -28,7 +26,6 @@ const PartnerElement = ({ partner, setStore, setSelectedPartner, setPopupPartner
         }
     };
 
-
     return (
         <li className='partner' onClick={handleClick}>
             <p className='partner__engines'> {partner.parts_available.map((part, index) => (
@@ -38,7 +35,7 @@ const PartnerElement = ({ partner, setStore, setSelectedPartner, setPopupPartner
                 </React.Fragment>
             ))}</p>
             <p className="partner__tag">{partner.tags.map((tag) => tag.name).join(', ')}</p>
-            
+
             <h2 className='partner__name'>{partner.name}</h2>
             <p className='partner__address'>{partner.address}</p>
             <div className='partner__contacts'>

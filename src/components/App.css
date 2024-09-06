@@ -9,6 +9,11 @@ body {
     flex-grow: 1;
 }
 
+link {
+    width: 52px;
+    height: 52px;
+  }
+
 main {
     flex-grow: 1;
     flex-shrink: 0;

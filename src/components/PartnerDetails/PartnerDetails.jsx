@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import './PartnerDetails.css'
 import PartnerPhoto from '../../images/PartnerPhoto.png'
 
@@ -12,7 +12,6 @@ const PartnerDetails = ({ partner, setPartnerInfo, maxWidth760, setStore, setPop
         if (setPopupPartnersListOpen) {
             setPopupPartnersListOpen(false)
         }
-
     }
 
     const handlePhoneClick = (e) => {
