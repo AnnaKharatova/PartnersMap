@@ -26,23 +26,24 @@ const PartnerElement = ({ partner, setStore, setSelectedPartner, setPopupPartner
         }
     };
 
+    const tagsArray = partner.parts_available.concat(partner.tags)
+    console.log(tagsArray)
+
     return (
         <li className='partner' onClick={handleClick}>
-            <p className='partner__engines'> {partner.parts_available.map((part, index) => (
-                <React.Fragment key={part.id}>
+            <p className='partner__engines'> {tagsArray.map((part, index) => (
+                <React.Fragment key={index}>
                     {part.name}
-                    {index < partner.parts_available.length - 1 && <span className='partner__engines-dot'></span>}
+                    {index < tagsArray.length - 1 && <span className='partner__engines-dot'></span>}
                 </React.Fragment>
             ))}</p>
-            <p className="partner__tag">{partner.tags.map((tag) => tag.name).join(', ')}</p>
-
             <h2 className='partner__name'>{partner.name}</h2>
             <p className='partner__address'>{partner.address}</p>
-            <div className='partner__contacts'>
-                {partner.phone && <a href='#' className="partner__phone" onClick={handlePhoneClick}>{partner.phone}</a>}
-                {partner.website && <a href={partner.website} className="partner__website" target="_blank">{partner.website}</a>}
-            </div>
             <div className='partner__block'>
+                <div className='partner__contacts'>
+                    {partner.phone && <a href='#' className="partner__phone" onClick={handlePhoneClick}>{partner.phone}</a>}
+                    {partner.website && <a href={partner.website} className="partner__website" target="_blank">{partner.website}</a>}
+                </div>
                 {partner.time_open_weekdays || partner.time_open_saturday || partner.time_open_sunday ?
                     <div className='partner__open'>
                         {partner.time_open_weekdays ? <p className='partner__open-time'>c {partner.time_open_weekdays} до {partner.time_close_weekdays}</p> : <p></p>}

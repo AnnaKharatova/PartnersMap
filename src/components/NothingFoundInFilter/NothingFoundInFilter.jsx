@@ -10,7 +10,7 @@ const NothingFoundInFilter = ({clearFilters}) => {
 
     return (
         <div className='no-content__container'>
-            <img className='no-content__image' alt='ничего не найдено' src={EmptySearch} />
+            <img className='no-content__image-loop' alt='ничего не найдено' src={EmptySearch} />
             <h3 className='no-content__title'>Ничего не нашлось</h3>
             <p className='no-content__text'>Попробуйте изменить или очистить фильтры</p>
             <button className="no-content__clear-button" onClick={handleClick}>Очистить фильтры</button>

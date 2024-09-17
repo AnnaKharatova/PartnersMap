@@ -19,8 +19,6 @@ main {
     flex-shrink: 0;
     margin: 0 auto;
     min-width: 375px;
-
-
 }
 
 @media screen and (min-width: 750px) {
@@ -62,21 +60,23 @@ main {
 }
 
 .title {
+    font-family: "IBMPlexSans";
     border-bottom: 1px solid #E8E8E8;
     color: #191919;
+    margin-top: 18px;
     margin-left: 0;
     padding-left: 64px;
     margin-bottom: 0;
     padding-bottom: 25px;
-    font-size: 64px;
+    font-size: 56px;
     font-weight: 700;
-    line-height: 89.6px;
+    line-height: 78.4px;
     letter-spacing: -0.02em;
 }
 
 .partners {
     box-sizing: border-box;
-    min-width: 25%;
+    min-width: 32%;
     max-width: 32%;
     padding: 20px 0 8px 0;
     position: relative;
@@ -85,7 +85,7 @@ main {
 .partners__filter-buttons {
     display: flex;
     flex-direction: row;
-    padding-right: 34px;
+    padding-right: 24px;
     padding-left: 64px;
     gap: 20px;
     padding-bottom: 10px;
@@ -101,7 +101,7 @@ main {
     display: block;
     box-sizing: border-box;
     border: 1px solid #C4C4C4;
-    width: 216px;
+    width: 244px;
     height: 37px;
     padding: 4px 8px;
     border-radius: 8px;
@@ -116,6 +116,11 @@ main {
 }
 
 .filter-buttons__delete-city {
+    margin-top: 7px;
+    background-image: url(../images/Icon-cross.svg);
+    background-repeat: no-repeat;
+    width: 10px;
+    height: 10px;
     display: block;
     position: absolute;
     background-color: inherit;
@@ -136,11 +141,11 @@ main {
 .filter-buttons__button {
     background-image: url('../images/Icon-filter.svg');
     background-repeat: no-repeat;
-    background-position: 5% 50%;
+    background-position: 13% 50%;
     border: 1px solid #C4C4C4;
-    width: 136px;
+    width: 142px;
     height: 37px;
-    padding: 4px 8px 4px 30px;
+    padding: 4px 8px 4px 45px;
     border-radius: 8px;
     background-color: inherit;
     color: #191919;
@@ -157,7 +162,7 @@ main {
 }
 
 .filter-buttons__button-item {
-    padding-left: 10px;
+    padding: 0 10px;
     color: #1347FF;
 }
 
@@ -166,8 +171,24 @@ main {
     max-height: 93vh;
     overflow-y: auto;
     overflow-x: hidden;
+    scrollbar-width: 10px;
+
 }
 
+::-webkit-scrollbar {
+    width: 6px; /* Ширина вертикального скролла */
+    height: 12px; /* Высота горизонтального скролла */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: #E8E8E8; /* Цвет фона дорожки скролла */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #C4C4C4; /* Цвет ползунка скролла */
+    border-radius: 6px; /* Скругление углов ползунка */
+  }
+  
 
 .filters-checked__partners {
     list-style: none;
@@ -211,6 +232,8 @@ main {
     position: absolute;
     z-index: 2;
     flex-wrap: wrap;
+    margin: 20px 0 0;
+    padding-left: 30px;
 }
 
 .map__button {
@@ -235,7 +258,7 @@ main {
 
 .map__footer-nav {
     position: absolute;
-    bottom: 5px;
+    bottom: 20px;
     right: 20px;
     display: flex;
     flex-direction: row;

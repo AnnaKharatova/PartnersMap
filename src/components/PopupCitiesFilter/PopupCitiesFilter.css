@@ -18,32 +18,12 @@
     }
 }
 
-.popup-filter {
-    box-sizing: border-box;
-    position: fixed;
-    z-index: 5;
-    left: 0;
-    bottom: 0;
-    width: 100vw;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-}
 
-.popup-filter__content {
+
+.popup-city__content {
     box-sizing: border-box;
     background-color: #fefefe;
-    padding: 20px 24px 20px 64px;
-    border-radius: 10px;
-    bottom: -5px;
-    overflow: auto;
-    min-width: 29vw;
-    max-width: 30vw;
-    min-height: 80%;
-    max-height: 80%;
-    animation: slideLeft 0.5s ease-in-out forwards;
-    bottom: 0;
-    position: fixed;
+    padding: 0 24px 20px 64px;
 }
 
 .popup-filter__del-button {
@@ -65,8 +45,9 @@
 }
 
 .popup-filter__title {
-    margin-top: 40px;
-    margin-bottom: 28px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding-left: 3px;
     color: #191919;
     font-size: 20px;
     font-style: normal;
@@ -79,7 +60,7 @@
     border-radius: 8px;
     border: 1px solid #E8E8E8;
     background: inherit;
-    width: 97%;
+    width: 100%;
     height: 45px;
     padding: 4px 8px 4px 15px;
     color: #191919;
@@ -87,6 +68,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: 130%;
+    margin-bottom: 7px;
 }
 
 .popup-filter__input::placeholder {
@@ -104,7 +86,7 @@
 
 .popup-filter__city {
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 17px;
     color: #191919;
     font-size: 16px;
     font-style: normal;
@@ -142,20 +124,41 @@
 @media screen and (max-width: 1024px) {
     .popup-filter__content {
         padding-left: 36px;
+        width: 35vw;
     }
 
     .popup-filter__title {
         margin-top: 20px;
     }
-
-    .popup-filter__content {
-        width: 35vw;
-    }
 }
 
 @media screen and (max-width: 760px) {
-    .popup-filter__content {
+
+    .popup-city {
+        box-sizing: border-box;
+        position: fixed;
+        z-index: 5;
+        left: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .popup-city__content {
+        box-sizing: border-box;
+        background-color: #fefefe;
+        padding: 20px 24px 20px 64px;
+        border-radius: 10px;
+        bottom: -5px;
+        overflow: auto;
         min-width: 100vw;
         animation: slideUP 0.5s ease-in-out forwards;
+        max-width: 30vw;
+        min-height: 80%;
+        max-height: 80%;
+        bottom: 0;
+        position: fixed;
     }
 }

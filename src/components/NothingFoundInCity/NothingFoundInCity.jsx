@@ -8,7 +8,7 @@ const NothingFoundInCity = () => {
         <div className='no-content__container'>
             <img className='no-content__image' alt='sad face' src={SadFace} />
             <h3 className='no-content__title'>Ничего не нашлось</h3>
-            <p className='no-content__text'>В этом городе нет официальных представителей</p>
+            <p className='no-content__text'>В этом городе нет наших официальных представителей</p>
         </div>
     );
 };

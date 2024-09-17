@@ -1,5 +1,6 @@
 .no-content__container {
     padding: 30px;
+    padding-left: 64px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -12,6 +13,13 @@
     margin: 0 auto;
 }
 
+.no-content__image-loop {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto;
+    margin-bottom: 15px;
+}
+
 .no-content__title {
     color: #191919;
     font-size: 20px;
@@ -19,6 +27,7 @@
     font-weight: 500;
     line-height: 130%;
     text-align: center;
+    margin-bottom: 15px;
 
 }
 
@@ -46,7 +55,7 @@
     height: 40px;
     padding: 8px 2px;
     align-items: center;
-    width: 60%;
+    width: 46%;
     margin: 30px auto;
 
 }

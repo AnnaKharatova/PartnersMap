@@ -45,8 +45,8 @@ function PopupCitiesFilter({ setCitiesPopup, setSelectedCity, getQuery }) {
     };
 
     return (
-        <div className="popup-filter" id="popup-city-filter">
-            <div className="popup-filter__content">
+        <div className="popup-city" id="popup-city-filter">
+            <div className="popup-city__content">
                 <button className="popup-filter__back-button" onClick={() => { setCitiesPopup(false) }}><img src={BackIcon} /></button>
                 <h2 className="popup-filter__title">Выберите город</h2>
                 <input className="popup-filter__input" id="city-input" placeholder="Поиск" onChange={handleChange} />

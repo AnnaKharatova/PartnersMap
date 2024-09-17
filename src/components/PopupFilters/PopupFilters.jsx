@@ -114,10 +114,10 @@ function PopupFilters({ engines, setEngines, tags, setTags, filteredData, setFil
     return (
         <div className="popup-filter" id="popup-city-filter">
             <div className="popup-filter__content">
-                <button className="popup-filter__close-button" onClick={() => { setFiltersPopup(false) }}>&times;</button>
+                <button className="popup-filter__close-button" onClick={() => { setFiltersPopup(false) }}></button>
                 <h2 className="popup-filter__title">Фильтры</h2>
                 <form className="popup-filter__form" onSubmit={submitFilters}>
-                    <h3 className='popup-filter__subtitle'>Типы двигателя</h3>
+                    <h3 className='popup-filter__subtitle'>Тип двигателя</h3>
                     <section className="popup-filter__section" id="engines-section">
                         {/*<label className="popup-filter__label" htmlFor='all-engines'>
                             <input checked={allEnginesChecked} onChange={handleAllEngines} className="popup-filter__partners-checkbox" type="checkbox" id='all-engines' name='all-engines' value={engines.map((engine) => (engine.id))} />
@@ -131,7 +131,7 @@ function PopupFilters({ engines, setEngines, tags, setTags, filteredData, setFil
                         ))}
                     </section>
 
-                    <h3 className='popup-filter__subtitle'>Партнеры</h3>
+                    <h3 className='popup-filter__subtitle'>Партнеры завода</h3>
                     <section className="popup-filter__section" id="partners-section">
                         {tags.length > 0 && tags.map((tag) => (
                             <label key={tag.id} className="popup-filter__label" htmlFor={`partner-${tag.id.toString().toLowerCase()}`}>
