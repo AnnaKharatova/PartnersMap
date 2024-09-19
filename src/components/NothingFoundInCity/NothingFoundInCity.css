@@ -59,3 +59,22 @@
     margin: 30px auto;
 
 }
+
+@media screen and (max-width: 1024px) {
+
+    .no-content__container {
+        padding: 20px 10px;
+    }
+    .no-content__image-loop {
+        width: 55px;
+        height: 55px;
+        margin-bottom: 5px;
+    }
+    .no-content__title {
+        margin-bottom: 10px;
+    }
+
+    .no-content__clear-button {
+        margin-top: 20px;
+    }
+}

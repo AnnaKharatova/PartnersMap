@@ -22,8 +22,7 @@
 
 .popup-city__content {
     box-sizing: border-box;
-    background-color: #fefefe;
-    padding: 0 24px 20px 64px;
+    padding: 0 24px 0 64px;
 }
 
 .popup-filter__del-button {
@@ -42,12 +41,12 @@
     background-color: inherit;
     cursor: pointer;
     padding: 0;
+    margin-top: 8px;
 }
 
 .popup-filter__title {
-    margin-top: 10px;
+    margin-top: 14px;
     margin-bottom: 20px;
-    padding-left: 3px;
     color: #191919;
     font-size: 20px;
     font-style: normal;
@@ -69,6 +68,7 @@
     font-weight: 400;
     line-height: 130%;
     margin-bottom: 7px;
+    outline-color: #E8E8E8;
 }
 
 .popup-filter__input::placeholder {
@@ -120,15 +120,19 @@
     line-height: 130%;
 }
 
-
 @media screen and (max-width: 1024px) {
     .popup-filter__content {
         padding-left: 36px;
-        width: 35vw;
+        width: 100%;
     }
 
     .popup-filter__title {
-        margin-top: 20px;
+        margin-top: 15px;
+    }
+
+    .popup-city__content {
+        padding-left: 36px;
+
     }
 }
 

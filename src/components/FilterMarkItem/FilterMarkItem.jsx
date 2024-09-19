@@ -10,7 +10,7 @@ function FilterMarkItem({ item, deleteMarkItem }) {
     return (
         <li className='filter-marker'>
             <div className="filter-marker__label-span" id="popup-city-filter">{item}</div>
-            <button className='filter-marker__del-button' onClick={handleMarkItem}>x</button>
+            <button className='filter-marker__del-button' onClick={handleMarkItem}>&times;</button>
         </li>
     )
 }

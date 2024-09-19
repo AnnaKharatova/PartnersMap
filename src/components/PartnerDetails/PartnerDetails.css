@@ -1,5 +1,5 @@
 .partner-details {
-    padding: 24px 24px 24px 64px;
+    padding: 20px 24px 24px 62px;
     display: flex;
     flex-direction: column;
     max-width: 460px;
@@ -25,7 +25,9 @@
 }
 
 .partner-details__photo {
-    max-width: 80%;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
 }
 
 .partner-details__engines {
@@ -34,13 +36,14 @@
     font-style: normal;
     font-weight: 400;
     line-height: 130%;
-    margin-top: 16px;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 .partner-details__engines-dot {
     display: inline-block;
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
     background-color: #1347FF;
     border-radius: 50%;
     margin: 0 4px 2px 4px;
@@ -57,18 +60,20 @@
 
 .partner-details__name {
     color: #191919;
-    font-size: 20px;
+    font-size: 24px;
     font-style: normal;
     font-weight: 500;
-    line-height: 130%;
+    line-height: 31.2px;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .partner-details__address {
-    color: #191919;
     font-size: 16px;
-    font-style: normal;
     font-weight: 400;
-    line-height: 130%;
+    line-height: 20.8px;
+    color: #191919;
+    font-style: normal;
     padding: 0 0 5px 30px;
     background-image: url('../../images/Icon-adress.svg');
     background-position: left top;
@@ -92,6 +97,7 @@
     background-position: left;
     background-repeat: no-repeat;
     margin-right: 15px;
+    margin-bottom: 7px;
     text-align: center;
     align-content: center;
 }
@@ -130,9 +136,9 @@
 .partner-details__route-button {
     border-radius: 12px;
     border: 1px solid #7D9AFF;
-    padding: 4px 4px 4px 30px;
+    padding: 6px 10px 6px 30px;
     background-image: url('../../images/Icon-way.svg');
-    background-position: 5px 2px;
+    background-position: 7px 4px;
     background-repeat: no-repeat;
     color: #1347FF;
     font-family: "IBM Plex Sans";
@@ -141,15 +147,33 @@
     font-weight: 400;
     line-height: 130%;
     background-color: inherit;
-    height: 29px;
-    width: 105px;
+    height: 33px;
+    width: 120px;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 1024px) {
     .partner-details {
-        min-width: 409px;
-        max-width: 409px;
+        padding-left: 34px;
+    }
+
+    .partner-details__photo {
+        height: 160px;
+    }
+
+    .partner-details__engines {
+        margin-top: 17px;
+        margin-bottom: 10px;
+    }
+
+    .partner-details__address {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .partner-details__phone {
+        margin-bottom: 0;
     }
 }
 
@@ -158,5 +182,7 @@
         padding: 20px 16px;
         display: flex;
         flex-direction: column;
+        min-width: 409px;
+        max-width: 409px;
     }
 }

@@ -130,7 +130,19 @@
 @media screen and (max-width: 1024px) {
     .partner {
         max-width: 462px;
-        padding: 16px 20px 20px 36px;
+        padding: 20px 20px 8px 36px;
+    }
+
+    .partner:first-of-type {
+        padding-top: 0;
+    }
+
+    .route-button {
+        padding: 6px 10px;
+        background-image: none;
+        margin-bottom: 10px;
+        width: auto;
+
     }
 }
 

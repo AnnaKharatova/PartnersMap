@@ -194,7 +194,7 @@ function App() {
     }
   }
 
-  function handleClearCityButton(e) {
+  /* function handleClearCityButton(e) {
     e.stopPropagation();
     setSelectedCity(null)
     if (filteredData.length > 0) {
@@ -202,7 +202,7 @@ function App() {
     } else {
       getAllPartners()
     }
-  }
+  } */
 
   useEffect(() => {
     if ((selectedCity || filterMark) && filteredData.length == 0) {
@@ -212,6 +212,23 @@ function App() {
     }
   }, [selectedCity, filterMark, filteredData, allPartners])
 
+  useEffect(() => {
+    if (partnerInfo) {
+      setCitiesPopup(false)
+      setFiltersPopup(false)
+    }
+  }, [partnerInfo])
+
+  function handleFiltersCityOpen() {
+    setCitiesPopup(true)
+    setFiltersPopup(false)
+  }
+
+  function handleFiltersOpen() {
+    setCitiesPopup(false)
+    setFiltersPopup(true)
+  }
+
   return (
     <>
       <Header maxWidth760={maxWidth760} setBurgerMenuOpen={setBurgerMenuOpen} showTitle={showTitle} />
@@ -220,21 +237,21 @@ function App() {
         <h1 className="title">Официальные партнёры АО Строймаш</h1>
         <div className="map">
           <div className="partners">
+            <div className={!buttonsShadow ? "partners__filter-buttons" : "partners__filter-buttons buttons__box-shadow"}>
+              <button className="filter-buttons__city-button" id="city-filter-big" onClick={handleFiltersCityOpen}>
+                {selectedCity ? selectedCity.name : 'Выберите город'}
+              </button>
+              <button className="filter-buttons__button" id="partner-filter-big" onClick={handleFiltersOpen}>
+                Фильтры
+                {filterMark.length > 0 ? <span className='filter-buttons__button-item'>{filterMark.length}</span> : <span className='filter-buttons__button-item'></span>}
+              </button>
+            </div>
             {citiesPopup ?
-              <PopupCitiesFilter setCitiesPopup={setCitiesPopup} setSelectedCity={setSelectedCity} getQuery={getQuery} /> :
+              <PopupCitiesFilter setPartnerInfo={setPartnerInfo} setCitiesPopup={setCitiesPopup} setSelectedCity={setSelectedCity} getQuery={getQuery} /> :
               <>
-                {filtersPopup ? <PopupFilters tags={tags} setTags={setTags} engines={engines} setEngines={setEngines} filteredData={filteredData} setFilteredData={setFilteredData} getQuery={getQuery} selectedParts={selectedParts} setSelectedParts={setSelectedParts} selectedTags={selectedTags} setSelectedTags={setSelectedTags} setFiltersPopup={setFiltersPopup} setFilterMark={setFilterMark} filterMark={filterMark} /> :
+                {filtersPopup ? <PopupFilters setPartnerInfo={setPartnerInfo} tags={tags} setTags={setTags} engines={engines} setEngines={setEngines} filteredData={filteredData} setFilteredData={setFilteredData} getQuery={getQuery} selectedParts={selectedParts} setSelectedParts={setSelectedParts} selectedTags={selectedTags} setSelectedTags={setSelectedTags} setFiltersPopup={setFiltersPopup} setFilterMark={setFilterMark} filterMark={filterMark} /> :
                   <>
-                    <div className={!buttonsShadow ? "partners__filter-buttons" : "partners__filter-buttons buttons__box-shadow"}>
-                      <button className="filter-buttons__city-button" id="city-filter-big" onClick={() => setCitiesPopup(true)}>
-                        {selectedCity ? selectedCity.name : 'Город'}
-                        <div className="filter-buttons__delete-city" onClick={handleClearCityButton}><img src='' /></div>
-                      </button>
-                      <button className="filter-buttons__button" id="partner-filter-big" onClick={() => setFiltersPopup(true)}>
-                        Фильтры
-                        {filterMark.length > 0 ? <span className='filter-buttons__button-item'>{filterMark.length}</span> : <span className='filter-buttons__button-item'></span>}
-                      </button>
-                    </div>
+
                     <div className="partners__container" ref={listRef}>
                       {partnerInfo ?
                         <PartnerDetails maxWidth760={maxWidth760} partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore} /> :
@@ -259,7 +276,7 @@ function App() {
                 {selectedCity && <FilterMarkItem item={selectedCity.name} deleteMarkItem={deleteMarkItem} />}
                 <button onClick={clearFilters} className='filter-marker'>
                   <div className="filter-marker__label-span" style={{ color: 'black' }}>Очистить все</div>
-                  <span className='filter-marker__del-button' style={{ color: 'black' }}>x</span>
+                  <span className='filter-marker__del-button' style={{ color: 'black' }}>&times;</span>
                 </button>
               </ul> : null
             }

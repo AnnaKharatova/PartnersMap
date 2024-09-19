@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import BackIcon from '../../images/Icon arrow-back.svg'
 import NothingFoundInCity from '../NothingFoundInCity/NothingFoundInCity';
 
-function PopupCitiesFilter({ setCitiesPopup, setSelectedCity, getQuery }) {
+function PopupCitiesFilter({ setCitiesPopup, setSelectedCity, setPartnerInfo }) {
     const BASE_URL = `https://yurasstroy.ddns.net/api`
     const [cities, setCities] = useState([])
     const [searchCities, setSearchCities] = useState(null)
@@ -34,9 +34,8 @@ function PopupCitiesFilter({ setCitiesPopup, setSelectedCity, getQuery }) {
     function selectCity(selectedCity) {
         setSelectedCity(selectedCity);
         setCitiesPopup(false);
+        setPartnerInfo(null)
     }
-
-
 
     const handleChange = (event) => {
         const results = cities.filter(city => city.name.toLowerCase().startsWith(event.target.value.toLowerCase()))
