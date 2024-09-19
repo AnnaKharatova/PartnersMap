@@ -20,7 +20,6 @@ function PopupCitiesFilter({ setCitiesPopup, setSelectedCity, setPartnerInfo }) 
             .catch(error => {
                 console.error("Ошибка при получении данных:", error);
             });
-
     }, [])
 
     useEffect(() => {

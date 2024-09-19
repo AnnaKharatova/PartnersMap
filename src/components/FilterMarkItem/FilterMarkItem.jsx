@@ -1,9 +1,9 @@
 import './FilterMarkItem.css'
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 function FilterMarkItem({ item, deleteMarkItem }) {
 
-    function handleMarkItem(){
+    function handleMarkItem() {
         deleteMarkItem(item)
     }
 

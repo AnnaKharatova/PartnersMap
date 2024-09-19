@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import '../NothingFoundInCity/NothingFoundInCity.css'
 import EmptySearch from '../../images/Icon-no-found.svg'
 
-const NothingFoundInFilter = ({clearFilters}) => {
+const NothingFoundInFilter = ({ clearFilters }) => {
 
     function handleClick() {
         clearFilters()

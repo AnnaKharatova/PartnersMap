@@ -12,7 +12,7 @@ body {
 link {
     width: 52px;
     height: 52px;
-  }
+}
 
 main {
     flex-grow: 1;
@@ -114,48 +114,6 @@ main {
     text-decoration: underline;
 }
 
-/* .filter-buttons__city-button {
-    position: relative;
-    display: block;
-    box-sizing: border-box;
-    border: 1px solid #C4C4C4;
-    width: 244px;
-    height: 37px;
-    padding: 4px 8px;
-    border-radius: 8px;
-    background-color: inherit;
-    text-align: left;
-    color: #191919;
-    cursor: pointer;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 130%;
-}
-
-.filter-buttons__delete-city {
-    margin-top: 7px;
-    background-image: url(../images/Icon-cross.svg);
-    background-repeat: no-repeat;
-    width: 10px;
-    height: 10px;
-    display: block;
-    position: absolute;
-    background-color: inherit;
-    border: none;
-    top: 2%;
-    right: 5%;
-    font-size: 30px;
-    font-weight: 400;
-    color: #858582;
-    cursor: pointer;
-    width: 20px;
-    height: 20px;
-    padding: 0;
-    line-height: 1;
-    z-index: 2;
-} */
-
 .filter-buttons__button {
     background-image: url('../images/Icon-filter.svg');
     background-repeat: no-repeat;
@@ -186,23 +144,33 @@ main {
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-width: 10px;
-
 }
 
 ::-webkit-scrollbar {
-    width: 6px; /* Ширина вертикального скролла */
-    height: 12px; /* Высота горизонтального скролла */
-  }
-  
-  ::-webkit-scrollbar-track {
-    background-color: #E8E8E8; /* Цвет фона дорожки скролла */
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background-color: #C4C4C4; /* Цвет ползунка скролла */
-    border-radius: 6px; /* Скругление углов ползунка */
-  }
-  
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #E8E8E8;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #C4C4C4;
+    border-radius: 6px;
+}
+
+::-ms-scrollbar {
+    width: 6px;
+}
+
+::-ms-scrollbar-track {
+    background-color: #E8E8E8;
+}
+
+::-ms-scrollbar-thumb {
+    background-color: #C4C4C4;
+    border-radius: 6px;
+}
 
 .filters-checked__partners {
     list-style: none;
@@ -287,7 +255,7 @@ main {
     padding: 2px 6px;
     border-radius: 4px;
     background-color: #FFF;
-    color:  #191919;
+    color: #191919;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -301,52 +269,12 @@ main {
     padding: 2px 6px;
     border-radius: 4px;
     background-color: #FFF;
-    color:  #191919;
+    color: #191919;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
     line-height: 130%;
     box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
-}
-
-/* ballon */
-
-.ballon {
-    max-width: 220px;
-    padding: 2px 0 2px 2px;
-}
-
-.ballon__header {
-    color: #1347FF;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 130%;
-    margin: 0;
-}
-
-.balloon__text {
-    color: #4A4A4A;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 130%;
-    margin: 4px 0 0 0;
-}
-
-.ballon__status {
-    display: flex;
-    align-items: center;
-}
-
-.baloon__status-dot {
-    margin-top: 4px;
-    margin-right: 4px;
-    background-color: #2D9F5A;
-    height: 6px;
-    width: 6px;
-    border-radius: 50%;
-    align-self: center;
 }
 
 /* Partners Popup */
@@ -363,11 +291,9 @@ main {
     overflow: hidden;
 }
 
-
 .popup-partners__header {
     border-bottom: 1px solid #E8E8E8;
 }
-
 
 .popup-partners__container {
     max-height: 80vh;
@@ -399,7 +325,6 @@ main {
     border-top: 1px solid #E8E8E8;
     overflow: auto;
 }
-
 
 @media screen and (max-width: 1100px) {
     .title {
@@ -437,7 +362,6 @@ main {
         padding-left: 20px;
     }
 }
-
 
 @media screen and (max-width: 760px) {
     .bunner {
@@ -484,8 +408,7 @@ main {
     }
 
     .filter-buttons__city-button {
-        background-color: white;
-        box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.03), 0px 3px 3px 0px rgba(0, 0, 0, 0.03);
+        background-color: inherit;
         border: none;
     }
 

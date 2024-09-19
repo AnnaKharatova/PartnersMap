@@ -35,37 +35,34 @@
     color: #1347FF;
 }
 
-
 @media screen and (max-width: 1024px) {
     .filter-marker {
         padding: 0 8px;
         text-align: center;
     }
 
-    
-.filter-marker__label-span {
-    font-size: 13px;
-    line-height: 15.6px;   
-}
+    .filter-marker__label-span {
+        font-size: 13px;
+        line-height: 15.6px;
+    }
 
-.filter-marker__del-button {
-    margin-left: 7px;
-}
+    .filter-marker__del-button {
+        margin-left: 7px;
+    }
 }
 
 @media screen and (max-width: 760px) {
     .filter-marker {
         padding: 6px 8px;
     }
-    
+
     .filter-marker__del-button {
         font-size: 14px;
     }
-    
+
     .filter-marker__label-span {
         font-size: 14px;
         line-height: 130%;
         padding-top: 1px;
     }
-    
 }

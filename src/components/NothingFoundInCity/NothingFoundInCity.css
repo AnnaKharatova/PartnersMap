@@ -51,25 +51,25 @@
     font-weight: 400;
     line-height: 130%;
     border-radius: 12px;
-    border: 1px solid  #7D9AFF;
+    border: 1px solid #7D9AFF;
     height: 40px;
     padding: 8px 2px;
     align-items: center;
     width: 46%;
     margin: 30px auto;
-
 }
 
 @media screen and (max-width: 1024px) {
-
     .no-content__container {
         padding: 20px 10px;
     }
+
     .no-content__image-loop {
         width: 55px;
         height: 55px;
         margin-bottom: 5px;
     }
+
     .no-content__title {
         margin-bottom: 10px;
     }

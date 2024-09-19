@@ -194,16 +194,6 @@ function App() {
     }
   }
 
-  /* function handleClearCityButton(e) {
-    e.stopPropagation();
-    setSelectedCity(null)
-    if (filteredData.length > 0) {
-      setAllPartners(filteredData)
-    } else {
-      getAllPartners()
-    }
-  } */
-
   useEffect(() => {
     if ((selectedCity || filterMark) && filteredData.length == 0) {
       setshowNoContentInfo(true)
@@ -234,7 +224,7 @@ function App() {
       <Header maxWidth760={maxWidth760} setBurgerMenuOpen={setBurgerMenuOpen} showTitle={showTitle} />
       <main>
         <img alt='баннер' className="bunner" src={maxWidth1024 ? Bunner1440 : Bunner1024} />
-        <h1 className="title">Официальные партнёры АО Строймаш</h1>
+        <h1 className="title">{!maxWidth760 ? "Официальные партнёры АО Строймаш" : "Официальные партнёры завода"}</h1>
         <div className="map">
           <div className="partners">
             <div className={!buttonsShadow ? "partners__filter-buttons" : "partners__filter-buttons buttons__box-shadow"}>

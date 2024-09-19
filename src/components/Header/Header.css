@@ -103,7 +103,6 @@
 }
 
 @media screen and (max-width: 1024px) {
-
     .header__main {
         padding-left: 36px;
     }
@@ -115,6 +114,7 @@
     .header__nav {
         padding-right: 26px;
     }
+
     .header__contacts {
         width: 229px;
         height: 90px;

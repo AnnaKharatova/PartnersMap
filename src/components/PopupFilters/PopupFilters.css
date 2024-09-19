@@ -15,7 +15,6 @@
 }
 
 .popup-filter__close-button {
-
     background-image: url(../../images/Icon-close-cross.svg);
     background-repeat: no-repeat;
     min-width: 20px;
@@ -67,7 +66,6 @@
 
 .popup-filter__label-span:hover {
     background-color: #C4C4C4;
-
 }
 
 .popup-filter__partners-checkbox:checked+.popup-filter__label-span {
@@ -78,7 +76,6 @@
 .popup-filter__item {
     margin-top: 15px;
 }
-
 
 .popup-filter__engine-checkbox:checked+.popup-filter__label-span {
     background-color: #191919;
@@ -201,6 +198,7 @@
         line-height: 18.2px;
 
     }
+
     .popup-filter__item {
         margin-top: 5px;
     }
@@ -212,7 +210,6 @@
 
 
 @media screen and (max-width: 760px) {
-
     .popup-filter {
         box-sizing: border-box;
         position: fixed;

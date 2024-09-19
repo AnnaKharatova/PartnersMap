@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import './NothingFoundInCity.css'
 import SadFace from '../../images/Icon-sadFace.svg'
 
