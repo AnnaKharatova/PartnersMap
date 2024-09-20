@@ -28,7 +28,7 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
         ymaps.geocode(city)
             .then(function (result) {
                 const coords = result.geoObjects.get(0).geometry.getCoordinates();
-                map.setCenter(coords, 10);
+                map.setCenter(coords, 4);
             })
             .catch(function (error) {
                 console.log('Ошибка геокодирования:', error);
@@ -222,7 +222,7 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
                     maxWidth: [30, 100, 150],
                     float: 'none',
                     position: {
-                        bottom: 40,
+                        bottom: 55,
                         right: 20,
                     },
                     floatIndex: 100,

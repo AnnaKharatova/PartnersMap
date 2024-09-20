@@ -96,26 +96,18 @@
     text-decoration: underline;
 }
 
-.popup-filter__no-city {
-    text-align: center;
-    margin-top: 48px;
-    margin-right: 24px;
-}
-
-.popup-filter__no-city-message {
-    color: #191919;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 130%;
-}
-
-.popup-filter__no-city-text {
+.popup-filter__all-partners {
+    cursor: pointer;
+    margin-top: 17px;
     color: #191919;
     font-size: 16px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 900;
     line-height: 130%;
+}
+
+.popup-filter__all-partners:hover {
+    text-decoration: underline;
 }
 
 @media screen and (max-width: 1024px) {

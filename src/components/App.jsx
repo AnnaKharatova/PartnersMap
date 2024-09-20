@@ -129,7 +129,6 @@ function App() {
   function clearFilters() {
     setFilterMark([])
     getAllPartners()
-    setSelectedCity(null)
     setSelectedParts([])
     setSelectedTags([])
   }
@@ -237,11 +236,10 @@ function App() {
               </button>
             </div>
             {citiesPopup ?
-              <PopupCitiesFilter setPartnerInfo={setPartnerInfo} setCitiesPopup={setCitiesPopup} setSelectedCity={setSelectedCity} getQuery={getQuery} /> :
+              <PopupCitiesFilter getQuery={getQuery} setPartnerInfo={setPartnerInfo} setCitiesPopup={setCitiesPopup} setSelectedCity={setSelectedCity}/> :
               <>
                 {filtersPopup ? <PopupFilters setPartnerInfo={setPartnerInfo} tags={tags} setTags={setTags} engines={engines} setEngines={setEngines} filteredData={filteredData} setFilteredData={setFilteredData} getQuery={getQuery} selectedParts={selectedParts} setSelectedParts={setSelectedParts} selectedTags={selectedTags} setSelectedTags={setSelectedTags} setFiltersPopup={setFiltersPopup} setFilterMark={setFilterMark} filterMark={filterMark} /> :
                   <>
-
                     <div className="partners__container" ref={listRef}>
                       {partnerInfo ?
                         <PartnerDetails maxWidth760={maxWidth760} partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore} /> :
@@ -258,12 +256,11 @@ function App() {
               </>}
           </div>
           <div className="map__container" id="map">
-            {(filterMark.length > 0 || selectedCity !== null) & !maxWidth760 ?
+            {(filterMark.length > 0) & !maxWidth760 ?
               <ul className='map__filters'>
                 {filterMark.map((item, index) => (
                   <FilterMarkItem key={index} item={item} deleteMarkItem={deleteMarkItem} />
                 ))}
-                {selectedCity && <FilterMarkItem item={selectedCity.name} deleteMarkItem={deleteMarkItem} />}
                 <button onClick={clearFilters} className='filter-marker'>
                   <div className="filter-marker__label-span" style={{ color: 'black' }}>Очистить все</div>
                   <span className='filter-marker__del-button' style={{ color: 'black' }}>&times;</span>

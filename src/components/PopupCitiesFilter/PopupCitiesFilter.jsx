@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import BackIcon from '../../images/Icon arrow-back.svg'
 import NothingFoundInCity from '../NothingFoundInCity/NothingFoundInCity';
 
-function PopupCitiesFilter({ setCitiesPopup, setSelectedCity, setPartnerInfo }) {
+function PopupCitiesFilter({ setCitiesPopup, setSelectedCity, setPartnerInfo, getQuery }) {
     const BASE_URL = `https://yurasstroy.ddns.net/api`
     const [cities, setCities] = useState([])
     const [searchCities, setSearchCities] = useState(null)
@@ -42,6 +42,11 @@ function PopupCitiesFilter({ setCitiesPopup, setSelectedCity, setPartnerInfo }) 
         setSearchCities(results)
     };
 
+    function handleAllPartners() {
+        getQuery()
+        selectCity(null)
+    }
+
     return (
         <div className="popup-city" id="popup-city-filter">
             <div className="popup-city__content">
@@ -51,6 +56,8 @@ function PopupCitiesFilter({ setCitiesPopup, setSelectedCity, setPartnerInfo }) 
                 {searchValue && searchCities.length == 0 ?
                     < NothingFoundInCity /> :
                     <ul className="popup-filter__cities-list" id="cities-list">
+                        <li className='popup-filter__all-partners' onClick={handleAllPartners}>Все партнеры</li>
+
                         {displayedCities.map((city) => (
                             <li key={city.id} className='popup-filter__city' onClick={() => { selectCity(city) }}>{city.name}</li>
                         ))}
