@@ -12,6 +12,7 @@ import Bunner1440 from '../images/Banner_1440.png'
 import Bunner1024 from '../images/Banner_1024.png'
 import BurgerMenu from './BurgerMenu/BurgerMenu.jsx'
 import NothingFoundInFilter from './NothingFoundInFilter/NothingFoundInFilter.jsx';
+import NothingFoundInCity from './NothingFoundInCity/NothingFoundInCity.jsx';
 
 function App() {
   const BASE_URL = `https://yurasstroy.ddns.net/api`
@@ -236,7 +237,7 @@ function App() {
               </button>
             </div>
             {citiesPopup ?
-              <PopupCitiesFilter getQuery={getQuery} setPartnerInfo={setPartnerInfo} setCitiesPopup={setCitiesPopup} setSelectedCity={setSelectedCity}/> :
+              <PopupCitiesFilter getQuery={getQuery} setPartnerInfo={setPartnerInfo} setCitiesPopup={setCitiesPopup} setSelectedCity={setSelectedCity} /> :
               <>
                 {filtersPopup ? <PopupFilters setPartnerInfo={setPartnerInfo} tags={tags} setTags={setTags} engines={engines} setEngines={setEngines} filteredData={filteredData} setFilteredData={setFilteredData} getQuery={getQuery} selectedParts={selectedParts} setSelectedParts={setSelectedParts} selectedTags={selectedTags} setSelectedTags={setSelectedTags} setFiltersPopup={setFiltersPopup} setFilterMark={setFilterMark} filterMark={filterMark} /> :
                   <>
@@ -249,7 +250,8 @@ function App() {
                           ))}
                         </ul>
                       }
-                      {showNoContentInfo ? <NothingFoundInFilter clearFilters={clearFilters} /> : null}
+                      {(showNoContentInfo && selectedCity && filterMark.length == 0) && <NothingFoundInCity />}
+                      {(showNoContentInfo && filterMark.length !== 0) ? <NothingFoundInFilter clearFilters={clearFilters} /> : null}
                     </div>
                   </>
                 }
@@ -283,26 +285,25 @@ function App() {
         </div>
       </main >
 
-      {(citiesPopup && maxWidth760) && <PopupCitiesFilter setCitiesPopup={setCitiesPopup} setSelectedCity={setSelectedCity} getQuery={getQuery} />}
-      {(filtersPopup && maxWidth760) && <PopupFilters tags={tags} setTags={setTags} engines={engines} setEngines={setEngines} filteredData={filteredData} setFilteredData={setFilteredData} getQuery={getQuery} selectedParts={selectedParts} setSelectedParts={setSelectedParts} selectedTags={selectedTags} setSelectedTags={setSelectedTags} setFiltersPopup={setFiltersPopup} setFilterMark={setFilterMark} filterMark={filterMark} />}
+      {(citiesPopup && maxWidth760) && <PopupCitiesFilter setPartnerInfo={setPartnerInfo} setCitiesPopup={setCitiesPopup} setSelectedCity={setSelectedCity} getQuery={getQuery} />}
+      {(filtersPopup && maxWidth760) && <PopupFilters setPartnerInfo={setPartnerInfo} tags={tags} setTags={setTags} engines={engines} setEngines={setEngines} filteredData={filteredData} setFilteredData={setFilteredData} getQuery={getQuery} selectedParts={selectedParts} setSelectedParts={setSelectedParts} selectedTags={selectedTags} setSelectedTags={setSelectedTags} setFiltersPopup={setFiltersPopup} setFilterMark={setFilterMark} filterMark={filterMark} />}
       {burgerMenuOpen && <BurgerMenu setBurgerMenuOpen={setBurgerMenuOpen} />}
       {popupPartnersListOpen &&
-        <div className="popup-partners">
-          <div className="popup-partners__container" >
-            {!partnerInfo && <div className={!buttonsShadow ? "popup-partners__header" : "popup-partners__header buttons__box-shadow"}>
-              <button className="popup-partners__close-button" onClick={() => { setPopupPartnersListOpen(false) }}>&times;</button>
-            </div>}
-            <div className='popup-partners__content' ref={listPopupRef} >
-              {partnerInfo ?
-                <PartnerDetails maxWidth760={maxWidth760} setPopupPartnersListOpen={setPopupPartnersListOpen} partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore} /> :
-                <ul className="popup-filter__partners-list">
-                  {filteredData.length > 0 && filteredData.map((partner) => (
-                    <PartnerElement setPopupPartnersListOpen={setPopupPartnersListOpen} setSelectedPartner={setSelectedPartner} partner={partner} setStore={setStore} key={partner.id} />
-                  ))}
-                </ul>
-              }
-              {showNoContentInfo && <NothingFoundInFilter clearFilters={clearFilters} />}
-            </div>
+        <div className="popup-partners__container" >
+          {!partnerInfo && <div className={!buttonsShadow ? "popup-partners__header" : "popup-partners__header buttons__box-shadow"}>
+            <button className="popup-partners__close-button" onClick={() => { setPopupPartnersListOpen(false) }}></button>
+          </div>}
+          <div className='popup-partners__content' ref={listPopupRef} >
+            {partnerInfo ?
+              <PartnerDetails maxWidth760={maxWidth760} setPopupPartnersListOpen={setPopupPartnersListOpen} partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore} /> :
+              <ul className="popup-filter__partners-list">
+                {filteredData.length > 0 && filteredData.map((partner) => (
+                  <PartnerElement setPopupPartnersListOpen={setPopupPartnersListOpen} setSelectedPartner={setSelectedPartner} partner={partner} setStore={setStore} key={partner.id} />
+                ))}
+              </ul>
+            }
+            {(showNoContentInfo && selectedCity && filterMark.length == 0) && <NothingFoundInCity />}
+            {(showNoContentInfo && filterMark.length !== 0) && <NothingFoundInFilter clearFilters={clearFilters} />}
           </div>
         </div>}
     </>

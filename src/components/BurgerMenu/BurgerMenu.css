@@ -13,7 +13,7 @@
     .popup-menu__content {
         box-sizing: border-box;
         background-color: #191919;
-        padding: 20px 24px 20px 5px;
+        padding: 5px 15px 20px 0;
         position: absolute;
         bottom: -5px;
         animation: slideUp 0.5s ease-in-out forwards;
@@ -28,19 +28,20 @@
     }
 
     .popup-menu__close-button {
-        color: #E8E8E8;
         float: right;
-        font-size: 28px;
-        font-weight: normal;
         background-color: inherit;
+        background-image: url(../../images/Icon-cross-white.svg);
+        background-repeat: no-repeat;
+        background-position: center;
         border: none;
-
-
+        width: 28px;
+        height: 28px;
+        cursor: pointer;
+        margin-top: 10px;
     }
 
     .popup-menu__main {
         width: 80%;
-        margin: 0 auto;
         display: flex;
         flex-direction: column;
         gap: 10px;
@@ -55,10 +56,13 @@
         font-style: normal;
         font-weight: 400;
         line-height: 130%;
-        margin-top: 30px;
+        margin-top: 22px;
+        margin-bottom: 12px;
     }
 
     .popup-menu__item-contacts {
+        margin-top: 22px;
+        margin-bottom: 0;
         color: #858582;
         font-size: 14px;
         font-style: normal;
@@ -74,7 +78,7 @@
         line-height: 130%;
         text-decoration: none;
         cursor: pointer;
-        margin: 10px 0 0 0;
+        margin: 5px 0 0 0;
     }
 
     .popup-menu__item-copyright {
@@ -88,7 +92,7 @@
     }
 
     .popup-menu__copyright {
-        margin-top: 10px;
+        margin-top: 3px;
         color: #858582;
         font-size: 13px;
         font-style: normal;

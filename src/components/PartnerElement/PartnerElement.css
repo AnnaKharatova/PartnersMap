@@ -149,11 +149,12 @@
     .partner {
         min-width: 100%;
         border-bottom: 1px solid #e8e8e8;
-        padding: 20px 16px;
+        padding: 20px 16px 8px;
     }
 
     .partner__engines {
         color: #1347FF;
+        margin-bottom: 5px;
     }
 
     .partner__engines-dot {
@@ -162,11 +163,7 @@
         background-color: #1347FF;
     }
 
-    .partner__tag {
-        color: #858582;
-    }
-
-    .partner__name {
+     .partner__name {
         font-size: 22px;
         font-style: normal;
     }
@@ -179,21 +176,20 @@
     .partner__phone {
         background-image: none;
         margin-right: 0;
-        padding: 5px;
+        padding: 5px 5px 0 0;
+    }
+
+    .partner__address {
+        margin-bottom: 3px;
     }
 
     .partner__website {
-        padding: 5px;
+        padding: 0 5px 0 5px;
         background-image: none;
     }
 
     .partner__open {
         padding-left: 4px;
-        background-image: none;
-    }
-
-    .route-button {
-        padding: 4px;
         background-image: none;
     }
 }

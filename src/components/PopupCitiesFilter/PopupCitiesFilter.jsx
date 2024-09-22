@@ -2,6 +2,7 @@ import './PopupCitiesFilter.css'
 import React, { useState, useEffect } from 'react';
 import BackIcon from '../../images/Icon arrow-back.svg'
 import NothingFoundInCity from '../NothingFoundInCity/NothingFoundInCity';
+import Header from '../Header/Header'
 
 function PopupCitiesFilter({ setCitiesPopup, setSelectedCity, setPartnerInfo, getQuery }) {
     const BASE_URL = `https://yurasstroy.ddns.net/api`

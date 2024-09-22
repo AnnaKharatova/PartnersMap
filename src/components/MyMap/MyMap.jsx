@@ -180,32 +180,32 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
                     routingMode: 'auto',
                 },
             });
-             const myRoutePanel = new ymaps.control.RouteButton({
-                  options: {
-                      float: 'none',
-                      position: {
-                          top: 450,
-                          right: 5,
-                      },
-                      size: 'small'
-                  },
-              });
+            const myRoutePanel = new ymaps.control.RouteButton({
+                options: {
+                    float: 'none',
+                    position: {
+                        top: 450,
+                        right: 5,
+                    },
+                    size: 'small'
+                },
+            });
 
-             myRoutePanel.routePanel.state.set({
-                 fromEnabled: true,
-                 from: userLocation,
-                 toEnabled: true,
-                 to: `${partner.latitude}, ${partner.longitude}`,
-                 state: "expanded",
-             }) 
+            myRoutePanel.routePanel.state.set({
+                fromEnabled: true,
+                from: userLocation,
+                toEnabled: true,
+                to: `${partner.latitude}, ${partner.longitude}`,
+                state: "expanded",
+            })
 
-             if (myRoutePanelRef.current) {
+            if (myRoutePanelRef.current) {
                 map.controls.remove(myRoutePanelRef.current);
                 myRoutePanelRef.current = null;
             }
 
             myRoutePanel.state.set('expanded', true)
-             map.controls.add(myRoutePanel);
+            map.controls.add(myRoutePanel);
 
             map.geoObjects.add(multiRoute);
             multiRouteRef.current = multiRoute;
@@ -228,6 +228,15 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
                     floatIndex: 100,
                 }
             });
+
+            if (maxWidth760) {
+                button.options.set({
+                    position: {
+                      bottom: 2,
+                      right: 20,
+                    },
+                  });
+            }
 
             map.controls.add(button);
             resetButtonRef.current = button;

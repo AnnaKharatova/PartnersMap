@@ -177,10 +177,12 @@
 
 @media screen and (max-width: 760px) {
     .partner-details {
-        padding: 20px 16px;
+        padding: 30px 16px;
         display: flex;
         flex-direction: column;
-        min-width: 409px;
-        max-width: 409px;
+    }
+
+    .partner-details__route-button {
+         margin-bottom: 0;
     }
 }

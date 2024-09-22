@@ -1,5 +1,6 @@
 import './BurgerMenu.css'
 import React from 'react'
+import Logo from '../../images/Logo.svg'
 
 function BurgerMenu({ setBurgerMenuOpen }) {
 
@@ -28,10 +29,10 @@ function BurgerMenu({ setBurgerMenuOpen }) {
             <div className="popup-menu__content">
                 <div className='popup-menu__header'>
                     <div className="header__main">
-                        <div className="header__logo"></div>
-                        <p className="header__title">Имя сайта</p>
+                    <img src={Logo} alt="Логотип Строймаш" className="header__logo" />
+                    <p className="header__title">Строймаш</p>
                     </div>
-                    <button className="popup-menu__close-button" onClick={() => { setBurgerMenuOpen(false) }}>&times;</button>
+                    <button className="popup-menu__close-button" onClick={() => { setBurgerMenuOpen(false) }}></button>
                 </div>
                 <nav className="popup-menu__main">
                     <a className="popup-menu__item" href="#">КАТАЛОГ</a>

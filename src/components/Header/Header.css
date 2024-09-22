@@ -4,7 +4,7 @@
     min-width: 375px;
     position: fixed;
     top: 0;
-    z-index: 3;
+    z-index: 4;
     display: flex;
     justify-content: space-between;
     margin: 0 auto;
@@ -130,11 +130,19 @@
 
     .header__title {
         font-size: 16px;
-        line-height: 130%;
+        font-weight: 500;
+        line-height: 20.8px;
     }
 
     .header__logo {
-        height: 24px;
-        width: 24px;
+        height: 30px;
+        width: 30px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .header__title {
+        font-size: 14px;
+        line-height: 16.8px;
     }
 }
