@@ -219,6 +219,12 @@ function App() {
     setFiltersPopup(true)
   }
 
+  useEffect(()=>{
+    if(partnerInfo){
+      setPopupPartnersListOpen(true)
+    }
+  },[partnerInfo])
+
   return (
     <>
       <Header maxWidth760={maxWidth760} setBurgerMenuOpen={setBurgerMenuOpen} showTitle={showTitle} />
