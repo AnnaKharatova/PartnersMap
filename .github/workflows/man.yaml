@@ -20,4 +20,4 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/PartnersMap
+          tags: ${{ secrets.DOCKER_USERNAME }}/partners-map
