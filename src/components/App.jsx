@@ -15,7 +15,9 @@ import NothingFoundInFilter from './NothingFoundInFilter/NothingFoundInFilter.js
 import NothingFoundInCity from './NothingFoundInCity/NothingFoundInCity.jsx';
 
 function App() {
-  const BASE_URL = `https://yurasstroy.ddns.net/api`
+  // const BASE_URL = `https://yurasstroy.ddns.net/api`
+  const BASE_URL = ` http://stroymashdevelop.ddns.net`
+
 
   const listRef = useRef(null);
   const listPopupRef = useRef(null)

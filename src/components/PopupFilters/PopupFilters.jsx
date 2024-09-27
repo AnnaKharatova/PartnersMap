@@ -2,7 +2,9 @@ import './PopupFilters.css'
 import React, { useEffect } from 'react';
 
 function PopupFilters({ setPartnerInfo, engines, setEngines, tags, setTags, filteredData, setFilteredData, setFiltersPopup, getQuery, setFilterMark, filterMark, selectedTags, setSelectedTags, selectedParts, setSelectedParts }) {
-    const BASE_URL = `https://yurasstroy.ddns.net/api`
+    // const BASE_URL = `https://yurasstroy.ddns.net/api`
+    const BASE_URL = ` http://stroymashdevelop.ddns.net`
+
 
     const handleEngineCheckboxChange = (event) => {
         const { value, checked, name } = event.target;
