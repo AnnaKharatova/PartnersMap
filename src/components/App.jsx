@@ -294,7 +294,7 @@ function App() {
       {(citiesPopup && maxWidth760) && <PopupCitiesFilter setPartnerInfo={setPartnerInfo} setCitiesPopup={setCitiesPopup} setSelectedCity={setSelectedCity} getQuery={getQuery} />}
       {(filtersPopup && maxWidth760) && <PopupFilters setPartnerInfo={setPartnerInfo} tags={tags} setTags={setTags} engines={engines} setEngines={setEngines} filteredData={filteredData} setFilteredData={setFilteredData} getQuery={getQuery} selectedParts={selectedParts} setSelectedParts={setSelectedParts} selectedTags={selectedTags} setSelectedTags={setSelectedTags} setFiltersPopup={setFiltersPopup} setFilterMark={setFilterMark} filterMark={filterMark} />}
       {burgerMenuOpen && <BurgerMenu setBurgerMenuOpen={setBurgerMenuOpen} />}
-      {popupPartnersListOpen &&
+      {(popupPartnersListOpen&&maxWidth760) &&
         <div className="popup-partners__container" >
           {!partnerInfo && <div className={!buttonsShadow ? "popup-partners__header" : "popup-partners__header buttons__box-shadow"}>
             <button className="popup-partners__close-button" onClick={() => { setPopupPartnersListOpen(false) }}></button>
