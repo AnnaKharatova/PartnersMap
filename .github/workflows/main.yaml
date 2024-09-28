@@ -30,7 +30,7 @@ jobs:
       - name: Update Submodule Reference
         run: |
           cd main-repo
-          git submodule update --remote frontend  # Замените 'frontend' на путь к вашему субмодулю, если отличается
+          git submodule update --remote https://github.com/AnnaKharatova/PartnersMap  # Замените 'frontend' на путь к вашему субмодулю, если отличается
           git add frontend
           git commit -m "Update Frontend submodule to latest commit" || echo "No changes to commit"
           git push origin main  # Убедитесь, что ветка правильная
