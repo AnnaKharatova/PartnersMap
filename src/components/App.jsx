@@ -16,7 +16,7 @@ import NothingFoundInCity from './NothingFoundInCity/NothingFoundInCity.jsx';
 
 function App() {
   // const BASE_URL = `https://yurasstroy.ddns.net/api`
-  const BASE_URL = ` http://stroymashdevelop.ddns.net`
+  const BASE_URL = ` http://stroymashdevelop.ddns.net/api`
 
 
   const listRef = useRef(null);

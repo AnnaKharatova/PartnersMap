@@ -6,7 +6,7 @@ import Header from '../Header/Header'
 
 function PopupCitiesFilter({ setCitiesPopup, setSelectedCity, setPartnerInfo, getQuery }) {
     // const BASE_URL = `https://yurasstroy.ddns.net/api`
-    const BASE_URL = ` http://stroymashdevelop.ddns.net`
+    const BASE_URL = ` http://stroymashdevelop.ddns.net/api`
 
     const [cities, setCities] = useState([])
     const [searchCities, setSearchCities] = useState(null)
