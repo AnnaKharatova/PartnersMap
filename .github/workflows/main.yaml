@@ -3,34 +3,50 @@ name: Update Main Repository on Frontend Changes
 on:
   push:
     branches:
-      - main  # Или любая другая ветка, используемая для разработки Frontend
-
+      - main  
 jobs:
   update-main-repo:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Checkout Frontend Repository
       - name: Checkout Frontend Repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Необходимо для получения полной истории
+          fetch-depth: 0  
 
+      # 2. Set up Git
       - name: Set up Git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+      # 3. Clone Main Repository
       - name: Clone Main Repository
         uses: actions/checkout@v3
         with:
-          repository: AnnaKharatova/PartnersMap # Замените на ваш основной репозиторий
+          repository: YuraKvaskov/str_develop  
           token: ${{ secrets.MAIN_REPO_PAT }}
           path: main-repo
 
+      # 4. Initialize and Update Submodules in Main Repo
+      - name: Initialize and Update Submodules in Main Repo
+        run: |
+          cd main-repo
+          git submodule init
+          git submodule update
+
+      # 5. Update Submodule Reference
       - name: Update Submodule Reference
         run: |
           cd main-repo
-          git submodule update --remote https://github.com/AnnaKharatova/PartnersMap  # Замените 'frontend' на путь к вашему субмодулю, если отличается
+          git submodule update --remote frontend  # Используем путь 'frontend'
           git add frontend
-          git commit -m "Update Frontend submodule to latest commit" || echo "No changes to commit"
-          git push origin main  # Убедитесь, что ветка правильная
+          git commit -m "Update frontend submodule to latest commit" || echo "No changes to commit"
+          git push origin main  
+
+      # 6. Вывод содержимого для отладки
+      - name: List Main Repo Contents for Debugging
+        run: |
+          ls -la main-repo
+          ls -la main-repo/frontend
