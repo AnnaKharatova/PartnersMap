@@ -2,7 +2,7 @@ import './Header.css'
 import React, { useState, useEffect, useRef } from 'react'
 import Logo from '../../images/Logo.svg'
 
-function Header({ maxWidth760, setBurgerMenuOpen, showTitle }) {
+function Header({ maxWidth760, setBurgerMenuOpen, showTitle, catalog }) {
 
   const [contactsOpen, setContactsOpen] = useState(false)
 
@@ -57,7 +57,10 @@ function Header({ maxWidth760, setBurgerMenuOpen, showTitle }) {
       </div>
       {maxWidth760 ? <button className="header__nav-burger" onClick={() => { setBurgerMenuOpen(true) }} id="header-nav-burger"></button> :
         <nav className="header__nav">
-          <a className="header__item" href="#">КАТАЛОГ</a>
+          {!catalog ?
+            <a className="header__item" href="/catalog">КАТАЛОГ</a> :
+            <a className="header__item" href="/">КАРТА ОФИЦИАЛЬНЫХ ПАРТНЁРОВ</a>
+          }
           <a className="header__item" href="#">ДОБАВИТЬ ПАРТНЁРА</a>
           <button className="header__item-contacts" ref={buttonRef} onMouseOver={handleMouseOver}>КОНТАКТЫ</button>
         </nav>}

@@ -1,0 +1,31 @@
+.engine-filters {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.engine-filters__engine-checkbox {
+    display: none;
+}
+
+.engine-filters__label-span {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    padding: 8px 15px;
+    max-height: 30px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    background-color: #E8E8E8;
+    cursor: pointer;
+}
+
+.engine-filters__label-span:hover {
+    background-color: #C4C4C4;
+}
+
+.engine-filters__engine-checkbox:checked+.engine-filters__label-span {
+    background-color: #191919;
+    color: white;
+}

@@ -35,7 +35,7 @@ function BurgerMenu({ setBurgerMenuOpen }) {
                     <button className="popup-menu__close-button" onClick={() => { setBurgerMenuOpen(false) }}></button>
                 </div>
                 <nav className="popup-menu__main">
-                    <a className="popup-menu__item" href="#">КАТАЛОГ</a>
+                    <a className="popup-menu__item" href="/catalog">КАТАЛОГ</a>
                     <a className="popup-menu__item" href="#">ДОБАВИТЬ ПАРТНЕРА</a>
                     <p className="popup-menu__item-contacts" href="#">КОНТАКТЫ</p>
                     <a className="popup-menu__contacts" onClick={handlePhoneClick} href="#">{phoneNumber}</a>
