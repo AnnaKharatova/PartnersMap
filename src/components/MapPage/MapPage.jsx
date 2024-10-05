@@ -97,7 +97,6 @@ function MapPage({maxWidth1024, maxWidth760}) {
       .then(res => res.json())
       .then(resData => {
         const fetchedData = JSON.parse(JSON.stringify(resData))
-        console.log(fetchedData)
         setAllPartners(fetchedData)
         setFilteredData(fetchedData)
       }).catch(error => {
@@ -133,7 +132,6 @@ function MapPage({maxWidth1024, maxWidth760}) {
     setFilterMark(filterMark.filter((mark) => mark !== item));
     if (selectedCity && (item === selectedCity.name)) {
       setSelectedCity(null)
-      console.log(selectedCity)
       if (filterMark.length == 0) {
         getAllPartners()
       }
@@ -162,7 +160,6 @@ function MapPage({maxWidth1024, maxWidth760}) {
     if (selectedParts || selectedTags || selectedCity) {
       const queryParams = !selectedCity ? (selectedTags.map(tag => `tags=${tag}`).join('&') + `&` + selectedParts.map(id => `parts_available=${id}`).join('&')) : (`city=${selectedCity.id}` + `&` + selectedTags.map(tag => `tags=${tag}`).join('&') + `&` + selectedParts.map(id => `parts_available=${id}`).join('&'))
       const url = `${BASE_URL}/partners/?${queryParams}`
-      console.log(url)
       fetch(url)
         .then(response => response.json())
         .then((data) => {
