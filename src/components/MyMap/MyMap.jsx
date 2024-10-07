@@ -146,8 +146,6 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
                     }
                     placemark.options.set('iconImageHref', HoverIcon);
                     placemark.options.set('iconImageSize', [30, 30])
-                    // map.setCenter(placemark, 10)
-
                 });
                 map.geoObjects.add(placemark)
             });

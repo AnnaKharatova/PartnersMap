@@ -1,4 +1,3 @@
-import React from 'react';
 import './NothingFoundInCity.css'
 import SadFace from '../../images/Icon-sadFace.svg'
 

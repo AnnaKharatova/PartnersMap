@@ -1,0 +1,120 @@
+.element {
+    padding: 100px 60px 40px 60px;
+    min-height: 74vh;
+}
+
+.element__header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 30px;
+    align-items: center;
+}
+
+.element__road {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18.2px;
+    text-align: left;
+    color: #858582;
+}
+
+.element__search-button {
+    width: 24px;
+    height: 24px;
+    border: none;
+    outline: none;
+    background-color: inherit;
+    background-image: url(../../images/loop.svg);
+    cursor: pointer;
+}
+
+.element__main {
+    display: flex;
+    gap: 30px;
+}
+
+.element__photo {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 700px;
+}
+
+.element__photo-main {
+    width: 638px;
+    height: 500px;
+    border: 1px solid #E8E8E8;
+}
+
+.element__photo-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.element__photo-item {
+    border: 1px solid #E8E8E8;
+    width: 153px;
+    height: 120px;
+    cursor: pointer;
+}
+
+.element__title {
+    font-family: 'IBMPlexSans';
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 28px;
+    color: #191919;
+    margin-top: 0;
+}
+
+.element__subtitle {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20.8px;
+    color: #191919;
+    margin: 0 0 10px 0;
+}
+
+.element__description {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20.8px;
+    color: #191919;
+    margin: 0 20px 0 0;
+}
+
+.element__article {
+    display: flex;
+    margin-bottom: 40px;
+}
+
+.element__articke-copy {
+    border: none;
+    background-color: inherit;
+    outline: none;
+    background-image: url(../../images/copy-black.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+}
+
+.element__map-button {
+    background-color: inherit;
+    border: 1px solid #C4C4C4;
+    border-radius: 12px;
+    padding: 8px 50px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20.8px;
+    color: #191919;
+    width: fit-content;
+    cursor: pointer;
+    margin-bottom: 40px;
+}

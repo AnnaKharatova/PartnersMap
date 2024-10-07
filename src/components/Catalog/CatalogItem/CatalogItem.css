@@ -49,6 +49,7 @@
     background-position: center;
     width: 26px;
     height: 26px;
+    cursor: pointer;
 }
 
 .catalog-item__map-button {

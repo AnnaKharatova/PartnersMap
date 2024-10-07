@@ -1,8 +1,7 @@
 import './Footer.css'
+import {email, phoneNumber} from '../../constants/constants.js'
 
 function Footer() {
-    const email = `stroymash@fsilicone.ru`
-    const phoneNumber = `+7(8352)24-32-33`
 
     const handleMailClick = () => {
         window.location.href = `mailto:${encodeURIComponent(email)}`;

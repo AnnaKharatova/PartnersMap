@@ -4,12 +4,14 @@
 }
 
 .catalog__intro {
+    box-sizing: border-box;
     background-image: url(../../images/catalog-image.png);
     background-position: cover;
     background-repeat: no-repeat;
     background-size: cover;
     padding: 20px 61px 60px;
     margin-top: 70px;
+    width: 100%;
 }
 
 .catalog__title {
@@ -22,7 +24,7 @@
 }
 
 .catalog__input-group {
-    width: 90%;
+    width: 100%;
     background-color: #FFFFFF;
     opacity: 0.9;
     filter: blur(90%);
@@ -39,6 +41,7 @@
     border: none;
     outline: none;
     border-radius: 12px;
+
 }
 
 .catalog__input::placeholder {
@@ -56,11 +59,14 @@
     height: 48px;
     width: 120px;
     cursor: pointer;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20.8px;
 }
 
-.catalog__span-group{
-padding-left: 60px;
-padding-bottom: 40px;
+.catalog__span-group {
+    padding-left: 60px;
+    padding-bottom: 40px;
 
 }
 

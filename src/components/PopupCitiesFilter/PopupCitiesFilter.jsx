@@ -1,13 +1,12 @@
 import './PopupCitiesFilter.css'
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import BackIcon from '../../images/Icon arrow-back.svg'
 import NothingFoundInCity from '../NothingFoundInCity/NothingFoundInCity';
-import Header from '../Header/Header'
+import { BASE_URL } from '../../constants/constants';
 
 function PopupCitiesFilter({ setCitiesPopup, setSelectedCity, setPartnerInfo, getQuery }) {
-    // const BASE_URL = `https://yurasstroy.ddns.net/api`
-    const BASE_URL = ` http://stroymashdevelop.ddns.net/api`
-
+    const navigate = useNavigate()
     const [cities, setCities] = useState([])
     const [searchCities, setSearchCities] = useState(null)
     const [displayedCities, setDisplayedCities] = useState([])
@@ -20,8 +19,12 @@ function PopupCitiesFilter({ setCitiesPopup, setSelectedCity, setPartnerInfo, ge
                 setCities(data)
                 setDisplayedCities(data)
             })
-            .catch(error => {
-                console.error("Ошибка при получении данных:", error);
+            .catch(res => {
+                if (res.status == 500) {
+                    navigate('./error')
+                } else {
+                    console.log("Ошибка при получении данных:", res.message);
+                }
             });
     }, [])
 

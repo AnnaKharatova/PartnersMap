@@ -1,10 +1,9 @@
 import './CatalogItem.css'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function CatalogItem({ item }) {
-
-    const BASE_URL = ` http://stroymashdevelop.ddns.net/api`
+    const navigate = useNavigate()
     const photo = `http://stroymashdevelop.ddns.net/${item.main_image}`
 
     function copyArticle() {
@@ -12,17 +11,23 @@ function CatalogItem({ item }) {
             .then(() => {
                 console.log('Article copied to clipboard!');
             })
-            .catch((error) => {
-                console.error('Failed to copy article to clipboard:', error);
+            .catch(res => {
+                if (res.status == 500) {
+                    navigate('./error')
+                } else {
+                    console.log("Ошибка при получении данных:", res.message);
+                }
             });
     }
+
+    console.log(item)
 
     return (
         <div className='catalog-item'>
             <div className='catalog__img-container'>
                 <img className='catalog-item__img' src={photo} />
             </div>
-            <Link className='catalog-item__title' to={`/catalog/${item.id}`}>{item.name}</Link>
+            <Link className='catalog-item__title' to={`/catalog/${item.type}/${item.id}`}>{item.name}</Link>
             <div className='catalog-item__article'>
                 <p className='catalog-item__articke-p'>{item.article}</p>
                 <button className='catalog-item__articke-copy' onClick={copyArticle}></button>

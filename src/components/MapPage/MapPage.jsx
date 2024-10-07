@@ -1,5 +1,6 @@
 import './MapPage.css'
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { YMaps } from '@pbe/react-yandex-maps';
 import Header from '../Header/Header.jsx'
 import MyMap from '../MyMap/MyMap.jsx'
@@ -13,13 +14,12 @@ import Bunner1024 from '../../images/Banner_1024.png'
 import BurgerMenu from '../BurgerMenu/BurgerMenu.jsx'
 import NothingFoundInFilter from '../NothingFoundInFilter/NothingFoundInFilter.jsx';
 import NothingFoundInCity from '../NothingFoundInCity/NothingFoundInCity.jsx';
+import { BASE_URL } from '../../constants/constants.js';
 
-function MapPage({maxWidth1024, maxWidth760}) {
-  // const BASE_URL = `https://yurasstroy.ddns.net/api`
-  const BASE_URL = ` http://stroymashdevelop.ddns.net/api`
-
+function MapPage({ maxWidth1024, maxWidth760 }) {
   const listRef = useRef(null);
   const listPopupRef = useRef(null)
+  const navigate = useNavigate()
 
   const [citiesPopup, setCitiesPopup] = useState(false)
   const [filtersPopup, setFiltersPopup] = useState(false)
@@ -90,8 +90,6 @@ function MapPage({maxWidth1024, maxWidth760}) {
     };
   }, []);
 
-
-
   function getAllPartners() {
     fetch(`${BASE_URL}/partners/`)
       .then(res => res.json())
@@ -99,8 +97,12 @@ function MapPage({maxWidth1024, maxWidth760}) {
         const fetchedData = JSON.parse(JSON.stringify(resData))
         setAllPartners(fetchedData)
         setFilteredData(fetchedData)
-      }).catch(error => {
-        console.error("Ошибка при получении данных:", error);
+      }).catch(res => {
+        if (res.status == 500) {
+          navigate('/error')
+        } else {
+          console.error("Ошибка при получении данных:", res.message);
+        }
       });
   }
 
@@ -164,8 +166,12 @@ function MapPage({maxWidth1024, maxWidth760}) {
         .then(response => response.json())
         .then((data) => {
           setFilteredData(data);
-        }).catch(error => {
-          console.error("Ошибка при получении данных:", error);
+        }).catch(res => {
+          if (res.status == 500) {
+            navigate('/error')
+          } else {
+            console.error("Ошибка при получении данных:", res.message);
+          }
         });
     }
     else {
@@ -205,95 +211,95 @@ function MapPage({maxWidth1024, maxWidth760}) {
   }, [partnerInfo])
 
   return (
-        <>
-          <Header maxWidth760={maxWidth760} setBurgerMenuOpen={setBurgerMenuOpen} showTitle={showTitle} catalog={false}/>
-          <main>
-            <img alt='баннер' className="bunner" src={maxWidth1024 ? Bunner1440 : Bunner1024} />
-            <h1 className="title">{!maxWidth760 ? "Официальные партнёры АО Строймаш" : "Официальные партнёры завода"}</h1>
-            <div className="map">
-              <div className="partners">
-                <div className={!buttonsShadow ? "partners__filter-buttons" : "partners__filter-buttons buttons__box-shadow"}>
-                  <button className="filter-buttons__city-button" id="city-filter-big" onClick={handleFiltersCityOpen}>
-                    {selectedCity ? selectedCity.name : 'Выберите город'}
-                  </button>
-                  <button className="filter-buttons__button" id="partner-filter-big" onClick={handleFiltersOpen}>
-                    Фильтры
-                    {filterMark.length > 0 ? <span className='filter-buttons__button-item'>{filterMark.length}</span> : <span className='filter-buttons__button-item'></span>}
-                  </button>
-                </div>
-                {citiesPopup ?
-                  <PopupCitiesFilter getQuery={getQuery} setPartnerInfo={setPartnerInfo} setCitiesPopup={setCitiesPopup} setSelectedCity={setSelectedCity} /> :
+    <>
+      <Header maxWidth760={maxWidth760} setBurgerMenuOpen={setBurgerMenuOpen} showTitle={showTitle} catalog={false} />
+      <main>
+        <img alt='баннер' className="bunner" src={maxWidth1024 ? Bunner1440 : Bunner1024} />
+        <h1 className="title">{!maxWidth760 ? "Официальные партнёры АО Строймаш" : "Официальные партнёры завода"}</h1>
+        <div className="map">
+          <div className="partners">
+            <div className={!buttonsShadow ? "partners__filter-buttons" : "partners__filter-buttons buttons__box-shadow"}>
+              <button className="filter-buttons__city-button" id="city-filter-big" onClick={handleFiltersCityOpen}>
+                {selectedCity ? selectedCity.name : 'Выберите город'}
+              </button>
+              <button className="filter-buttons__button" id="partner-filter-big" onClick={handleFiltersOpen}>
+                Фильтры
+                {filterMark.length > 0 ? <span className='filter-buttons__button-item'>{filterMark.length}</span> : <span className='filter-buttons__button-item'></span>}
+              </button>
+            </div>
+            {citiesPopup ?
+              <PopupCitiesFilter getQuery={getQuery} setPartnerInfo={setPartnerInfo} setCitiesPopup={setCitiesPopup} setSelectedCity={setSelectedCity} /> :
+              <>
+                {filtersPopup ? <PopupFilters setPartnerInfo={setPartnerInfo} tags={tags} setTags={setTags} engines={engines} setEngines={setEngines} filteredData={filteredData} setFilteredData={setFilteredData} getQuery={getQuery} selectedParts={selectedParts} setSelectedParts={setSelectedParts} selectedTags={selectedTags} setSelectedTags={setSelectedTags} setFiltersPopup={setFiltersPopup} setFilterMark={setFilterMark} filterMark={filterMark} /> :
                   <>
-                    {filtersPopup ? <PopupFilters setPartnerInfo={setPartnerInfo} tags={tags} setTags={setTags} engines={engines} setEngines={setEngines} filteredData={filteredData} setFilteredData={setFilteredData} getQuery={getQuery} selectedParts={selectedParts} setSelectedParts={setSelectedParts} selectedTags={selectedTags} setSelectedTags={setSelectedTags} setFiltersPopup={setFiltersPopup} setFilterMark={setFilterMark} filterMark={filterMark} /> :
-                      <>
-                        <div className="partners__container" ref={listRef}>
-                          {partnerInfo ?
-                            <PartnerDetails maxWidth760={maxWidth760} partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore} /> :
-                            <ul className="popup-filter__partners-list">
-                              {filteredData.length > 0 && filteredData.map((partner) => (
-                                <PartnerElement setSelectedPartner={setSelectedPartner} partner={partner} setStore={setStore} key={partner.id} />
-                              ))}
-                            </ul>
-                          }
-                          {(showNoContentInfo && selectedCity && filterMark.length == 0) && <NothingFoundInCity />}
-                          {(showNoContentInfo && filterMark.length !== 0) ? <NothingFoundInFilter clearFilters={clearFilters} /> : null}
-                        </div>
-                      </>
-                    }
-                  </>}
-              </div>
-              <div className="map__container" id="map">
-                {(filterMark.length > 0) & !maxWidth760 ?
-                  <ul className='map__filters'>
-                    {filterMark.map((item, index) => (
-                      <FilterMarkItem key={index} item={item} deleteMarkItem={deleteMarkItem} />
-                    ))}
-                    <button onClick={clearFilters} className='filter-marker'>
-                      <div className="filter-marker__label-span" style={{ color: 'black' }}>Очистить все</div>
-                      <span className='filter-marker__del-button' style={{ color: 'black' }}>&times;</span>
-                    </button>
-                  </ul> : null
+                    <div className="partners__container" ref={listRef}>
+                      {partnerInfo ?
+                        <PartnerDetails maxWidth760={maxWidth760} partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore} /> :
+                        <ul className="popup-filter__partners-list">
+                          {filteredData.length > 0 && filteredData.map((partner) => (
+                            <PartnerElement setSelectedPartner={setSelectedPartner} partner={partner} setStore={setStore} key={partner.id} />
+                          ))}
+                        </ul>
+                      }
+                      {(showNoContentInfo && selectedCity && filterMark.length == 0) && <NothingFoundInCity />}
+                      {(showNoContentInfo && filterMark.length !== 0) ? <NothingFoundInFilter clearFilters={clearFilters} /> : null}
+                    </div>
+                  </>
                 }
-                <YMaps query={{
-                  apikey: '6fb19312-2127-40e5-8c22-75d1f84f2daa&lang=ru_RU',
-                  ns: "use-load-option",
-                  load: "Map,Placemark,control.FullscreenControl,geoObject.addon.balloon",
-                }}>
-                  <MyMap setStore={setStore} setPopupPartnersListOpen={setPopupPartnersListOpen} maxWidth760={maxWidth760} selectedPartner={selectedPartner} partners={filteredData} partner={store} setPartnerInfo={setPartnerInfo} selectedCity={selectedCity} />
-                </YMaps>
-                <div className="map__footer-nav">
-                  <a className="map__footer-item" href="#">Пользовательское соглашение</a>
-                  <p className="map__copyright">© 2024 Название</p>
-                </div>
-                {maxWidth760 && <button className="map__button" onClick={() => { setPopupPartnersListOpen(true) }}>Список партнеров</button>}
-              </div>
+              </>}
+          </div>
+          <div className="map__container" id="map">
+            {(filterMark.length > 0) & !maxWidth760 ?
+              <ul className='map__filters'>
+                {filterMark.map((item, index) => (
+                  <FilterMarkItem key={index} item={item} deleteMarkItem={deleteMarkItem} />
+                ))}
+                <button onClick={clearFilters} className='filter-marker'>
+                  <div className="filter-marker__label-span" style={{ color: 'black' }}>Очистить все</div>
+                  <span className='filter-marker__del-button' style={{ color: 'black' }}>&times;</span>
+                </button>
+              </ul> : null
+            }
+            <YMaps query={{
+              apikey: '6fb19312-2127-40e5-8c22-75d1f84f2daa&lang=ru_RU',
+              ns: "use-load-option",
+              load: "Map,Placemark,control.FullscreenControl,geoObject.addon.balloon",
+            }}>
+              <MyMap setStore={setStore} setPopupPartnersListOpen={setPopupPartnersListOpen} maxWidth760={maxWidth760} selectedPartner={selectedPartner} partners={filteredData} partner={store} setPartnerInfo={setPartnerInfo} selectedCity={selectedCity} />
+            </YMaps>
+            <div className="map__footer-nav">
+              <a className="map__footer-item" href="#">Пользовательское соглашение</a>
+              <p className="map__copyright">© 2024 Название</p>
             </div>
-          </main >
+            {maxWidth760 && <button className="map__button" onClick={() => { setPopupPartnersListOpen(true) }}>Список партнеров</button>}
+          </div>
+        </div>
+      </main >
 
-          {(citiesPopup && maxWidth760) && <PopupCitiesFilter setPartnerInfo={setPartnerInfo} setCitiesPopup={setCitiesPopup} setSelectedCity={setSelectedCity} getQuery={getQuery} />}
-          {(filtersPopup && maxWidth760) && <PopupFilters setPartnerInfo={setPartnerInfo} tags={tags} setTags={setTags} engines={engines} setEngines={setEngines} filteredData={filteredData} setFilteredData={setFilteredData} getQuery={getQuery} selectedParts={selectedParts} setSelectedParts={setSelectedParts} selectedTags={selectedTags} setSelectedTags={setSelectedTags} setFiltersPopup={setFiltersPopup} setFilterMark={setFilterMark} filterMark={filterMark} />}
-          {burgerMenuOpen && <BurgerMenu setBurgerMenuOpen={setBurgerMenuOpen} />}
-          {
-            (popupPartnersListOpen && maxWidth760) &&
-            <div className="popup-partners__container" >
-              {!partnerInfo && <div className={!buttonsShadow ? "popup-partners__header" : "popup-partners__header buttons__box-shadow"}>
-                <button className="popup-partners__close-button" onClick={() => { setPopupPartnersListOpen(false) }}></button>
-              </div>}
-              <div className='popup-partners__content' ref={listPopupRef} >
-                {partnerInfo ?
-                  <PartnerDetails maxWidth760={maxWidth760} setPopupPartnersListOpen={setPopupPartnersListOpen} partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore} /> :
-                  <ul className="popup-filter__partners-list">
-                    {filteredData.length > 0 && filteredData.map((partner) => (
-                      <PartnerElement setPopupPartnersListOpen={setPopupPartnersListOpen} setSelectedPartner={setSelectedPartner} partner={partner} setStore={setStore} key={partner.id} />
-                    ))}
-                  </ul>
-                }
-                {(showNoContentInfo && selectedCity && filterMark.length == 0) && <NothingFoundInCity />}
-                {(showNoContentInfo && filterMark.length !== 0) && <NothingFoundInFilter clearFilters={clearFilters} />}
-              </div>
-            </div>
-          }
-        </>
+      {(citiesPopup && maxWidth760) && <PopupCitiesFilter setPartnerInfo={setPartnerInfo} setCitiesPopup={setCitiesPopup} setSelectedCity={setSelectedCity} getQuery={getQuery} />}
+      {(filtersPopup && maxWidth760) && <PopupFilters setPartnerInfo={setPartnerInfo} tags={tags} setTags={setTags} engines={engines} setEngines={setEngines} filteredData={filteredData} setFilteredData={setFilteredData} getQuery={getQuery} selectedParts={selectedParts} setSelectedParts={setSelectedParts} selectedTags={selectedTags} setSelectedTags={setSelectedTags} setFiltersPopup={setFiltersPopup} setFilterMark={setFilterMark} filterMark={filterMark} />}
+      {burgerMenuOpen && <BurgerMenu setBurgerMenuOpen={setBurgerMenuOpen} />}
+      {
+        (popupPartnersListOpen && maxWidth760) &&
+        <div className="popup-partners__container" >
+          {!partnerInfo && <div className={!buttonsShadow ? "popup-partners__header" : "popup-partners__header buttons__box-shadow"}>
+            <button className="popup-partners__close-button" onClick={() => { setPopupPartnersListOpen(false) }}></button>
+          </div>}
+          <div className='popup-partners__content' ref={listPopupRef} >
+            {partnerInfo ?
+              <PartnerDetails maxWidth760={maxWidth760} setPopupPartnersListOpen={setPopupPartnersListOpen} partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore} /> :
+              <ul className="popup-filter__partners-list">
+                {filteredData.length > 0 && filteredData.map((partner) => (
+                  <PartnerElement setPopupPartnersListOpen={setPopupPartnersListOpen} setSelectedPartner={setSelectedPartner} partner={partner} setStore={setStore} key={partner.id} />
+                ))}
+              </ul>
+            }
+            {(showNoContentInfo && selectedCity && filterMark.length == 0) && <NothingFoundInCity />}
+            {(showNoContentInfo && filterMark.length !== 0) && <NothingFoundInFilter clearFilters={clearFilters} />}
+          </div>
+        </div>
+      }
+    </>
   )
 }
 

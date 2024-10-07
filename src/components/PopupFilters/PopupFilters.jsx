@@ -1,12 +1,12 @@
 import './PopupFilters.css'
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../constants/constants';
 
 function PopupFilters({ setPartnerInfo, engines, setEngines, tags, setTags, filteredData, setFilteredData, setFiltersPopup, getQuery, setFilterMark, filterMark, selectedTags, setSelectedTags, selectedParts, setSelectedParts }) {
-    // const BASE_URL = `https://yurasstroy.ddns.net/api`
-    const BASE_URL = ` http://stroymashdevelop.ddns.net/api`
-
 
     const handleEngineCheckboxChange = (event) => {
+        const navigate = useNavigate()
         const { value, checked, name } = event.target;
 
         if (checked) {
@@ -50,9 +50,12 @@ function PopupFilters({ setPartnerInfo, engines, setEngines, tags, setTags, filt
             .then(response => response.json())
             .then(data => {
                 setTags(data)
-            })
-            .catch(error => {
-                console.error("Ошибка при получении данных:", error);
+            }).catch(res => {
+                if (res.status == 500) {
+                    navigate('./error')
+                } else {
+                    console.log("Ошибка при получении данных:", res.message);
+                }
             });
     }, [])
 
@@ -62,8 +65,12 @@ function PopupFilters({ setPartnerInfo, engines, setEngines, tags, setTags, filt
             .then(data => {
                 setEngines(data)
             })
-            .catch(error => {
-                console.error("Ошибка при получении данных:", error);
+            .catch(res => {
+                if (res.status == 500) {
+                    navigate('./error')
+                } else {
+                    console.log("Ошибка при получении данных:", res.message);
+                }
             });
     }, [])
 

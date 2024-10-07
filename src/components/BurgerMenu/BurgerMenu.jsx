@@ -1,36 +1,29 @@
 import './BurgerMenu.css'
 import React from 'react'
 import Logo from '../../images/Logo.svg'
+import { email, phoneNumber } from '../../constants/constants.js'
 
 function BurgerMenu({ setBurgerMenuOpen }) {
-
-    const email =   `stroymash@fsilicone.ru`
-    const phoneNumber = `+7(8352)24-32-33`
 
     const handleMailClick = () => {
         window.location.href = `mailto:${encodeURIComponent(email)}`;
     };
 
     const handlePhoneClick = () => {
-        // Проверка на наличие приложения по умолчанию для телефонных номеров
-        if (navigator.userAgent.match(/Android|iPhone|iPad|iPod/i)) { 
-          // На мобильном устройстве:
-          window.location.href = `tel:${phoneNumber}`; 
+        if (navigator.userAgent.match(/Android|iPhone|iPad|iPod/i)) {
+            window.location.href = `tel:${phoneNumber}`;
         } else {
-          // На настольном компьютере:
-          window.location.href = `https://wa.me/${phoneNumber}`; // Переход на WhatsApp
-          // Либо, если нужно просто открыть приложение:
-          // alert('Для вызова номера телефона, пожалуйста, используйте приложение для звонков.');
+            window.location.href = `https://wa.me/${phoneNumber}`;
         }
-      };
+    };
 
     return (
         <div className="popup-menu">
             <div className="popup-menu__content">
                 <div className='popup-menu__header'>
                     <div className="header__main">
-                    <img src={Logo} alt="Логотип Строймаш" className="header__logo" />
-                    <p className="header__title">Строймаш</p>
+                        <img src={Logo} alt="Логотип Строймаш" className="header__logo" />
+                        <p className="header__title">Строймаш</p>
                     </div>
                     <button className="popup-menu__close-button" onClick={() => { setBurgerMenuOpen(false) }}></button>
                 </div>
@@ -42,11 +35,9 @@ function BurgerMenu({ setBurgerMenuOpen }) {
                     <a className="popup-menu__contacts" onClick={handleMailClick} href="#">{email}</a>
                     <a className="popup-menu__item-copyright" href="#">Пользовательское соглашение</a>
                     <p className="popup-menu__copyright">© 2024 Название</p>
-
                 </nav>
             </div>
         </div>
-
     )
 }
 

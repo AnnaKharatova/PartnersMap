@@ -1,4 +1,3 @@
-import React from 'react';
 import '../NothingFoundInCity/NothingFoundInCity.css'
 import EmptySearch from '../../images/Icon-no-found.svg'
 
@@ -17,4 +16,5 @@ const NothingFoundInFilter = ({ clearFilters }) => {
         </div>
     );
 };
-export default NothingFoundInFilter;
+
+export default NothingFoundInFilter; 

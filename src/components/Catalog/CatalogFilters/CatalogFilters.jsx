@@ -1,54 +1,85 @@
 import './CatalogFilters.css'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { BASE_URL } from '../../../constants/constants.js'
 
-function CatalogFilters() {
-    const BASE_URL = ` http://stroymashdevelop.ddns.net/api`
-
+function CatalogFilters({ setFilteredData, clearFilters, selectedGroup, setSelectedGroup, selectedEngine, setSelectedEngine }) {
+    const navigate = useNavigate()
     const [engines, setEngines] = useState([])
-    const [selectedParts, setSelectedParts] = useState([])
     const [groups, setGroups] = useState([])
-    const [selectedEngine, setSelectedEngine] = useState(null);
-    const [selectedGrour, setSelectedGroup] = useState(null);
 
-    console.log(selectedEngine)
-    console.log(selectedGrour)
-
+    function getFilteredData(selectedGroup, selectedEngine) {
+        fetch(`${BASE_URL}/catalog/catalog/?${selectedGroup && `group=${selectedGroup}&`}${selectedEngine && `engine_cat=${selectedEngine}`}`)
+            .then(response => response.json())
+            .then((data) => {
+                setFilteredData(data);
+            }).catch(res => {
+                if (res.status == 500) {
+                    navigate('./error')
+                } else {
+                    console.log("Ошибка при получении данных:", res.message);
+                }
+            });
+    }
 
     const handleRadioEnginesChange = (event) => {
         const value = event.target.value;
         setSelectedEngine(value);
+        getFilteredData(selectedGroup, value)
     };
 
     const handleRadioGroupChange = (event) => {
         const value = event.target.value;
         setSelectedGroup(value);
+        getFilteredData(value, selectedEngine)
+
     };
 
     useEffect(() => {
-        fetch(`${BASE_URL}/catalog/engines/`)
+        fetch(`${BASE_URL}/catalog/engine/`)
             .then(response => response.json())
             .then(data => {
                 setEngines(data)
             })
-            .catch(error => {
-                console.error("Ошибка при получении данных:", error);
+            .catch(res => {
+                if (res.status == 500) {
+                    navigate('./error')
+                } else {
+                    console.log("Ошибка при получении данных:", error);
+                }
             });
     }, [])
 
     useEffect(() => {
-        fetch(`${BASE_URL}/catalog/groups/`)
+        fetch(`${BASE_URL}/catalog/group/`)
             .then(response => response.json())
             .then(data => {
-                setGroups(data)
+                setGroups(data.reverse())
             })
-            .catch(error => {
-                console.error("Ошибка при получении данных:", error);
+            .catch(res => {
+                if (res.status == 500) {
+                    navigate('./error')
+                } else {
+                    console.log("Ошибка при получении данных:", error);
+                }
             });
     }, [])
 
     return (
         <div className='catalog-filters'>
             <div className="catalog-filters__engine" id="catalog-engines">
+                <>
+                    <input
+                        className='catalog-filters__engine-checkbox'
+                        type="radio"
+                        id='all-engines'
+                        name="engines"
+                        value=''
+                        onChange={handleRadioEnginesChange}
+                        onClick={clearFilters}
+                    />
+                    <label className='catalog-filters__engine-label' htmlFor='all-engines'>Вся продукция</label>
+                </>
                 {engines.map((engine) => (
                     <>
                         <input
@@ -56,7 +87,7 @@ function CatalogFilters() {
                             className='catalog-filters__engine-checkbox'
                             type="radio"
                             id={`engine-${engine.id}`}
-                            name="radioGroup"
+                            name="engines"
                             value={engine.id}
                             onChange={handleRadioEnginesChange}
                         />
@@ -72,7 +103,7 @@ function CatalogFilters() {
                             className='catalog-filters__group-checkbox'
                             type="radio"
                             id={`group-${group.id}`}
-                            name="radioGroup"
+                            name="group"
                             value={group.id}
                             onChange={handleRadioGroupChange}
                         />
