@@ -101,7 +101,7 @@ function Catalog({ maxWidth760 }) {
                         </div>
                         <div className='catalog__list'>
                             {fiteredData.map(item => (
-                                <CatalogItem item={item} key={item.name + item.id} />
+                                <CatalogItem item={item} key={`${item.name}-${item.id}`} />
                             ))}
                         </div>
                     </> : <NothingFound handleDisableRadios={clearFilters} />}

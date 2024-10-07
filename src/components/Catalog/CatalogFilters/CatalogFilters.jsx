@@ -83,7 +83,7 @@ function CatalogFilters({ setFilteredData, clearFilters, selectedGroup, setSelec
                 {engines.map((engine) => (
                     <>
                         <input
-                            key={`engine-key-${engine.name}`}
+                            key={engine.name}
                             className='catalog-filters__engine-checkbox'
                             type="radio"
                             id={`engine-${engine.id}`}
@@ -99,7 +99,7 @@ function CatalogFilters({ setFilteredData, clearFilters, selectedGroup, setSelec
                 {groups.map((group) => (
                     <>
                         <input
-                            key={`group-key-${group.name}`}
+                            key={group.name}
                             className='catalog-filters__group-checkbox'
                             type="radio"
                             id={`group-${group.id}`}
