@@ -1,52 +1,24 @@
-name: Update Main Repository on Frontend Changes
+name: React-app workflow
 
-on:
-  push:
-    branches:
-      - main  
+on: [push]
+
 jobs:
-  update-main-repo:
+  build_and_push_to_docker_hub:
+    name: Push Docker image to Docker Hub
+    if: github.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
-
     steps:
-      # 1. Checkout Frontend Repository
-      - name: Checkout Frontend Repository
+      - name: Check out the repo
         uses: actions/checkout@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Login to Docker
+        uses: docker/login-action@v2
         with:
-          fetch-depth: 0  
-
-      # 2. Set up Git
-      - name: Set up Git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-      # 3. Clone Main Repository
-      - name: Clone Main Repository
-        uses: actions/checkout@v3
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Push to Docker Hub
+        uses: docker/build-push-action@v4
         with:
-          repository: YuraKvaskov/str_develop  
-          token: ${{ secrets.MAIN_REPO_PAT }}
-          path: main-repo
-
-      # 4. Initialize and Update Submodules in Main Repo
-      - name: Initialize and Update Submodules in Main Repo
-        run: |
-          cd main-repo
-          git submodule init
-          git submodule update
-
-      # 5. Update Submodule Reference
-      - name: Update Submodule Reference
-        run: |
-          cd main-repo
-          git submodule update --remote frontend  # Используем путь 'frontend'
-          git add frontend
-          git commit -m "Update frontend submodule to latest commit" || echo "No changes to commit"
-          git push origin main  
-
-      # 6. Вывод содержимого для отладки
-      - name: List Main Repo Contents for Debugging
-        run: |
-          ls -la main-repo
-          ls -la main-repo/frontend
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/partners-map
