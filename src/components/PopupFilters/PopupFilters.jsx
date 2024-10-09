@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../../constants/constants';
 
 function PopupFilters({ setPartnerInfo, engines, setEngines, tags, setTags, filteredData, setFilteredData, setFiltersPopup, getQuery, setFilterMark, filterMark, selectedTags, setSelectedTags, selectedParts, setSelectedParts }) {
+    const navigate = useNavigate()
 
     const handleEngineCheckboxChange = (event) => {
-        const navigate = useNavigate()
         const { value, checked, name } = event.target;
 
         if (checked) {

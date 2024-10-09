@@ -26,7 +26,7 @@ const PartnerElement = ({ partner, setStore, setSelectedPartner, setPopupPartner
         }
     };
 
-    const tagsArray = partner.parts_available.concat(partner.tags)
+    const tagsArray = partner.tags.concat(partner.parts_available)
 
     return (
         <li className='partner' onClick={handleClick}>

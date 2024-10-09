@@ -21,7 +21,7 @@ function Catalog({ maxWidth760 }) {
 
     const SEARCH_URL = `${BASE_URL}/catalog/catalog/?search=${inputValue}`
 
-    useEffect(() => {
+     useEffect(() => {
         getAllCatalog()
     }, [])
 
@@ -69,12 +69,20 @@ function Catalog({ maxWidth760 }) {
             .then(res => res.json())
             .then(resData => {
                 const fetchedData = JSON.parse(JSON.stringify(resData))
-                setAllCatalog(fetchedData)
-                setFilteredData(fetchedData)
+                setAllCatalog(fetchedData.results)
+                setFilteredData(fetchedData.results)
             }).catch(error => {
                 console.error("Ошибка при получении данных:", error);
             });
     }
+
+    /* useEffect(() => {
+        if (fetchedData.results) {
+            
+        }
+    }, [fetchedData])  */
+
+    console.log(fiteredData)
 
     return (
         <>
@@ -92,7 +100,7 @@ function Catalog({ maxWidth760 }) {
                     </div>
                 </div>
                 <CatalogFilters setFilteredData={setFilteredData} clearFilters={clearFilters} selectedEngine={selectedEngine} setSelectedEngine={setSelectedEngine} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} />
-                {fiteredData.length != 0 ?
+                {(fiteredData.length != 0) ?
                     <>
                         <div className='catalog__span-group'>
                             <span className='catalog__span'>Показано {fiteredData.length} из {allCatalog.length}</span>
@@ -100,7 +108,7 @@ function Catalog({ maxWidth760 }) {
                                 <button className='catalog__clear-button' onClick={clearFilters}>Сбросить фильтры</button>}
                         </div>
                         <div className='catalog__list'>
-                            {fiteredData.map(item => (
+                            {fiteredData&&fiteredData.map(item => (
                                 <CatalogItem item={item} key={`${item.name}-${item.id}`} />
                             ))}
                         </div>
