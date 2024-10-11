@@ -70,6 +70,7 @@
 @media screen and (max-width: 760px) {
     .catalog-item {
         width: 168px;
+        margin-bottom: 10px;
     }
     
     .catalog__img-container {

@@ -151,3 +151,10 @@
     cursor: pointer;
     margin-bottom: 50px;
 }
+
+@media screen and (max-width: 1024px) {
+    .element__photo-main {
+        max-width: 638px;
+        height: auto;
+    }
+}

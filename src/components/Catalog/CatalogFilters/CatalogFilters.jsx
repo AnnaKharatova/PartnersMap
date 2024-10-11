@@ -69,7 +69,7 @@ function CatalogFilters({ maxWidth760, setFilteredData, clearFilters, selectedGr
 
     return (
         <div className='catalog-filters'>
-            {maxWidth760 && <h3 className='popup-filter__subtitle'>Типы Двигателя</h3>}
+            {maxWidth760 && <h3 className='catalog-popup__subtitle'>Тип двигателя</h3>}
 
             <div className="catalog-filters__engine" id="catalog-engines">
 
@@ -100,7 +100,7 @@ function CatalogFilters({ maxWidth760, setFilteredData, clearFilters, selectedGr
                     </>
                 ))}
             </div>
-            {maxWidth760 && <h3 className='popup-filter__subtitle'>Продукция завода</h3>}
+            {maxWidth760 && <h3 className='catalog-popup__subtitle'>Продукция завода</h3>}
 
             <div className="catalog-filters__group" id="catalog-group">
                 {groups.map((group) => (

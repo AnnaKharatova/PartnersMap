@@ -9,8 +9,6 @@ import Footer from '../Footer/Footer.jsx'
 import NothingFound from './NothingFound/NothingFound.jsx';
 import { BASE_URL } from '../../constants/constants.js';
 import CloseCross from '../../images/Icon-close-cross.svg'
-import loop from '../../images/loop-white.svg'
-
 
 function Catalog({ maxWidth760 }) {
     const navigate = useNavigate()
@@ -112,7 +110,7 @@ function Catalog({ maxWidth760 }) {
                         </div>
                         <div className='catalog__list'>
                             {fiteredData && fiteredData.map(item => (
-                                <CatalogItem item={item} key={`${item.name}`} />
+                                <CatalogItem item={item} key={`${item.id}`} />
                             ))}
                         </div>
                     </> :
@@ -134,7 +132,7 @@ function Catalog({ maxWidth760 }) {
                 <div className='catalog-popup'>
                     <div className="popup-city__content">
                         <div className='catalog-popup__header'>
-                            <h2 className="catalog-popup__title">Фильтр</h2>
+                            <h2 className="catalog-popup__title">Фильтры</h2>
                             <button className="catalog-popup__close-button" onClick={() => { setFiltersPopupOpen(false) }}><img src={CloseCross} /></button>
                         </div>
                         <CatalogFilters maxWidth760={maxWidth760} setFilteredData={setFilteredData} clearFilters={clearFilters} selectedEngine={selectedEngine} setSelectedEngine={setSelectedEngine} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} />

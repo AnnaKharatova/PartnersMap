@@ -8,6 +8,7 @@ import MyInput from '../Catalog/MyInput/MyInput';
 import RepairKitComplect from './RepairKitComplect/RepairKitComplect';
 import { BASE_URL } from '../../constants/constants';
 
+
 function ElementPage({ maxWidth760 }) {
 
     const navigate = useNavigate()

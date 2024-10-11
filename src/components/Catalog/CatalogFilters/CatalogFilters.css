@@ -97,4 +97,16 @@
     .catalog-filters {
         padding: 10px 0 25px;
     }
+
+    .catalog-filters__engine-label {
+        padding: 12px 20px;
+        font-size: 14px;
+        line-height: 18.2px;
+    }
+
+    .catalog-filters__group-label {
+        font-size: 14px;
+        line-height: 18.2px;
+        padding: 7px 16px;
+    }
 }
