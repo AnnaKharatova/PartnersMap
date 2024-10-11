@@ -50,7 +50,7 @@ function CatalogFilters({ maxWidth760, setFilteredData, clearFilters, selectedGr
                 if (res.status == 500) {
                     navigate('./error')
                 } else {
-                    console.log("Ошибка при получении данных:", error);
+                    console.log("Ошибка при получении данных:", res.message);
                 }
             });
     }, [])
@@ -65,7 +65,7 @@ function CatalogFilters({ maxWidth760, setFilteredData, clearFilters, selectedGr
                 if (res.status == 500) {
                     navigate('./error')
                 } else {
-                    console.log("Ошибка при получении данных:", error);
+                    console.log("Ошибка при получении данных:", res.message);
                 }
             });
     }, [])
@@ -73,9 +73,7 @@ function CatalogFilters({ maxWidth760, setFilteredData, clearFilters, selectedGr
     return (
         <div className='catalog-filters'>
             {maxWidth760 && <h3 className='catalog-popup__subtitle'>Тип двигателя</h3>}
-
-            <div className="catalog-filters__engine" id="catalog-engines">
-
+            <div className="catalog-filters__engine" id="catalog-engines" key={"catalog-engines"}>
                 <>
                     <input
                         className='catalog-filters__engine-checkbox'
@@ -91,7 +89,7 @@ function CatalogFilters({ maxWidth760, setFilteredData, clearFilters, selectedGr
                 {engines.map((engine) => (
                     <>
                         <input
-                            key={engine.name}
+                            key={`engine-${engine.id}`}
                             className='catalog-filters__engine-checkbox'
                             type="radio"
                             id={`engine-${engine.id}`}
@@ -99,17 +97,17 @@ function CatalogFilters({ maxWidth760, setFilteredData, clearFilters, selectedGr
                             value={engine.id}
                             onChange={handleRadioEnginesChange}
                         />
-                        <label className='catalog-filters__engine-label' htmlFor={`engine-${engine.id}`}>{engine.name}</label>
+                        <label key={engine.id+engine.name} className='catalog-filters__engine-label' htmlFor={`engine-${engine.id}`}>{engine.name}</label>
                     </>
                 ))}
             </div>
             {maxWidth760 && <h3 className='catalog-popup__subtitle'>Продукция завода</h3>}
 
-            <div className="catalog-filters__group" id="catalog-group">
+            <div className="catalog-filters__group" id="catalog-group" key={'catalog-group'}>
                 {groups.map((group) => (
                     <>
                         <input
-                            key={group.name}
+                            key={`group-${group.id}`}
                             className='catalog-filters__group-checkbox'
                             type="radio"
                             id={`group-${group.id}`}
@@ -117,7 +115,7 @@ function CatalogFilters({ maxWidth760, setFilteredData, clearFilters, selectedGr
                             value={group.id}
                             onChange={handleRadioGroupChange}
                         />
-                        <label className='catalog-filters__group-label' htmlFor={`group-${group.id}`}>{group.name}</label>
+                        <label key={group.id+group.name} className='catalog-filters__group-label' htmlFor={`group-${group.id}`}>{group.name}</label>
                     </>
                 ))}
             </div>

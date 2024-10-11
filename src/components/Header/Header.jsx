@@ -1,13 +1,11 @@
 import './Header.css'
 import React, { useState, useEffect, useRef } from 'react'
 import Logo from '../../images/Logo.svg'
+import { email, phoneNumber, addPartner } from '../../constants/constants.js'
 
 function Header({ maxWidth760, setBurgerMenuOpen, showTitle, catalog }) {
 
   const [contactsOpen, setContactsOpen] = useState(false)
-
-  const email = `stroymash@fsilicone.ru`
-  const phoneNumber = `+7(8352)24-32-33`
 
   const handleMailClick = () => {
     window.location.href = `mailto:${encodeURIComponent(email)}`;
@@ -61,7 +59,7 @@ function Header({ maxWidth760, setBurgerMenuOpen, showTitle, catalog }) {
             <a className="header__item" href="/catalog">КАТАЛОГ</a> :
             <a className="header__item" href="/">КАРТА ОФИЦИАЛЬНЫХ ПАРТНЁРОВ</a>
           }
-          <a className="header__item" href="#">ДОБАВИТЬ ПАРТНЁРА</a>
+          <a className="header__item" target="_blank" href={addPartner}>ДОБАВИТЬ ПАРТНЁРА</a>
           <button className="header__item-contacts" ref={buttonRef} onMouseOver={handleMouseOver}>КОНТАКТЫ</button>
         </nav>}
       {contactsOpen &&

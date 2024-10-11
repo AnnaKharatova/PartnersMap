@@ -115,7 +115,7 @@ function ElementPage({ maxWidth760 }) {
                                     <>
                                         <h4 className='element__subtitle'>МАТЕРИАЛ:</h4>
                                         {element.materials.map(item => (
-                                            <p className='element__description'>{item.name}</p>
+                                            <p className='element__description' key={item}>{item.name}</p>
                                         ))}
                                     </>}
                                 {element.special_feature &&

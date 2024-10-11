@@ -1,5 +1,5 @@
 import './Footer.css'
-import {email, phoneNumber} from '../../constants/constants.js'
+import { email, phoneNumber, addPartner } from '../../constants/constants.js'
 
 function Footer() {
 
@@ -19,7 +19,7 @@ function Footer() {
         <footer className='footer'>
             <div className='footer__links'>
                 <a className="footer__item" href="/">КАРТА ОФИЦИАЛЬНЫХ ПАРТНЁРОВ</a>
-                <a className="footer__item" href="#">ДОБАВИТЬ ПАРТНЁРА</a>
+                <a className="footer__item" target="_blank" href={addPartner}>ДОБАВИТЬ ПАРТНЁРА</a>
             </div>
             <div className='footer__links'>
                 <a className="footer__item" onClick={handlePhoneClick}>{phoneNumber}</a>

@@ -11,6 +11,8 @@ import { BASE_URL } from '../../constants/constants.js';
 import CloseCross from '../../images/Icon-close-cross.svg'
 
 function Catalog({ maxWidth760 }) {
+    const page = 1
+    const [filterCount, setFilterCount] = useState()
     const navigate = useNavigate()
     const [burgerMenuOpen, setBurgerMenuOpen] = useState(false)
     const [allCatalog, setAllCatalog] = useState([])
@@ -21,7 +23,7 @@ function Catalog({ maxWidth760 }) {
     const [selectedGroup, setSelectedGroup] = useState('');
     const [filtersPopupOpen, setFiltersPopupOpen] = useState(false)
 
-    const SEARCH_URL = `${BASE_URL}/catalog/catalog/?search=${inputValue}`
+    const SEARCH_URL = `${BASE_URL}/catalog/catalog/?${selectedGroup && `group=${selectedGroup}&&`}${selectedEngine && `engine_cat=${selectedEngine}`}search=${inputValue}&page=${page}`
 
     useEffect(() => {
         getAllCatalog()
@@ -43,12 +45,17 @@ function Catalog({ maxWidth760 }) {
         setSelectedGroup('')
     }
 
+    useEffect(() => {
+
+        setFilterCount(Boolean(selectedEngine) + Boolean(selectedGroup))
+    }, [selectedEngine, selectedGroup])
+
     function handleSubmit() {
         fetch(SEARCH_URL)
             .then(res => res.json())
             .then(resData => {
                 const fetchedData = JSON.parse(JSON.stringify(resData))
-                setFilteredData(fetchedData)
+                setFilteredData(fetchedData.results)
             }).catch(res => {
                 if (res.status == 500) {
                     navigate('./error')
@@ -59,11 +66,11 @@ function Catalog({ maxWidth760 }) {
         sessionStorage.clear()
     };
 
-   useEffect(() => {
+    useEffect(() => {
         if (storedValue && allCatalog) {
             setInputValue(storedValue)
-            handleSubmit()
         }
+        handleSubmit()
     }, [storedValue, allCatalog])
 
     function getAllCatalog() {
@@ -77,7 +84,7 @@ function Catalog({ maxWidth760 }) {
                 console.error("Ошибка при получении данных:", error);
             });
     }
-console.log(fiteredData)
+    console.log(fiteredData)
     return (
         <>
             <Header maxWidth760={maxWidth760} setBurgerMenuOpen={setBurgerMenuOpen} showTitle={false} catalog={true} />
@@ -90,7 +97,7 @@ console.log(fiteredData)
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value)}
                             placeholder='Поиск по названию или артикулу' />
-                        <button className='catalog__input-button' onClick={handleSubmit}>{!maxWidth760? 'Найти' : ''}</button>
+                        <button className='catalog__input-button' onClick={handleSubmit}>{!maxWidth760 ? 'Найти' : ''}</button>
                     </div>
                 </div>
                 {!maxWidth760 && <CatalogFilters maxWidth760={maxWidth760} setFilteredData={setFilteredData} clearFilters={clearFilters} selectedEngine={selectedEngine} setSelectedEngine={setSelectedEngine} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} />}
@@ -103,21 +110,22 @@ console.log(fiteredData)
                                 <button className='catalog__clear-button' onClick={clearFilters}>Сбросить фильтры</button>}
                             {maxWidth760 && <button className="catalog__popup-button" id="partner-filter-big" onClick={() => setFiltersPopupOpen(true)}>
                                 Фильтры
-                                <span className='catalog__button-item'>0</span>
+                                <span className='catalog__button-item'>{filterCount}</span>
                             </button>}
+                           {(maxWidth760&&filterCount>0&&fiteredData.length > 0)&&<button className='catalog__cross-filters-button' onClick={clearFilters}></button>}
                         </div>
                         <div className='catalog__list'>
                             {fiteredData && fiteredData.map(item => (
-                                <CatalogItem item={item} key={`${item.id}`} />
+                                <CatalogItem item={item} key={`${item.id}` + `${item.name}`} />
                             ))}
                         </div>
                     </> :
                     <>
-                        {maxWidth760 && 
-                        <button className="catalog__popup-button" id="partner-filter-big" onClick={() => setFiltersPopupOpen(true)}>
-                            Фильтры
-                            <span className='catalog__button-item'>0</span>
-                        </button>
+                        {maxWidth760 &&
+                            <button className="catalog__popup-button" id="partner-filter-big" onClick={() => setFiltersPopupOpen(true)}>
+                                Фильтры
+                                <span className='catalog__button-item'>0</span>
+                            </button>
                         }
                         <NothingFound handleDisableRadios={clearFilters} />
                     </>
@@ -131,10 +139,9 @@ console.log(fiteredData)
                     <div className="popup-city__content">
                         <div className='catalog-popup__header'>
                             <h2 className="catalog-popup__title">Фильтры</h2>
-                            <button className="catalog-popup__close-button" onClick={() => { setFiltersPopupOpen(false) }}><img src={CloseCross} /></button>
                         </div>
                         <CatalogFilters maxWidth760={maxWidth760} setFilteredData={setFilteredData} clearFilters={clearFilters} selectedEngine={selectedEngine} setSelectedEngine={setSelectedEngine} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} />
-                        <button className="popup-filter__submit-button" id="filter-submit-button" type="submit">Готово</button>
+                        <button className="catalog-popup__submit-button" id="filter-submit-button" type="submit" onClick={() => { setFiltersPopupOpen(false)}}>Готово</button>
                     </div>
                 </div>
             }

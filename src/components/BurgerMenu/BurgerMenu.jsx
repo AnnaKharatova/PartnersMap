@@ -1,7 +1,7 @@
 import './BurgerMenu.css'
 import React from 'react'
 import Logo from '../../images/Logo.svg'
-import { email, phoneNumber } from '../../constants/constants.js'
+import { email, phoneNumber, addPartner } from '../../constants/constants.js'
 
 function BurgerMenu({ setBurgerMenuOpen, catalog }) {
 
@@ -29,7 +29,7 @@ function BurgerMenu({ setBurgerMenuOpen, catalog }) {
                 </div>
                 <nav className="popup-menu__main">
                     {!catalog ? <a className="popup-menu__item" href="/catalog">КАТАЛОГ</a> : <a className="popup-menu__item" href="/">КАРТА ОФИЦИАЛЬНЫХ ПАРТНЕРОВ</a>}
-                    <a className="popup-menu__item" href="#">ДОБАВИТЬ ПАРТНЕРА</a>
+                    <a className="popup-menu__item" target="_blank" href={addPartner}>ДОБАВИТЬ ПАРТНЕРА</a>
                     <p className="popup-menu__item-contacts" href="#">КОНТАКТЫ</p>
                     <a className="popup-menu__contacts" onClick={handlePhoneClick} href="#">{phoneNumber}</a>
                     <a className="popup-menu__contacts" onClick={handleMailClick} href="#">{email}</a>
