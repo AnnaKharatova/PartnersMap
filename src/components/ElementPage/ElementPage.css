@@ -1,5 +1,5 @@
 .element {
-    padding: 100px 60px 40px 60px;
+    padding: 110px 60px 40px 64px;
     min-height: 74vh;
 }
 
@@ -11,11 +11,44 @@
 }
 
 .element__road {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.element__link {
     font-size: 14px;
     font-weight: 400;
     line-height: 18.2px;
     text-align: left;
     color: #858582;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.element__link:hover {
+    text-decoration: underline;
+}
+
+.element__road-back {
+    border: none;
+    background-color: inherit;
+    outline: none;
+    background-image: url('../../images/back-arrow.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 24px;
+    height: 24px;
+}
+
+.element__road-name {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18.2px;
+    text-align: left;
+    color: #858582;
+    margin: 0;
+    padding: 0;
 }
 
 .element__search-button {
@@ -90,7 +123,7 @@
 
 .element__article {
     display: flex;
-    margin-bottom: 40px;
+    margin-bottom: 35px;
 }
 
 .element__articke-copy {
@@ -109,12 +142,12 @@
     background-color: inherit;
     border: 1px solid #C4C4C4;
     border-radius: 12px;
-    padding: 8px 50px;
+    padding: 8px 55px;
     font-size: 16px;
     font-weight: 400;
     line-height: 20.8px;
     color: #191919;
     width: fit-content;
     cursor: pointer;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
 }

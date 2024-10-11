@@ -1,11 +1,12 @@
 .catalog-filters {
-    padding: 60px 30px 30px 60px;
+    padding: 60px 30px 35px 60px;
 }
 
 .catalog-filters__engine {
     display: flex;
     flex-direction: row;
     gap: 20px;
+    flex-wrap: wrap;
     margin-bottom: 30px;
 }
 
@@ -17,7 +18,7 @@
     border: 1px solid #C4C4C4;
     background-color: inherit;
     border-radius: 8px;
-    padding: 8px 16px;
+    padding: 10px 22px;
     color: #191919;
     font-family: "IBMPlexSans";
     font-size: 16px;
@@ -48,6 +49,7 @@
     display: flex;
     flex-direction: row;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 .catalog-filters__group-checkbox {
@@ -74,4 +76,25 @@
 .catalog-filters__group-checkbox:checked+.catalog-filters__group-label {
     background-color: #191919;
     color: #FFFFFF;
+}
+
+@media screen and (max-width: 1024px) {
+    .catalog-filters {
+        padding: 50px 30px 30px 38px;
+    }
+
+    .catalog-filters__engine {
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+    .catalog-filters__engine-label {
+        padding: 10px 20px;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .catalog-filters {
+        padding: 10px 0 25px;
+    }
 }

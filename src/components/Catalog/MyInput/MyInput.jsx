@@ -18,16 +18,18 @@ function MyInput({ setOpenInput }) {
 
     return (
         <div className='my-input'>
-            <div className='input__input-group'>
-                <input className='input__input'
-                    placeholder='Поиск по названию или артикулу'
-                    type='text'
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)} />
-                <button className='input__input-button' onClick={() => { setInputValue('') }}></button>
+            <div className='my-input__container'>
+                <div className='input__input-group'>
+                    <input className='input__input'
+                        placeholder='Поиск по названию или артикулу'
+                        type='text'
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)} />
+                    <button className='input__input-button' onClick={() => { setInputValue('') }}></button>
+                </div>
+                <button className='input__submit' onClick={onSubmit}>Найти</button>
+                <button className='input__close' onClick={closeInput}>Закрыть</button>
             </div>
-            <button className='input__submit' onClick={onSubmit}>Найти</button>
-            <button className='input__close' onClick={closeInput}>Закрыть</button>
         </div>
     )
 }

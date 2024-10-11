@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { BASE_URL } from '../../../constants/constants.js'
 
-function CatalogFilters({ setFilteredData, clearFilters, selectedGroup, setSelectedGroup, selectedEngine, setSelectedEngine }) {
+function CatalogFilters({ maxWidth760, setFilteredData, clearFilters, selectedGroup, setSelectedGroup, selectedEngine, setSelectedEngine }) {
     const navigate = useNavigate()
     const [engines, setEngines] = useState([])
     const [groups, setGroups] = useState([])
@@ -12,7 +12,7 @@ function CatalogFilters({ setFilteredData, clearFilters, selectedGroup, setSelec
         fetch(`${BASE_URL}/catalog/catalog/?${selectedGroup && `group=${selectedGroup}&`}${selectedEngine && `engine_cat=${selectedEngine}`}`)
             .then(response => response.json())
             .then((data) => {
-                setFilteredData(data);
+                setFilteredData(data.result);
             }).catch(res => {
                 if (res.status == 500) {
                     navigate('./error')
@@ -24,15 +24,17 @@ function CatalogFilters({ setFilteredData, clearFilters, selectedGroup, setSelec
 
     const handleRadioEnginesChange = (event) => {
         const value = event.target.value;
+        const name = event.target.name
         setSelectedEngine(value);
         getFilteredData(selectedGroup, value)
+
     };
 
     const handleRadioGroupChange = (event) => {
         const value = event.target.value;
+        const name = event.target.name
         setSelectedGroup(value);
         getFilteredData(value, selectedEngine)
-
     };
 
     useEffect(() => {
@@ -67,7 +69,10 @@ function CatalogFilters({ setFilteredData, clearFilters, selectedGroup, setSelec
 
     return (
         <div className='catalog-filters'>
+            {maxWidth760 && <h3 className='popup-filter__subtitle'>Типы Двигателя</h3>}
+
             <div className="catalog-filters__engine" id="catalog-engines">
+
                 <>
                     <input
                         className='catalog-filters__engine-checkbox'
@@ -95,6 +100,8 @@ function CatalogFilters({ setFilteredData, clearFilters, selectedGroup, setSelec
                     </>
                 ))}
             </div>
+            {maxWidth760 && <h3 className='popup-filter__subtitle'>Продукция завода</h3>}
+
             <div className="catalog-filters__group" id="catalog-group">
                 {groups.map((group) => (
                     <>

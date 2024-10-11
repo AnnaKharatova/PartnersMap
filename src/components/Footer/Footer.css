@@ -35,3 +35,28 @@
     padding: 0;
     margin-left: auto;
 }
+
+
+@media screen and (max-width: 1024px) {
+    .footer {
+        padding: 28px 37px;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .footer {
+        flex-direction: column;
+        gap: 27px;
+    }
+
+    .footer__copyright {
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .footer {
+        padding: 40px 15px;
+    }
+
+}

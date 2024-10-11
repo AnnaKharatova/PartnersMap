@@ -1,6 +1,6 @@
 import './ElementPage.css'
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import Header from '../Header/Header';
 import BurgerMenu from '../BurgerMenu/BurgerMenu'
 import Footer from '../Footer/Footer';
@@ -66,14 +66,23 @@ function ElementPage({ maxWidth760 }) {
         }
     }, [element])
 
+    console.log(element)
+
     if (!element) return;
     return (
         <>
             <Header maxWidth760={maxWidth760} setBurgerMenuOpen={setBurgerMenuOpen} showTitle={false} catalog={true} />
             <main className='element'>
                 <div className='element__header'>
-                    {!repairKit ? <p className='element__road'>{`Каталог продукции / ${element.engine_cat.name} / ${type} / ${element.name}`}</p>
-                        : <p className='element__road'>{`Каталог продукции / ${element.engine_cat.name} / Ремкомплекты / ${element.name}`}</p>}
+
+                    <div className='element__road'>
+                        <button className='element__road-back' onClick={()=>navigate(-1)}></button>
+                        <Link className='element__link' to={`/catalog`}>Каталог продукции /</Link>
+                        <Link className='element__link' to={`/catalog`} onClick={() => sessionStorage.setItem('engineSort', type)}> {element.engine_cat.name} / </Link>
+                        {repairKit && <Link className='element__link' to={`/catalog`} onClick={() => sessionStorage.setItem('repairKitSort', 'repare-kit')}>Ремкомплекты / </Link>}
+                        <p className='element__road-name' >{element.name}</p>
+                    </div>
+
                     <button className='element__search-button' onClick={() => setOpenInput(true)}></button>
                 </div>
                 <div className='element__main'>

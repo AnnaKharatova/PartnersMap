@@ -12,7 +12,7 @@ function App() {
   const [maxWidth760, setMaxWidth760] = useState()
 
   const handleResize = () => {
-    if (window.innerWidth < 760) {
+    if (window.innerWidth < 762) {
       setMaxWidth1024(false);
       setMaxWidth760(true);
     } else if (window.innerWidth < 1024) {

@@ -21,4 +21,43 @@
     line-height: 28px;
     text-align: center;
     color: #191919;
+    margin-bottom: 0;
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 1024px) {
+    
+    .error__code {
+        font-size: 96px;
+        line-height: 124.8px;
+        margin: 20px;
+
+
+    }
+    
+    .error__subtitle {
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 28px;
+        text-align: center;
+        color: #191919;
+ 
+    }
+}
+
+@media screen and (max-width: 460px) {
+
+    .error__code {
+        font-size: 64px;
+        line-height: 83.2px;
+        margin: 20px;
+
+
+    }
+    
+    .error__subtitle {
+        font-size: 16px;
+        line-height: 20.8px;       
+    }
+
 }

@@ -215,7 +215,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
       <Header maxWidth760={maxWidth760} setBurgerMenuOpen={setBurgerMenuOpen} showTitle={showTitle} catalog={false} />
       <main>
         <img alt='баннер' className="bunner" src={maxWidth1024 ? Bunner1440 : Bunner1024} />
-        <h1 className="title">{!maxWidth760 ? "Официальные партнёры АО Строймаш" : "Официальные партнёры завода"}</h1>
+        <h1 className="title">{!maxWidth760 ? `Официальные партнёры АО Строймаш` : "Официальные партнёры завода"}</h1>
         <div className="map">
           <div className="partners">
             <div className={!buttonsShadow ? "partners__filter-buttons" : "partners__filter-buttons buttons__box-shadow"}>
@@ -278,7 +278,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
 
       {(citiesPopup && maxWidth760) && <PopupCitiesFilter setPartnerInfo={setPartnerInfo} setCitiesPopup={setCitiesPopup} setSelectedCity={setSelectedCity} getQuery={getQuery} />}
       {(filtersPopup && maxWidth760) && <PopupFilters setPartnerInfo={setPartnerInfo} tags={tags} setTags={setTags} engines={engines} setEngines={setEngines} filteredData={filteredData} setFilteredData={setFilteredData} getQuery={getQuery} selectedParts={selectedParts} setSelectedParts={setSelectedParts} selectedTags={selectedTags} setSelectedTags={setSelectedTags} setFiltersPopup={setFiltersPopup} setFilterMark={setFilterMark} filterMark={filterMark} />}
-      {burgerMenuOpen && <BurgerMenu setBurgerMenuOpen={setBurgerMenuOpen} />}
+      {burgerMenuOpen && <BurgerMenu catalog={false} setBurgerMenuOpen={setBurgerMenuOpen} />}
       {
         (popupPartnersListOpen && maxWidth760) &&
         <div className="popup-partners__container" >

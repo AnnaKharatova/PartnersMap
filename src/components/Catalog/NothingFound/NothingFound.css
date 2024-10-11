@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 60px 60px 200px;
+    padding: 0 60px 120px;
 }
 
 .empty__title {
@@ -13,12 +13,12 @@
     font-weight: 500;
     line-height: 28px;
     color: #191919;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .empty__subtitle {
     margin-top: 0;
-    margin-bottom: 40px;
+    margin-bottom: 35px;
     font-size: 16px;
     font-weight: 400;
     line-height: 20.8px;
@@ -42,4 +42,29 @@
 
 .empty__button:hover {
     border: 1px solid #1347FF;
+}
+
+@media screen and (max-width: 1024px) {
+    .empty {
+        padding-bottom: 40px;
+
+    }
+    .empty__title {
+        margin-bottom: 10px;
+        font-size: 16px;
+        line-height: 20.8px;
+    }
+
+    .empty__subtitle {
+        margin-bottom: 30px;
+        font-size: 14px;
+        line-height: 18.2px;  
+    }
+
+    .empty__button {
+        font-size: 14px;
+        line-height: 18.2px;
+        padding: 5px 8px;
+        width: 147px;
+    }
 }
