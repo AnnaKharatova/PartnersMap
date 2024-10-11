@@ -3,16 +3,19 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { BASE_URL } from '../../../constants/constants.js'
 
+const page = 1
+
 function CatalogFilters({ maxWidth760, setFilteredData, clearFilters, selectedGroup, setSelectedGroup, selectedEngine, setSelectedEngine }) {
     const navigate = useNavigate()
     const [engines, setEngines] = useState([])
     const [groups, setGroups] = useState([])
 
     function getFilteredData(selectedGroup, selectedEngine) {
-        fetch(`${BASE_URL}/catalog/catalog/?${selectedGroup && `group=${selectedGroup}&`}${selectedEngine && `engine_cat=${selectedEngine}`}`)
+        fetch(`${BASE_URL}/catalog/catalog/?${selectedGroup && `group=${selectedGroup}&`}${selectedEngine && `engine_cat=${selectedEngine}`}&page=${page}`)
             .then(response => response.json())
             .then((data) => {
-                setFilteredData(data.result);
+                setFilteredData(data.results);
+                console.log(data)
             }).catch(res => {
                 if (res.status == 500) {
                     navigate('./error')

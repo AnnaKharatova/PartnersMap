@@ -59,11 +59,11 @@ function Catalog({ maxWidth760 }) {
         sessionStorage.clear()
     };
 
-    useEffect(() => {
+   useEffect(() => {
         if (storedValue && allCatalog) {
             setInputValue(storedValue)
+            handleSubmit()
         }
-        handleSubmit()
     }, [storedValue, allCatalog])
 
     function getAllCatalog() {
@@ -77,9 +77,7 @@ function Catalog({ maxWidth760 }) {
                 console.error("Ошибка при получении данных:", error);
             });
     }
-
-    console.log(fiteredData)
-
+console.log(fiteredData)
     return (
         <>
             <Header maxWidth760={maxWidth760} setBurgerMenuOpen={setBurgerMenuOpen} showTitle={false} catalog={true} />
