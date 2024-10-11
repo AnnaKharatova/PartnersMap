@@ -3,6 +3,8 @@ import './PartnerElement.css'
 
 const PartnerElement = ({ partner, setStore, setSelectedPartner, setPopupPartnersListOpen }) => {
 
+    const tagsArray = partner.tags
+
     function handleClick() {
         setSelectedPartner(partner)
         if (setPopupPartnersListOpen) {
@@ -26,17 +28,21 @@ const PartnerElement = ({ partner, setStore, setSelectedPartner, setPopupPartner
         }
     };
 
-    const tagsArray = partner.tags.concat(partner.parts_available)
-
     return (
         <li className='partner' onClick={handleClick}>
+            <p className='partner__engines'> {partner.parts_available.map((part, index) => (
+                <React.Fragment key={index}>
+                    {part.name}
+                    {index < partner.parts_available.length - 1 && <span className='partner__engines-dot'></span>}
+                </React.Fragment>
+            ))}</p>
+            <h2 className='partner__name'>{partner.name}</h2>
             <p className='partner__engines'> {tagsArray.map((part, index) => (
                 <React.Fragment key={index}>
                     {part.name}
                     {index < tagsArray.length - 1 && <span className='partner__engines-dot'></span>}
                 </React.Fragment>
             ))}</p>
-            <h2 className='partner__name'>{partner.name}</h2>
             <p className='partner__address'>{partner.address}</p>
             <div className='partner__block'>
                 <div className='partner__contacts'>

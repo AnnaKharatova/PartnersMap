@@ -19,6 +19,12 @@ function ElementPage({ maxWidth760 }) {
     const [openInput, setOpenInput] = useState(false)
     const [burgerMenuOpen, setBurgerMenuOpen] = useState(false)
     const [mainImage, setMainImage] = useState()
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    const handlePhotoClick = () => {
+        const nextIndex = (currentImageIndex + 1) % images.length;
+        setCurrentImageIndex(nextIndex);
+    };
 
     useEffect(() => {
         if (type == 'repair_kit') {
@@ -56,7 +62,6 @@ function ElementPage({ maxWidth760 }) {
                 }
             });
     }
-
     useEffect(() => {
         getElement()
     }, [])
@@ -67,7 +72,24 @@ function ElementPage({ maxWidth760 }) {
         }
     }, [element])
 
-    console.log(element)
+    function handleEngineFilter() {
+        const value = element.engine_cat.id
+        localStorage.setItem('engineSort', value)
+        navigate('/catalog')
+    }
+
+    function handleRepKitFilter() {
+        const value = element.engine_cat.id
+        localStorage.setItem('engineKitSort', value)
+        localStorage.setItem('repairKitSort', 'repare-kit')
+        navigate('/catalog')
+    }
+
+    function handleMapFilter() {
+        const value = element.engine_cat.id
+        localStorage.setItem('engineSort', value)
+        navigate('/')
+    }
 
     if (!element) return;
     return (
@@ -77,10 +99,10 @@ function ElementPage({ maxWidth760 }) {
                 <div className='element__header'>
 
                     <div className='element__road'>
-                        <button className='element__road-back' onClick={()=>navigate(-1)}></button>
+                        <button className='element__road-back' onClick={() => navigate(-1)}></button>
                         <Link className='element__link' to={`/catalog`}>Каталог продукции /</Link>
-                        <Link className='element__link' to={`/catalog`} onClick={() => sessionStorage.setItem('engineSort', type)}> {element.engine_cat.name} / </Link>
-                        {repairKit && <Link className='element__link' to={`/catalog`} onClick={() => sessionStorage.setItem('repairKitSort', 'repare-kit')}>Ремкомплекты / </Link>}
+                        <p className='element__link' onClick={handleEngineFilter}> {element.engine_cat.name} / </p>
+                        {repairKit && <a className='element__link' onClick={handleRepKitFilter}>Ремкомплекты / </a>}
                         <p className='element__road-name' >{element.name}</p>
                     </div>
 
@@ -89,7 +111,7 @@ function ElementPage({ maxWidth760 }) {
                 <div className='element__main'>
                     <div className='element__photo'>
                         <img className='element__photo-main' src={mainImage} />
-                        <ul className='element__photo-list'>
+                        {!maxWidth760 && <ul className='element__photo-list'>
                             {element.images.map(image => (
                                 <img className='element__photo-item' src={image.image} key={image.image} onClick={() => { setMainImage(image.image) }} />
                             ))}
@@ -99,7 +121,7 @@ function ElementPage({ maxWidth760 }) {
                                 </>
                             )))
                             }
-                        </ul>
+                        </ul>}
                     </div>
                     <div className='element__info'>
                         <h2 className='element__title'>{element.name}</h2>
@@ -108,14 +130,14 @@ function ElementPage({ maxWidth760 }) {
                             <p className='element__description'>{element.article}</p>
                             <button className='element__articke-copy' onClick={copyArticle}></button>
                         </div>
-                        <button className='element__map-button'>Где купить</button>
+                        <button className='element__map-button' onClick={handleMapFilter}>Где купить</button>
                         {!repairKit ?
                             <>
                                 {element.materials.length != 0 &&
                                     <>
                                         <h4 className='element__subtitle'>МАТЕРИАЛ:</h4>
                                         {element.materials.map(item => (
-                                            <p className='element__description' key={item}>{item.name}</p>
+                                            <p className='element__description' key={item.name}>{item.name}</p>
                                         ))}
                                     </>}
                                 {element.special_feature &&

@@ -40,6 +40,27 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
   const [showTitle, setShowTitle] = useState(false)
   const [buttonsShadow, setButtonsShadow] = useState(false)
 
+  const storagedEngineId = localStorage.getItem('engineSort')
+  useEffect(() => {
+    if (storagedEngineId) {
+      const url = `${BASE_URL}/partners/?parts_available=${storagedEngineId}`
+      console.log(url)
+      fetch(url)
+        .then(res => res.json())
+        .then(resData => {
+          const fetchedData = JSON.parse(JSON.stringify(resData))
+          setFilteredData(fetchedData)
+        }).catch(res => {
+          if (res.status == 500) {
+            navigate('./error')
+          } else {
+            console.log("Ошибка при получении данных:", res.message);
+          }
+        });
+    }
+  }, [storagedEngineId])
+
+
   useEffect(() => {
     const handleScroll = () => {
       const header = document.querySelector(".header");

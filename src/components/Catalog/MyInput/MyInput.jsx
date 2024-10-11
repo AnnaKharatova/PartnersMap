@@ -7,13 +7,13 @@ function MyInput({ setOpenInput }) {
     const [inputValue, setInputValue] = useState('');
 
     function onSubmit() {
-        sessionStorage.setItem('inputValue', inputValue)
+        localStorage.setItem('inputValue', inputValue)
         navigate('/catalog')
     };
 
     function closeInput() {
         setOpenInput(false)
-        sessionStorage.clear()
+        localStorage.clear()
     }
 
     return (

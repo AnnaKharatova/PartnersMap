@@ -14,6 +14,10 @@
     display: flex;
     gap: 5px;
     align-items: center;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    overflow-x: auto;
+    margin-right: 15px;
 }
 
 .element__link {
@@ -74,8 +78,8 @@
 }
 
 .element__photo-main {
-    width: 638px;
-    height: 500px;
+    width: 100%;
+    height: auto;
     border: 1px solid #E8E8E8;
 }
 
@@ -138,6 +142,7 @@
     cursor: pointer;
 }
 
+
 .element__map-button {
     background-color: inherit;
     border: 1px solid #C4C4C4;
@@ -156,5 +161,72 @@
     .element__photo-main {
         max-width: 638px;
         height: auto;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .element {
+        background-color: #f5f5f5;
+        padding: 60px 0 30px 0;
+        min-height: 74vh;
+        margin: 0 auto;
+    }
+
+    .element__photo-main {
+        width: 100%;
+        height: auto;
+    }
+
+    
+.element__article {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+    .element__main {
+        flex-direction: column;
+        margin: 0 auto;
+        gap: 20px;
+    }
+
+    .element__search-button {
+        z-index: 10;
+        position: absolute;
+        top: 14px;
+        right: 60px;
+    }
+
+    .element__subtitle {
+        font-size: 14px;
+        line-height: 18.2px;
+        margin-left: 20px;
+    }
+
+    .element__articke-copy {
+        background-size: 20px;
+    }
+
+    .element__map-button {
+        font-size: 14px;
+        line-height: 18.2px;
+    }
+
+    .element__description {
+        font-size: 14px;
+        line-height: 18.2px;
+        color: #858582;
+    }
+
+    .element__road-back {
+ margin-left: 10px;
+    }
+
+    .element__road {
+        margin: 0 15px;
+    }
+    .element__title { 
+        margin-left: 20px;
+        margin-right: 20px;
+        margin-top: 0;
     }
 }

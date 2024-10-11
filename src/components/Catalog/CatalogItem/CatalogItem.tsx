@@ -20,17 +20,23 @@ function CatalogItem({ item }) {
             });
     }
 
+    function handleMapFilter() {
+        const value = item.engine_cat.id
+        localStorage.setItem('engineSort', value)
+        navigate('/')
+    }
+
     return (
         <div className='catalog-item'>
             <div className='catalog__img-container'>
-                <img className='catalog-item__img' src={photo} alt='изображение детали'/>
+                <img className='catalog-item__img' src={photo} alt='изображение детали' />
             </div>
             <Link className='catalog-item__title' to={`/catalog/${item.type}/${item.id}`}>{item.name}</Link>
             <div className='catalog-item__article'>
                 <p className='catalog-item__articke-p'>{item.article}</p>
                 <button className='catalog-item__articke-copy' onClick={copyArticle}></button>
             </div>
-            <button className='catalog-item__map-button'>Где купить</button>
+            <button className='catalog-item__map-button' onClick={handleMapFilter}>Где купить</button>
         </div>
     )
 }
