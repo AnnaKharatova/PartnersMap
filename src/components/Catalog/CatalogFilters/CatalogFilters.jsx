@@ -1,44 +1,39 @@
 import './CatalogFilters.css'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { v4 as uuidv4 } from 'uuid';
 import { BASE_URL } from '../../../constants/constants.js'
 
-const page = 1
-
-function CatalogFilters({ maxWidth760, setFilteredData, clearFilters, selectedGroup, setSelectedGroup, selectedEngine, setSelectedEngine }) {
+function CatalogFilters({
+    handleSubmit,
+    maxWidth760,
+    clearFilters,
+    selectedGroup,
+    setSelectedGroup,
+    selectedEngine,
+    setSelectedEngine
+}) {
     const navigate = useNavigate()
     const [engines, setEngines] = useState([])
     const [groups, setGroups] = useState([])
 
-    function getFilteredData(selectedGroup, selectedEngine) {
-        fetch(`${BASE_URL}/catalog/catalog/?${selectedGroup && `group=${selectedGroup}&`}${selectedEngine && `engine_cat=${selectedEngine}`}&page=${page}`)
-            .then(response => response.json())
-            .then((data) => {
-                setFilteredData(data.results);
-            }).catch(res => {
-                if (res.status == 500) {
-                    navigate('./error')
-                } else {
-                    console.log("Ошибка при получении данных:", res.message);
-                }
-            });
+    const handleEngineCheckboxChange = (event) => {
+        const { value } = event.target;
+        setSelectedEngine(value || null);
+        handleSubmit(1);
+    };
+
+    const handleGroupCheckboxChange = (event) => {
+        const { value } = event.target;
+        setSelectedGroup(value || null);
+        handleSubmit(1);
+    };
+
+    function clearAll() {
+        setSelectedEngine(null);
+        setSelectedGroup(null);
+        clearFilters();
+        handleSubmit(1);
     }
-
-    const handleRadioEnginesChange = (event) => {
-        const value = event.target.value;
-        const name = event.target.name
-        setSelectedEngine(value);
-        getFilteredData(selectedGroup, value)
-
-    };
-
-    const handleRadioGroupChange = (event) => {
-        const value = event.target.value;
-        const name = event.target.name
-        setSelectedGroup(value);
-        getFilteredData(value, selectedEngine)
-    };
 
     useEffect(() => {
         fetch(`${BASE_URL}/catalog/engine/`)
@@ -46,11 +41,10 @@ function CatalogFilters({ maxWidth760, setFilteredData, clearFilters, selectedGr
             .then(data => {
                 setEngines(data)
             })
-            .catch(res => {
-                if (res.status == 500) {
+            .catch(error => {
+                console.log("Ошибка при получении данных:", error.message);
+                if (error.status === 500) {
                     navigate('./error')
-                } else {
-                    console.log("Ошибка при получении данных:", res.message);
                 }
             });
     }, [])
@@ -59,64 +53,62 @@ function CatalogFilters({ maxWidth760, setFilteredData, clearFilters, selectedGr
         fetch(`${BASE_URL}/catalog/group/`)
             .then(response => response.json())
             .then(data => {
-                setGroups(data.reverse())
+                setGroups(data)
             })
-            .catch(res => {
-                if (res.status == 500) {
+            .catch(error => {
+                console.log("Ошибка при получении данных:", error.message);
+                if (error.status === 500) {
                     navigate('./error')
-                } else {
-                    console.log("Ошибка при получении данных:", res.message);
                 }
             });
     }, [])
-
     return (
         <div className='catalog-filters'>
             {maxWidth760 && <h3 className='catalog-popup__subtitle'>Тип двигателя</h3>}
-            <div className="catalog-filters__engine" id="catalog-engines" key={uuidv4()}>
-                <>
+            <div className="catalog-filters__engine" id="catalog-engines">
+                <div>
                     <input
                         className='catalog-filters__engine-checkbox'
                         type="radio"
-                        key={uuidv4()}
                         name="engines"
+                        id='engine-all'
                         value=''
-                        onChange={handleRadioEnginesChange}
-                        onClick={clearFilters}
+                        onChange={clearAll}
+                        onClick={clearAll} // Добавлено
+                        checked={!selectedEngine}
                     />
-                    <label className='catalog-filters__engine-label'  key={uuidv4()} htmlFor='all-engines'>Вся продукция</label>
-                </>
+                    <label className='catalog-filters__engine-label' htmlFor='engine-all'>Вся продукция</label>
+                </div>
                 {engines.map((engine) => (
-                    <>
+                    <div key={engine.id}>
                         <input
-                             key={uuidv4()}
                             className='catalog-filters__engine-checkbox'
                             type="radio"
-                            id={engine.id}
+                            id={`engine-${engine.id}`}
                             name="engines"
                             value={engine.id}
-                            onChange={handleRadioEnginesChange}
+                            onChange={handleEngineCheckboxChange}
+                            checked={selectedEngine == engine.id}
                         />
-                        <label  key={uuidv4()} className='catalog-filters__engine-label' htmlFor={engine.id}>{engine.name}</label>
-                    </>
+                        <label className='catalog-filters__engine-label' htmlFor={`engine-${engine.id}`}>{engine.name}</label>
+                    </div>
                 ))}
             </div>
             {maxWidth760 && <h3 className='catalog-popup__subtitle'>Продукция завода</h3>}
-
-            <div className="catalog-filters__group" id="catalog-group" key={'catalog-group'}>
+            <div className="catalog-filters__group" id="catalog-group">
                 {groups.map((group) => (
-                    <>
+                    <div key={group.id}>
                         <input
-                             key={uuidv4()}
                             className='catalog-filters__group-checkbox'
                             type="radio"
-                            id={group.id}
+                            id={`group-${group.id}`}
                             name="group"
                             value={group.id}
-                            onChange={handleRadioGroupChange}
+                            onChange={handleGroupCheckboxChange}
+                            checked={selectedGroup == group.id}
                         />
-                        <label  key={uuidv4()} className='catalog-filters__group-label' htmlFor={group.id}>{group.name}</label>
-                    </>
+                        <label className='catalog-filters__group-label' htmlFor={`group-${group.id}`}>{group.name}</label>
+                    </div>
                 ))}
             </div>
         </div>

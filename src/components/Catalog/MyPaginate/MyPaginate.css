@@ -1,0 +1,17 @@
+.pagination {
+    list-style: none;
+    display: flex;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18.2px;
+    color: #858582;
+    gap: 15px;
+    cursor: pointer;
+    justify-content: center;
+
+}
+
+.pagination_active {
+    text-decoration: underline;
+    color: #191919;
+}

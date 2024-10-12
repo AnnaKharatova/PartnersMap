@@ -1,33 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import './MyPaginate.css'
 import ReactPaginate from 'react-paginate';
 
-const MyPagination = ({ }) => {
-    const [currentPage, setCurrentPage] = useState(0);
-    const [data, setData] = useState([]);
-    const itemsPerPage = 10;
+const MyPagination = ({ handleSubmit, fiteredData, page, setPage }) => {
 
-    const handlePageChange = ({ selected }) => {
-        setCurrentPage(selected);
+    const pages = Math.ceil(fiteredData.count / 2)
+    const handleNumberClick = (number) => {
+        setPage(number);
+        handleSubmit(number);
     };
-
-    const offset = currentPage * itemsPerPage;
-    const paginatedData = data.slice(offset, offset + itemsPerPage);
 
     return (
         <div>
-            {/* Display paginated data */}
-            {paginatedData.map((item) => (
-                <div key={item.id}>{item.name}</div>
-            ))}
-
-            {/* Pagination component */}
             <ReactPaginate
-                pageCount={Math.ceil(data.length / itemsPerPage)}
-                onPageChange={handlePageChange}
+                pageCount={pages}
+                breakLabel="..."
+                nextLabel={pages != page ? ">" : ''}
+                onPageChange={(event) => handleNumberClick((event.selected + 1))}
+                pageRangeDisplayed={3}
+                previousLabel={page > 1 ? "<" : ''}
+                renderOnZeroPageCount={null}
                 containerClassName="pagination"
-                activeClassName="active"
-                pageRangeDisplayed={5}
-                marginPagesDisplayed={2}
+                activeClassName="pagination__active"
             />
         </div>
     );
