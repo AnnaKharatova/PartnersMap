@@ -30,7 +30,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
   const [filterMark, setFilterMark] = useState([])
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedParts, setSelectedParts] = useState([]);
-  const [filteredData, setFilteredData] = useState(allPartners)
+  const [filteredData, setFilteredData] = useState([])
   const [selectedPartner, setSelectedPartner] = useState(null)
   const [engines, setEngines] = useState([])
   const [tags, setTags] = useState([])
@@ -41,8 +41,19 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
   const [buttonsShadow, setButtonsShadow] = useState(false)
 
   const storagedEngineId = localStorage.getItem('engineSort')
+  const storagedEngineName = localStorage.getItem('engineName')
+
+  console.log(filteredData)
+
+  console.log(selectedTags)
+
+  console.log(storagedEngineName)
+
+
   useEffect(() => {
     if (storagedEngineId) {
+      setFilterMark([...filterMark, storagedEngineName]);
+      setSelectedTags([...selectedTags, storagedEngineId]);
       const url = `${BASE_URL}/partners/?parts_available=${storagedEngineId}`
       console.log(url)
       fetch(url)
@@ -58,8 +69,11 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
           }
         });
     }
-  }, [storagedEngineId])
+  }, [])
 
+  setTimeout(() => {
+    localStorage.clear()
+  }, 6000)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -112,7 +126,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
   }, []);
 
   function getAllPartners() {
-    fetch(`${BASE_URL}/partners/`)
+     fetch(`${BASE_URL}/partners/`)
       .then(res => res.json())
       .then(resData => {
         const fetchedData = JSON.parse(JSON.stringify(resData))
@@ -124,11 +138,13 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
         } else {
           console.error("Ошибка при получении данных:", res.message);
         }
-      });
+      }); 
   }
 
-  useEffect(() => {
-    getAllPartners()
+   useEffect(() => {
+    if (!storagedEngineId) {
+      getAllPartners()
+    }
   }, [])
 
   function clearFilters() {
@@ -161,7 +177,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
     }
   }
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (selectedCity) {
       getQuery()
     }
@@ -177,10 +193,10 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
     if (selectedTags) {
       getQuery()
     }
-  }, [selectedTags])
+  }, [selectedTags]) */
 
   function getQuery() {
-    if (selectedParts || selectedTags || selectedCity) {
+     if (selectedParts || selectedTags || selectedCity) {
       const queryParams = !selectedCity ? (selectedTags.map(tag => `tags=${tag}`).join('&') + `&` + selectedParts.map(id => `parts_available=${id}`).join('&')) : (`city=${selectedCity.id}` + `&` + selectedTags.map(tag => `tags=${tag}`).join('&') + `&` + selectedParts.map(id => `parts_available=${id}`).join('&'))
       const url = `${BASE_URL}/partners/?${queryParams}`
       fetch(url)
@@ -273,7 +289,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
             {(filterMark.length > 0) & !maxWidth760 ?
               <ul className='map__filters'>
                 {filterMark.map((item, index) => (
-                  <FilterMarkItem key={index} item={item} deleteMarkItem={deleteMarkItem} />
+                  <FilterMarkItem getQuery={getQuery} key={index} item={item} deleteMarkItem={deleteMarkItem} />
                 ))}
                 <button onClick={clearFilters} className='filter-marker'>
                   <div className="filter-marker__label-span" style={{ color: 'black' }}>Очистить все</div>

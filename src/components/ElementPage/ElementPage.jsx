@@ -87,7 +87,9 @@ function ElementPage({ maxWidth760 }) {
 
     function handleMapFilter() {
         const value = element.engine_cat.id
+        const name = element.engine_cat.name
         localStorage.setItem('engineSort', value)
+        localStorage.setItem('engineName', name)
         navigate('/')
     }
 

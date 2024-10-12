@@ -1,10 +1,11 @@
 import './FilterMarkItem.css'
 import React from 'react';
 
-function FilterMarkItem({ item, deleteMarkItem }) {
+function FilterMarkItem({ getQuery, item, deleteMarkItem }) {
 
     function handleMarkItem() {
         deleteMarkItem(item)
+        getQuery()
     }
 
     return (
