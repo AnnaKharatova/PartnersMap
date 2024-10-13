@@ -19,15 +19,19 @@ function Catalog({ maxWidth760 }) {
     const [inputValue, setInputValue] = useState('');
     const [dislayedItems, setDisplayedItems] = useState([])
     const storedValue = localStorage.getItem('inputValue');
-    const [selectedEngine, setSelectedEngine] = useState('');
-    const [selectedGroup, setSelectedGroup] = useState('');
+    const storedEngineName = localStorage.getItem('engineName')
+    const [selectedEngine, setSelectedEngine] = useState([]);
+    const [selectedGroup, setSelectedGroup] = useState([]);
     const [filtersPopupOpen, setFiltersPopupOpen] = useState(false)
     const storagedEngineId = localStorage.getItem('engineSort')
-    const storagedType = localStorage.getItem('repare-kit')
+    const storagedEngineKitName = localStorage.getItem('repare-kit')
     const storagedEngineKitId = localStorage.getItem('engineKitSort')
     const [page, setPage] = useState(1);
+    const [filterMark, setFilterMark] = useState([])
 
-    const SEARCH_URL = `${BASE_URL}/catalog/catalog/?${selectedGroup && `group=${selectedGroup}&&`}${selectedEngine && `engine_cat=${selectedEngine}&&`}search=${inputValue}&page=${page}`
+    const groups = selectedGroup ? selectedGroup.map(group => `group=${group}&`).join('') : '';
+    const engins = selectedEngine ? selectedEngine.map(engine => `engine_cat=${engine}&`).join('') : '';
+    const SEARCH_URL = `${BASE_URL}/catalog/catalog/?${groups}${engins}search=${inputValue}&page=${page}`;
 
     useEffect(() => {
         getAllCatalog()
@@ -47,7 +51,7 @@ function Catalog({ maxWidth760 }) {
     }
 
     function handleSubmit(page) {
-        fetch(`${BASE_URL}/catalog/catalog/?${selectedGroup && `group=${selectedGroup}&&`}${selectedEngine && `engine_cat=${selectedEngine}&&`}search=${inputValue}&page=${page}`)
+        fetch(`${BASE_URL}/catalog/catalog/?${groups}${engins}search=${inputValue}&page=${page}`)
             .then(res => res.json())
             .then(resData => {
                 const fetchedData = JSON.parse(JSON.stringify(resData))
@@ -63,35 +67,52 @@ function Catalog({ maxWidth760 }) {
     };
 
     function clearFilters() {
-        const radios = document.querySelectorAll('input[type="radio"]');
-        radios.forEach(radio => {
-            if (radio.value == 'all') {
-                radio.checked = true;
-            } else {
-                radio.checked = false;
-            }
-        });
         setInputValue('')
-        setSelectedEngine('')
-        setSelectedGroup('')
+        setSelectedEngine([])
+        setSelectedGroup([])
         localStorage.clear()
         setFilteredData(allCatalog)
         setDisplayedItems(allCatalog.results)
     }
 
     useEffect(() => {
-        if (storagedEngineId) {
-            setSelectedEngine(storagedEngineId)
+        if (storagedEngineId & storedEngineName) {
+            setSelectedGroup([...selectedGroup, storagedEngineId]);
+            setFilterMark([...filterMark, storedEngineName]);
             handleSubmit(page)
         }
     }, [storagedEngineId])
 
-    
+    useEffect(() => {
+        if (storagedEngineKitId) {
+            setSelectedGroup([...selectedGroup, storagedEngineKitId]);
+            setFilterMark([...filterMark, storagedEngineKitName]);
+            fetch(`${BASE_URL}/catalog/repair_kit/?&engin_cat=${storagedEngineKitId}&page=${page}`)
+                .then(res => res.json())
+                .then(resData => {
+                    const fetchedData = JSON.parse(JSON.stringify(resData))
+                    setFilteredData(fetchedData)
+                    setDisplayedItems(fetchedData.results)
+                }).catch(res => {
+                    if (res.status == 500) {
+                        navigate('./error')
+                    } else {
+                        console.log("Ошибка при получении данных:", res.message);
+                    }
+                });
+        }
+    }, [storagedEngineId])
+
+
+    setTimeout(() => {
+        localStorage.clear()
+    }, 5000)
+
     useEffect(() => {
         if (storedValue && allCatalog) {
             setInputValue(storedValue)
         }
-        handleSubmit(page)
+
     }, [storedValue, allCatalog])
 
 
@@ -115,7 +136,7 @@ function Catalog({ maxWidth760 }) {
                         <button className='catalog__input-button' onClick={handleSubmit}>{!maxWidth760 ? 'Найти' : ''}</button>
                     </div>
                 </div>
-                {!maxWidth760 && <CatalogFilters handleSubmit={handleSubmit} maxWidth760={maxWidth760} setFilteredData={setFilteredData} clearFilters={clearFilters} selectedEngine={selectedEngine} setSelectedEngine={setSelectedEngine} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} />}
+                {!maxWidth760 && <CatalogFilters filterMark={filterMark} setFilterMark={setFilterMark} handleSubmit={handleSubmit} maxWidth760={maxWidth760} setFilteredData={setFilteredData} clearFilters={clearFilters} selectedEngine={selectedEngine} setSelectedEngine={setSelectedEngine} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} />}
                 {(dislayedItems && dislayedItems.length > 0) ?
                     <>
                         <div className='catalog__span-group'>
@@ -147,7 +168,6 @@ function Catalog({ maxWidth760 }) {
                         <NothingFound handleDisableRadios={clearFilters} />
                     </>
                 }
-
             </main>
             <Footer />
             {burgerMenuOpen && <BurgerMenu catalog={true} setBurgerMenuOpen={setBurgerMenuOpen} />}

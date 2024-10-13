@@ -1,4 +1,5 @@
 import './RepairKitComplect.css'
+import { v4 as uuidv4 } from 'uuid';
 
 function RepairKitComplect({ element }) {
 
@@ -6,7 +7,7 @@ function RepairKitComplect({ element }) {
         <>
             <h4 className='element__subtitle'>КОМПЛЕКТАЦИЯ:</h4>
             {element.parts.map((item) => (
-                <div className='repair-kit' key={item.id}>
+                <div className='repair-kit' key={uuidv4()}>
                     <a className='repair-kit__item' href={`/catalog/spare_part/${item.spare_part.id}`} target="_blank">{item.spare_part.name}</a>
                     {item.quantity && <p className='repair-kit__description'>Количество: {item.quantity}шт</p>}
                     {item.spare_part.article && <p className='repair-kit__description'>Артикул: {item.spare_part.article}</p>}

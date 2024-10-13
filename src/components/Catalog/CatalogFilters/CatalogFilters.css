@@ -7,6 +7,7 @@
     flex-direction: row;
     gap: 20px;
     flex-wrap: wrap;
+    margin-top: 10px;
     margin-bottom: 30px;
 }
 
@@ -36,20 +37,17 @@
     color: #FFFFFF;
 }
 
-
-
 .catalog-filters__engine-checkbox:checked .catalog-filters__label-span {
     background-color: #191919;
     color: white;
 }
-
-
 
 .catalog-filters__group {
     display: flex;
     flex-direction: row;
     gap: 20px;
     flex-wrap: wrap;
+    margin-top: 50px;
 }
 
 .catalog-filters__group-checkbox {

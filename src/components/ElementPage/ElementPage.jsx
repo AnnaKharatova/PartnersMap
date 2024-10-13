@@ -1,6 +1,7 @@
 import './ElementPage.css'
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import Header from '../Header/Header';
 import BurgerMenu from '../BurgerMenu/BurgerMenu'
 import Footer from '../Footer/Footer';
@@ -8,23 +9,23 @@ import MyInput from '../Catalog/MyInput/MyInput';
 import RepairKitComplect from './RepairKitComplect/RepairKitComplect';
 import { BASE_URL } from '../../constants/constants';
 
-
 function ElementPage({ maxWidth760 }) {
 
     const navigate = useNavigate()
     const { type, id } = useParams();
-
     const [repairKit, setRepairKit] = useState()
     const [element, setElement] = useState()
     const [openInput, setOpenInput] = useState(false)
     const [burgerMenuOpen, setBurgerMenuOpen] = useState(false)
     const [mainImage, setMainImage] = useState()
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-    const handlePhotoClick = () => {
-        const nextIndex = (currentImageIndex + 1) % images.length;
-        setCurrentImageIndex(nextIndex);
-    };
+    const handleMainPhoto = () => {
+        /* const nextIndex = (currentImageIndex + 1) % images.length;
+
+        setMainImage(element.images.map(image => (
+            image
+        )))} */
+    }
 
     useEffect(() => {
         if (type == 'repair_kit') {
@@ -92,7 +93,7 @@ function ElementPage({ maxWidth760 }) {
         localStorage.setItem('engineName', name)
         navigate('/')
     }
-
+    console.log(element)
     if (!element) return;
     return (
         <>
@@ -113,14 +114,13 @@ function ElementPage({ maxWidth760 }) {
                 <div className='element__main'>
                     <div className='element__photo'>
                         <img className='element__photo-main' src={mainImage} />
+                        {maxWidth760 && <button className='element__photo-next' onClick={handleMainPhoto}>&gt;</button>}
                         {!maxWidth760 && <ul className='element__photo-list'>
                             {element.images.map(image => (
-                                <img className='element__photo-item' src={image.image} key={image.image} onClick={() => { setMainImage(image.image) }} />
+                                <img className='element__photo-item' src={image.image} key={uuidv4()} onClick={() => { setMainImage(image.image) }} />
                             ))}
                             {repairKit && (element.parts.map((item) => (
-                                <>
-                                    <img className='element__photo-item' src={item.spare_part.main_image} key={item.id} onClick={() => { setMainImage(item.spare_part.main_image) }} />
-                                </>
+                                <img className='element__photo-item' src={item.spare_part.main_image} key={uuidv4()} onClick={() => { setMainImage(item.spare_part.main_image) }} />
                             )))
                             }
                         </ul>}

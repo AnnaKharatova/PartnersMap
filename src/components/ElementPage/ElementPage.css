@@ -1,12 +1,13 @@
 .element {
-    padding: 110px 60px 40px 64px;
+    box-sizing: border-box;
+    padding: 100px 60px 40px 64px;
     min-height: 74vh;
 }
 
 .element__header {
     display: flex;
     justify-content: space-between;
-    padding-bottom: 30px;
+    padding-bottom: 20px;
     align-items: center;
 }
 
@@ -71,16 +72,20 @@
 }
 
 .element__photo {
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    max-width: 700px;
+    max-width: 650px;
+    position: relative;
 }
 
 .element__photo-main {
+    box-sizing: border-box;
     width: 100%;
     height: auto;
     border: 1px solid #E8E8E8;
+    object-fit: cover;
 }
 
 .element__photo-list {
@@ -142,7 +147,6 @@
     cursor: pointer;
 }
 
-
 .element__map-button {
     background-color: inherit;
     border: 1px solid #C4C4C4;
@@ -157,19 +161,67 @@
     margin-bottom: 50px;
 }
 
+.element__photo-next {
+    position: absolute;
+    top: 40%;
+    right: 2%;
+    z-index: 1;
+    width: 50px;
+    height: 50px;
+    border: none;
+    background-color: inherit;
+    outline: none;
+    cursor: pointer;
+    color:#858582;
+    font-size: 36px;
+}
+
+.element__photo-next:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    color: #191919;
+    color: #585856;
+}
+
 @media screen and (max-width: 1024px) {
     .element__photo-main {
-        max-width: 638px;
+        max-width: 470px;
         height: auto;
+    }
+
+    .element__photo {
+        width: 600px;
+    }
+
+    .element {
+        padding: 110px 30px 60px 34px;
+    }
+
+    .element__header {
+        padding-bottom: 10px;
+    }
+
+    .element__photo-item {
+        width: 110px;
+        height: auto;
+    }
+
+    .element__photo-list {
+        gap: 8px;
     }
 }
 
 @media screen and (max-width: 760px) {
     .element {
         background-color: #f5f5f5;
-        padding: 60px 0 30px 0;
+        padding: 60px 0 80px;
         min-height: 74vh;
         margin: 0 auto;
+    }
+
+    .element__photo {
+        margin: 0 auto;
+        width: auto;
     }
 
     .element__photo-main {
@@ -177,11 +229,11 @@
         height: auto;
     }
 
-    
-.element__article {
-    margin-left: 20px;
-    margin-right: 20px;
-}
+    .element__article {
+        margin-right: 10px;
+        text-align: center;
+        place-items: center;
+    }
 
     .element__main {
         flex-direction: column;
@@ -199,34 +251,42 @@
     .element__subtitle {
         font-size: 14px;
         line-height: 18.2px;
-        margin-left: 20px;
+        margin-left: 13px;
+        margin-top: 20px;
     }
 
     .element__articke-copy {
         background-size: 20px;
+        background-image: url(../../images/copy.svg);
     }
 
     .element__map-button {
         font-size: 14px;
         line-height: 18.2px;
+        margin-left: 15px;
+        padding: 6px 25px;
+        margin-bottom: 10px;
     }
 
     .element__description {
         font-size: 14px;
         line-height: 18.2px;
         color: #858582;
+        margin-left: 15px;
     }
 
     .element__road-back {
- margin-left: 10px;
+        margin-left: 10px;
     }
 
     .element__road {
         margin: 0 15px;
     }
-    .element__title { 
-        margin-left: 20px;
+
+    .element__title {
+        margin-left: 12px;
         margin-right: 20px;
         margin-top: 0;
     }
+
 }

@@ -6,34 +6,46 @@ import { BASE_URL } from '../../../constants/constants.js'
 function CatalogFilters({
     handleSubmit,
     maxWidth760,
-    clearFilters,
     selectedGroup,
     setSelectedGroup,
     selectedEngine,
-    setSelectedEngine
+    setSelectedEngine,
+    filterMark, 
+    setFilterMark
 }) {
     const navigate = useNavigate()
     const [engines, setEngines] = useState([])
     const [groups, setGroups] = useState([])
 
     const handleEngineCheckboxChange = (event) => {
-        const { value } = event.target;
-        setSelectedEngine(value || null);
-        handleSubmit(1);
-    };
+        const { value, checked, name } = event.target;
+        if (checked) {
+            setSelectedEngine([...selectedEngine, value]);
+            if (filterMark.includes(name)) {
+                setFilterMark(filterMark.filter((item) => item !== name));
+            } else {
+                setFilterMark([...filterMark, name]);
+            }
+        } else {
+            setSelectedEngine(selectedEngine.filter((part) => part !== value));
+            setFilterMark(filterMark.filter((item) => item !== name));
+        }
+    }
 
     const handleGroupCheckboxChange = (event) => {
-        const { value } = event.target;
-        setSelectedGroup(value || null);
-        handleSubmit(1);
+        const { value, checked, name } = event.target;
+        if (checked) {
+            setSelectedGroup([...selectedGroup, value]);
+            if (filterMark.includes(name)) {
+                setFilterMark(filterMark.filter((item) => item !== name));
+            } else {
+                setFilterMark([...filterMark, name]);
+            }
+        } else {
+            setSelectedGroup(selectedGroup.filter(part => part !== value));
+            setFilterMark(filterMark.filter((item) => item !== name));
+        }
     };
-
-    function clearAll() {
-        setSelectedEngine(null);
-        setSelectedGroup(null);
-        clearFilters();
-        handleSubmit(1);
-    }
 
     useEffect(() => {
         fetch(`${BASE_URL}/catalog/engine/`)
@@ -62,53 +74,29 @@ function CatalogFilters({
                 }
             });
     }, [])
+
+    useEffect(()=>{
+        handleSubmit(1)
+    }, [selectedEngine, selectedGroup])
+
     return (
         <div className='catalog-filters'>
             {maxWidth760 && <h3 className='catalog-popup__subtitle'>Тип двигателя</h3>}
             <div className="catalog-filters__engine" id="catalog-engines">
-                <div>
-                    <input
-                        className='catalog-filters__engine-checkbox'
-                        type="radio"
-                        name="engines"
-                        id='engine-all'
-                        value=''
-                        onChange={clearAll}
-                        onClick={clearAll} // Добавлено
-                        checked={!selectedEngine}
-                    />
-                    <label className='catalog-filters__engine-label' htmlFor='engine-all'>Вся продукция</label>
-                </div>
                 {engines.map((engine) => (
-                    <div key={engine.id}>
-                        <input
-                            className='catalog-filters__engine-checkbox'
-                            type="radio"
-                            id={`engine-${engine.id}`}
-                            name="engines"
-                            value={engine.id}
-                            onChange={handleEngineCheckboxChange}
-                            checked={selectedEngine == engine.id}
-                        />
-                        <label className='catalog-filters__engine-label' htmlFor={`engine-${engine.id}`}>{engine.name}</label>
-                    </div>
+                    <label key={`engine-${engine.id}`} htmlFor={`engine-${engine.name.toString().toLowerCase()}`}>
+                        <input checked={filterMark.includes(engine.name)} onChange={handleEngineCheckboxChange} className="catalog-filters__engine-checkbox" type="checkbox" id={`engine-${engine.name.toString().toLowerCase()}`} name={engine.name} value={engine.id} />
+                        <span className="catalog-filters__engine-label">{engine.name}</span>
+                    </label>
                 ))}
             </div>
             {maxWidth760 && <h3 className='catalog-popup__subtitle'>Продукция завода</h3>}
             <div className="catalog-filters__group" id="catalog-group">
                 {groups.map((group) => (
-                    <div key={group.id}>
-                        <input
-                            className='catalog-filters__group-checkbox'
-                            type="radio"
-                            id={`group-${group.id}`}
-                            name="group"
-                            value={group.id}
-                            onChange={handleGroupCheckboxChange}
-                            checked={selectedGroup == group.id}
-                        />
-                        <label className='catalog-filters__group-label' htmlFor={`group-${group.id}`}>{group.name}</label>
-                    </div>
+                    <label key={`group-${group.id}`} htmlFor={`group-${group.name.toString().toLowerCase()}`}>
+                        <input checked={filterMark.includes(group.name)} onChange={handleGroupCheckboxChange} className="catalog-filters__group-checkbox" type="checkbox" id={`group-${group.name.toString().toLowerCase()}`} name={group.name} value={group.id} />
+                        <span className="catalog-filters__group-label">{group.name}</span>
+                    </label>
                 ))}
             </div>
         </div>
