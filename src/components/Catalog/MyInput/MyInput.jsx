@@ -2,7 +2,7 @@ import './MyInput.css'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
-function MyInput({ setOpenInput }) {
+function MyInput({ setOpenInput, maxWidth760 }) {
     const navigate = useNavigate()
     const [inputValue, setInputValue] = useState('');
 
@@ -25,9 +25,10 @@ function MyInput({ setOpenInput }) {
                         type='text'
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)} />
-                    <button className='input__input-button' onClick={() => { setInputValue('') }}></button>
+                    {!maxWidth760 && <button className='input__input-button' onClick={() => { setInputValue('') }}></button>}
                 </div>
-                <button className='input__submit' onClick={onSubmit}>Найти</button>
+                {!maxWidth760 ? <button className='input__submit' onClick={onSubmit}>Найти</button> :
+                    <button className='input__submit' onClick={onSubmit}></button>}
                 <button className='input__close' onClick={closeInput}>Закрыть</button>
             </div>
         </div>

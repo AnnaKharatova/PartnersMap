@@ -66,6 +66,10 @@
     cursor: pointer;
 }
 
+.element__search-button_close {
+    background-image: url(../../images/Icon-cross-white.svg);
+}
+
 .element__main {
     display: flex;
     gap: 30px;

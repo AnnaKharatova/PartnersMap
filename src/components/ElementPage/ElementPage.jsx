@@ -109,7 +109,9 @@ function ElementPage({ maxWidth760 }) {
                         <p className='element__road-name' >{element.name}</p>
                     </div>
 
-                    <button className='element__search-button' onClick={() => setOpenInput(true)}></button>
+                    {!openInput ? <button className='element__search-button' onClick={() => setOpenInput(!openInput)}></button> : 
+                    <button className='element__search-button element__search-button_close' onClick={() => setOpenInput(!openInput)}></button>
+                    }
                 </div>
                 <div className='element__main'>
                     <div className='element__photo'>
@@ -159,7 +161,7 @@ function ElementPage({ maxWidth760 }) {
             </main>
             <Footer />
             {burgerMenuOpen && <BurgerMenu setBurgerMenuOpen={setBurgerMenuOpen} />}
-            {openInput && <MyInput setOpenInput={setOpenInput} />}
+            {openInput && <MyInput maxWidth760={maxWidth760} setOpenInput={setOpenInput} />}
         </>
     )
 }
