@@ -33,9 +33,13 @@ function Catalog({ maxWidth760 }) {
     const engins = selectedEngine ? selectedEngine.map(engine => `engine_cat=${engine}&`).join('') : '';
     const SEARCH_URL = `${BASE_URL}/catalog/catalog/?${groups}${engins}search=${inputValue}&page=${page}`;
 
+    console.log(SEARCH_URL)
+
     useEffect(() => {
-        getAllCatalog()
-    }, [])
+        if (!storagedEngineKitId) {
+            getAllCatalog()
+        }
+    }, [storagedEngineKitId])
 
     function getAllCatalog() {
         fetch(SEARCH_URL)
@@ -61,7 +65,7 @@ function Catalog({ maxWidth760 }) {
                 if (res.status == 500) {
                     navigate('./error')
                 } else {
-                    console.log("Ошибка при получении данных:", res.message);
+                    console.log("Ошибка при получении данных:", res.message)
                 }
             });
     };
@@ -73,6 +77,7 @@ function Catalog({ maxWidth760 }) {
         localStorage.clear()
         setFilteredData(allCatalog)
         setDisplayedItems(allCatalog.results)
+        
     }
 
     useEffect(() => {
@@ -87,12 +92,12 @@ function Catalog({ maxWidth760 }) {
         if (storagedEngineKitId) {
             setSelectedGroup([...selectedGroup, storagedEngineKitId]);
             setFilterMark([...filterMark, storagedEngineKitName]);
-            fetch(`${BASE_URL}/catalog/repair_kit/?&engin_cat=${storagedEngineKitId}&page=${page}`)
+            fetch(`${BASE_URL}/catalog/repair_kit/?page=1`)
                 .then(res => res.json())
                 .then(resData => {
                     const fetchedData = JSON.parse(JSON.stringify(resData))
                     setFilteredData(fetchedData)
-                    setDisplayedItems(fetchedData.results)
+                    setDisplayedItems(fetchedData)
                 }).catch(res => {
                     if (res.status == 500) {
                         navigate('./error')
@@ -103,6 +108,9 @@ function Catalog({ maxWidth760 }) {
         }
     }, [storagedEngineId])
 
+    function submitInput() {
+        handleSubmit(page)
+    }
 
     setTimeout(() => {
         localStorage.clear()
@@ -112,14 +120,12 @@ function Catalog({ maxWidth760 }) {
         if (storedValue && allCatalog) {
             setInputValue(storedValue)
         }
-
     }, [storedValue, allCatalog])
 
 
     useEffect(() => {
-        setFilterCount(Boolean(selectedEngine) + Boolean(selectedGroup))
+        setFilterCount(selectedEngine.length + selectedGroup.length)
     }, [selectedEngine, selectedGroup])
-
 
     return (
         <>
@@ -133,7 +139,7 @@ function Catalog({ maxWidth760 }) {
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value)}
                             placeholder='Поиск по названию или артикулу' />
-                        <button className='catalog__input-button' onClick={handleSubmit}>{!maxWidth760 ? 'Найти' : ''}</button>
+                        <button className='catalog__input-button' onClick={submitInput}>{!maxWidth760 ? 'Найти' : ''}</button>
                     </div>
                 </div>
                 {!maxWidth760 && <CatalogFilters filterMark={filterMark} setFilterMark={setFilterMark} handleSubmit={handleSubmit} maxWidth760={maxWidth760} setFilteredData={setFilteredData} clearFilters={clearFilters} selectedEngine={selectedEngine} setSelectedEngine={setSelectedEngine} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} />}
@@ -177,7 +183,7 @@ function Catalog({ maxWidth760 }) {
                         <div className='catalog-popup__header'>
                             <h2 className="catalog-popup__title">Фильтры</h2>
                         </div>
-                        <CatalogFilters handleSubmit={handleSubmit} maxWidth760={maxWidth760} setFilteredData={setFilteredData} clearFilters={clearFilters} selectedEngine={selectedEngine} setSelectedEngine={setSelectedEngine} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} />
+                        <CatalogFilters filterMark={filterMark} setFilterMark={setFilterMark} handleSubmit={handleSubmit} maxWidth760={maxWidth760} setFilteredData={setFilteredData} clearFilters={clearFilters} selectedEngine={selectedEngine} setSelectedEngine={setSelectedEngine} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} />
                         <button className="catalog-popup__submit-button" id="filter-submit-button" type="submit" onClick={() => { setFiltersPopupOpen(false) }}>Готово</button>
                     </div>
                 </div>

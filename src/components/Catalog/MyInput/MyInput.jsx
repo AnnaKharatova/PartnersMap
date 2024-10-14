@@ -1,5 +1,5 @@
 import './MyInput.css'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 function MyInput({ setOpenInput, maxWidth760 }) {
@@ -9,7 +9,7 @@ function MyInput({ setOpenInput, maxWidth760 }) {
     function onSubmit() {
         localStorage.setItem('inputValue', inputValue)
         navigate('/catalog')
-    };
+    }
 
     function closeInput() {
         setOpenInput(false)

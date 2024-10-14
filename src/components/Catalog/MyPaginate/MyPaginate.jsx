@@ -1,9 +1,10 @@
 import './MyPaginate.css'
+import React from 'react'
 import ReactPaginate from 'react-paginate';
 
 const MyPagination = ({ handleSubmit, fiteredData, page, setPage }) => {
 
-    const pages = Math.ceil(fiteredData.count / 2)
+    const pages = Math.ceil(fiteredData.count / 20)
     const handleNumberClick = (number) => {
         setPage(number);
         handleSubmit(number);

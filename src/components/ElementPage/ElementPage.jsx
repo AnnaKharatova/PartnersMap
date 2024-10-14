@@ -2,6 +2,7 @@ import './ElementPage.css'
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Header from '../Header/Header';
 import BurgerMenu from '../BurgerMenu/BurgerMenu'
 import Footer from '../Footer/Footer';
@@ -11,21 +12,51 @@ import { BASE_URL } from '../../constants/constants';
 
 function ElementPage({ maxWidth760 }) {
 
-    const navigate = useNavigate()
     const { type, id } = useParams();
+    const navigate = useNavigate()
     const [repairKit, setRepairKit] = useState()
     const [element, setElement] = useState()
     const [openInput, setOpenInput] = useState(false)
     const [burgerMenuOpen, setBurgerMenuOpen] = useState(false)
     const [mainImage, setMainImage] = useState()
+    const [allImages, setAllImages] = useState([]);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    useEffect(() => {
+        getElement()
+    }, [])
 
     const handleMainPhoto = () => {
-        /* const nextIndex = (currentImageIndex + 1) % images.length;
+         if (allImages.length > 0) {
+            const nextIndex = (currentImageIndex + 1) % allImages.length;
+            setCurrentImageIndex(nextIndex);
+            setMainImage(allImages[nextIndex]);
+        } 
+    };
 
-        setMainImage(element.images.map(image => (
-            image
-        )))} */
-    }
+
+
+
+    useEffect(() => {
+        if (element) {
+            setMainImage(element.images[0].image)
+        }
+    }, [element])
+
+    useEffect(() => {
+        if (element && maxWidth760) {
+            const images = element?.images?.map(img => img.image) || [];
+            const sparePartImages = element?.parts?.map(part => part.spare_part?.main_image) || [];
+        
+            const validImages = images.filter(img => img !== undefined);
+            const validSparePartImages = sparePartImages.filter(img => img !== undefined);
+        
+            const combinedImages = validImages.concat(validSparePartImages);
+            console.log(combinedImages);
+            setAllImages(combinedImages);
+            setMainImage(combinedImages[0]);
+        }
+    }, [element, maxWidth760]);
 
     useEffect(() => {
         if (type == 'repair_kit') {
@@ -34,20 +65,6 @@ function ElementPage({ maxWidth760 }) {
             setRepairKit(false)
         }
     }, [type])
-
-    function copyArticle() {
-        navigator.clipboard.writeText(element.article)
-            .then(() => {
-                console.log('Article copied to clipboard!');
-            })
-            .catch(res => {
-                if (res.status == 500) {
-                    navigate('./error')
-                } else {
-                    console.log("Ошибка при получении данных:", res.message);
-                }
-            });
-    }
 
     function getElement() {
         fetch(`${BASE_URL}/catalog/${type}/${id}/`)
@@ -63,15 +80,6 @@ function ElementPage({ maxWidth760 }) {
                 }
             });
     }
-    useEffect(() => {
-        getElement()
-    }, [])
-
-    useEffect(() => {
-        if (element) {
-            setMainImage(element.images[0].image)
-        }
-    }, [element])
 
     function handleEngineFilter() {
         const value = element.engine_cat.id
@@ -93,8 +101,9 @@ function ElementPage({ maxWidth760 }) {
         localStorage.setItem('engineName', name)
         navigate('/')
     }
-    console.log(element)
+
     if (!element) return;
+
     return (
         <>
             <Header maxWidth760={maxWidth760} setBurgerMenuOpen={setBurgerMenuOpen} showTitle={false} catalog={true} />
@@ -109,14 +118,14 @@ function ElementPage({ maxWidth760 }) {
                         <p className='element__road-name' >{element.name}</p>
                     </div>
 
-                    {!openInput ? <button className='element__search-button' onClick={() => setOpenInput(!openInput)}></button> : 
-                    <button className='element__search-button element__search-button_close' onClick={() => setOpenInput(!openInput)}></button>
+                    {!openInput ? <button className='element__search-button' onClick={() => setOpenInput(!openInput)}></button> :
+                        <button className='element__search-button element__search-button_close' onClick={() => setOpenInput(!openInput)}></button>
                     }
                 </div>
                 <div className='element__main'>
                     <div className='element__photo'>
                         <img className='element__photo-main' src={mainImage} />
-                        {maxWidth760 && <button className='element__photo-next' onClick={handleMainPhoto}>&gt;</button>}
+                        {(maxWidth760 && mainImage) && <button  className='element__photo-next' onClick={handleMainPhoto}>&gt;</button>}
                         {!maxWidth760 && <ul className='element__photo-list'>
                             {element.images.map(image => (
                                 <img className='element__photo-item' src={image.image} key={uuidv4()} onClick={() => { setMainImage(image.image) }} />
@@ -132,7 +141,9 @@ function ElementPage({ maxWidth760 }) {
                         <h4 className='element__subtitle'>АРТИКУЛ:</h4>
                         <div className='element__article'>
                             <p className='element__description'>{element.article}</p>
-                            <button className='element__articke-copy' onClick={copyArticle}></button>
+                            <CopyToClipboard text={element.article}>
+                                <button className='catalog-item__articke-copy'></button>
+                            </CopyToClipboard>
                         </div>
                         <button className='element__map-button' onClick={handleMapFilter}>Где купить</button>
                         {!repairKit ?

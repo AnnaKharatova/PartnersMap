@@ -1,4 +1,5 @@
 import './NothingFound.css'
+import React from 'react' 
 
 function NothingFound({ handleDisableRadios }) {
     return (

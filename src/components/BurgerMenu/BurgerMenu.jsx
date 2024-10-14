@@ -29,7 +29,7 @@ function BurgerMenu({ setBurgerMenuOpen, catalog }) {
                 </div>
                 <nav className="popup-menu__main">
                     {!catalog ? <a className="popup-menu__item" href="/catalog">КАТАЛОГ</a> : <a className="popup-menu__item" href="/">КАРТА ОФИЦИАЛЬНЫХ ПАРТНЕРОВ</a>}
-                    <a className="popup-menu__item" target="_blank" href={addPartner}>ДОБАВИТЬ ПАРТНЕРА</a>
+                    <a className="popup-menu__item" target="_blank" rel="noreferrer" href={addPartner}>ДОБАВИТЬ ПАРТНЕРА</a>
                     <p className="popup-menu__item-contacts" href="#">КОНТАКТЫ</p>
                     <a className="popup-menu__contacts" onClick={handlePhoneClick} href="#">{phoneNumber}</a>
                     <a className="popup-menu__contacts" onClick={handleMailClick} href="#">{email}</a>

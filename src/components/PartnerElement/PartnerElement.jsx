@@ -19,7 +19,7 @@ const PartnerElement = ({ partner, setStore, setSelectedPartner, setPopupPartner
         }
     }
 
-    const handlePhoneClick = () => {
+    const handlePhoneClick = (e) => {
         e.preventDefault()
         if (navigator.userAgent.match(/Android|iPhone|iPad|iPod/i)) {
             window.location.href = `tel:${partner.phone}`;

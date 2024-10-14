@@ -31,7 +31,14 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
                 map.setCenter(coords, 4);
             })
             .catch(function (error) {
-                console.log('Ошибка геокодирования:', error);
+                // Если геокодирование не удалось, показываем всплывающее окно
+                const myPlacemark = new ymaps.Placemark([55.753994, 37.620445], {
+                    balloonContent: 'Геолокация не доступна. Пожалуйста, введите адрес вручную.'
+                }, {
+                    preset: 'islands#redDotIcon'
+                });
+                map.geoObjects.add(myPlacemark);
+                myPlacemark.balloon.open();
             });
     }
 
@@ -50,13 +57,19 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
                     setUserLocation([position.coords.latitude, position.coords.longitude]);
                 },
                 (error) => {
-                    console.error('Ошибка получения местоположения:', error);
+                    const myPlacemark = new ymaps.Placemark([55.753994, 37.620445], {
+                        balloonContent: 'Геолокация не доступна. Пожалуйста, введите адрес вручную.'
+                    }, {
+                        preset: 'islands#redDotIcon'
+                    });
+                    map.geoObjects.add(myPlacemark);
+                    myPlacemark.balloon.open();
                     // Установка значений по умолчанию, если geolocation не доступен
-                    setUserLocation([55.7522, 37.6156]);
+                    // setUserLocation([55.7522, 37.6156]);
                 }
             );
         } else {
-            setUserLocation([55.7522, 37.6156]);
+            // setUserLocation([55.7522, 37.6156]);
         }
     }, []);
 
@@ -230,10 +243,10 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
             if (maxWidth760) {
                 button.options.set({
                     position: {
-                      bottom: 2,
-                      right: 20,
+                        bottom: 2,
+                        right: 20,
                     },
-                  });
+                });
             }
 
             map.controls.add(button);

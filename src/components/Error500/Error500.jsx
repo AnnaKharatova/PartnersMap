@@ -1,4 +1,5 @@
 import './Error500.css'
+import React from 'react'
 import Footer from '../Footer/Footer'
 import Logo from '../../images/Logo.svg'
 

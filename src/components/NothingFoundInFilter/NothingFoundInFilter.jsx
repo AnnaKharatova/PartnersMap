@@ -1,4 +1,5 @@
 import '../NothingFoundInCity/NothingFoundInCity.css'
+import React from 'react'
 import EmptySearch from '../../images/Icon-no-found.svg'
 
 const NothingFoundInFilter = ({ clearFilters }) => {

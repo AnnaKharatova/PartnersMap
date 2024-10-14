@@ -1,5 +1,5 @@
 import './CatalogFilters.css'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { BASE_URL } from '../../../constants/constants.js'
 
@@ -10,9 +10,10 @@ function CatalogFilters({
     setSelectedGroup,
     selectedEngine,
     setSelectedEngine,
-    filterMark, 
+    filterMark,
     setFilterMark
 }) {
+
     const navigate = useNavigate()
     const [engines, setEngines] = useState([])
     const [groups, setGroups] = useState([])
@@ -75,8 +76,10 @@ function CatalogFilters({
             });
     }, [])
 
-    useEffect(()=>{
-        handleSubmit(1)
+    useEffect(() => {
+        if (selectedEngine, selectedGroup) {
+            handleSubmit(1)
+        }
     }, [selectedEngine, selectedGroup])
 
     return (
