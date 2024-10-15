@@ -1,6 +1,12 @@
 .catalog {
     background-color: #F5F5F5;
     padding-bottom: 60px;
+    margin: 0 auto;
+}
+
+.catalog__main {
+    margin: 0 auto;
+    display: block;
 }
 
 .catalog__intro {

@@ -9,7 +9,7 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
     const multiRouteRef = useRef(null);
     const myRoutePanelRef = useRef(null)
     const resetButtonRef = useRef(null)
-    const [userLocation, setUserLocation] = useState([]);
+    const [userLocation, setUserLocation] = useState([55.7522, 37.6156]);
     const [map, setMap] = useState()
     const ymaps = useYMaps([
         'Map',
@@ -31,14 +31,7 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
                 map.setCenter(coords, 4);
             })
             .catch(function (error) {
-                // Если геокодирование не удалось, показываем всплывающее окно
-                const myPlacemark = new ymaps.Placemark([55.753994, 37.620445], {
-                    balloonContent: 'Геолокация не доступна. Пожалуйста, введите адрес вручную.'
-                }, {
-                    preset: 'islands#redDotIcon'
-                });
-                map.geoObjects.add(myPlacemark);
-                myPlacemark.balloon.open();
+
             });
     }
 
@@ -52,24 +45,21 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
     // Получение местоположения пользователя
     useEffect(() => {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    setUserLocation([position.coords.latitude, position.coords.longitude]);
-                },
-                (error) => {
-                    const myPlacemark = new ymaps.Placemark([55.753994, 37.620445], {
-                        balloonContent: 'Геолокация не доступна. Пожалуйста, введите адрес вручную.'
-                    }, {
-                        preset: 'islands#redDotIcon'
-                    });
-                    map.geoObjects.add(myPlacemark);
-                    myPlacemark.balloon.open();
-                    // Установка значений по умолчанию, если geolocation не доступен
-                    // setUserLocation([55.7522, 37.6156]);
-                }
-            );
-        } else {
-            // setUserLocation([55.7522, 37.6156]);
+            if (window.confirm('Разрешить доступ к геолокации?')) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        setUserLocation([position.coords.latitude, position.coords.longitude]);
+                        if (map) {
+                            map.setCenter(userLocation, 4); // Update map center if available
+                        }
+                    },
+                    (error) => {
+                        setUserLocation([55.7522, 37.6156]);
+                    }
+                );
+            } else {
+                setUserLocation([55.7522, 37.6156]);
+            }
         }
     }, []);
 

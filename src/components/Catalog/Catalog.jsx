@@ -77,7 +77,7 @@ function Catalog({ maxWidth760 }) {
         localStorage.clear()
         setFilteredData(allCatalog)
         setDisplayedItems(allCatalog.results)
-        
+
     }
 
     useEffect(() => {
@@ -90,14 +90,14 @@ function Catalog({ maxWidth760 }) {
 
     useEffect(() => {
         if (storagedEngineKitId) {
-            setSelectedGroup([...selectedGroup, storagedEngineKitId]);
+            setSelectedEngine([...selectedEngine, storagedEngineKitId]);
             setFilterMark([...filterMark, storagedEngineKitName]);
-            fetch(`${BASE_URL}/catalog/repair_kit/?page=1`)
+            fetch(`${BASE_URL}/catalog/repair_kit/?engine_cat=${storagedEngineKitId}&page=1`)
                 .then(res => res.json())
                 .then(resData => {
                     const fetchedData = JSON.parse(JSON.stringify(resData))
                     setFilteredData(fetchedData)
-                    setDisplayedItems(fetchedData)
+                    setDisplayedItems(fetchedData.results)
                 }).catch(res => {
                     if (res.status == 500) {
                         navigate('./error')
@@ -142,38 +142,40 @@ function Catalog({ maxWidth760 }) {
                         <button className='catalog__input-button' onClick={submitInput}>{!maxWidth760 ? 'Найти' : ''}</button>
                     </div>
                 </div>
-                {!maxWidth760 && <CatalogFilters filterMark={filterMark} setFilterMark={setFilterMark} handleSubmit={handleSubmit} maxWidth760={maxWidth760} setFilteredData={setFilteredData} clearFilters={clearFilters} selectedEngine={selectedEngine} setSelectedEngine={setSelectedEngine} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} />}
-                {(dislayedItems && dislayedItems.length > 0) ?
-                    <>
-                        <div className='catalog__span-group'>
-                            <span className='catalog__span'>Показано {dislayedItems.length} из {allCatalog.count}</span>
+                <div className='catalog__main'>
+                    {!maxWidth760 && <CatalogFilters filterMark={filterMark} setFilterMark={setFilterMark} handleSubmit={handleSubmit} maxWidth760={maxWidth760} setFilteredData={setFilteredData} clearFilters={clearFilters} selectedEngine={selectedEngine} setSelectedEngine={setSelectedEngine} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} />}
+                    {(dislayedItems && dislayedItems.length > 0) ?
+                        <>
+                            <div className='catalog__span-group'>
+                                {allCatalog&&<span className='catalog__span'>Показано {dislayedItems.length} из {allCatalog.count}</span>}
 
-                            {(!maxWidth760 && (dislayedItems.length < fiteredData.results.length)) &&
-                                <button className='catalog__clear-button' onClick={clearFilters}>Сбросить фильтры</button>}
-                            {maxWidth760 && <button className="catalog__popup-button" id="partner-filter-big" onClick={() => setFiltersPopupOpen(true)}>
-                                Фильтры
-                                <span className='catalog__button-item'>{filterCount}</span>
-                            </button>}
-                            {(maxWidth760 && filterCount > 0 && dislayedItems.length > 0) && <button className='catalog__cross-filters-button' onClick={clearFilters}></button>}
-                        </div>
-                        <div className='catalog__list'>
-                            {dislayedItems && dislayedItems.map(item => (
-                                <CatalogItem item={item} key={`${item.id}` + `${item.name}`} />
-                            ))}
-                        </div>
-                        <MyPagination handleSubmit={handleSubmit} fiteredData={fiteredData} page={page} setPage={setPage} />
-                    </>
-                    :
-                    <>
-                        {maxWidth760 &&
-                            <button className="catalog__popup-button" id="partner-filter-big" onClick={() => setFiltersPopupOpen(true)}>
-                                Фильтры
-                                <span className='catalog__button-item'>0</span>
-                            </button>
-                        }
-                        <NothingFound handleDisableRadios={clearFilters} />
-                    </>
-                }
+                                {(!maxWidth760 && (dislayedItems.length < fiteredData.results.length)) &&
+                                    <button className='catalog__clear-button' onClick={clearFilters}>Сбросить фильтры</button>}
+                                {maxWidth760 && <button className="catalog__popup-button" id="partner-filter-big" onClick={() => setFiltersPopupOpen(true)}>
+                                    Фильтры
+                                    <span className='catalog__button-item'>{filterCount}</span>
+                                </button>}
+                                {(maxWidth760 && filterCount > 0 && dislayedItems.length > 0) && <button className='catalog__cross-filters-button' onClick={clearFilters}></button>}
+                            </div>
+                            <div className='catalog__list'>
+                                {dislayedItems && dislayedItems.map(item => (
+                                    <CatalogItem item={item} key={`${item.id}` + `${item.name}`} />
+                                ))}
+                            </div>
+                            <MyPagination handleSubmit={handleSubmit} fiteredData={fiteredData} page={page} setPage={setPage} />
+                        </>
+                        :
+                        <>
+                            {maxWidth760 &&
+                                <button className="catalog__popup-button" id="partner-filter-big" onClick={() => setFiltersPopupOpen(true)}>
+                                    Фильтры
+                                    <span className='catalog__button-item'>0</span>
+                                </button>
+                            }
+                            <NothingFound handleDisableRadios={clearFilters} />
+                        </>
+                    }
+                </div>
             </main>
             <Footer />
             {burgerMenuOpen && <BurgerMenu catalog={true} setBurgerMenuOpen={setBurgerMenuOpen} />}
