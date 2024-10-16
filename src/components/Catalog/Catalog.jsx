@@ -18,14 +18,16 @@ function Catalog({ maxWidth760 }) {
     const [fiteredData, setFilteredData] = useState([])
     const [inputValue, setInputValue] = useState('');
     const [dislayedItems, setDisplayedItems] = useState([])
-    const storedValue = localStorage.getItem('inputValue');
-    const storedEngineName = localStorage.getItem('engineName')
     const [selectedEngine, setSelectedEngine] = useState([]);
     const [selectedGroup, setSelectedGroup] = useState([]);
     const [filtersPopupOpen, setFiltersPopupOpen] = useState(false)
+
+    const storedValue = localStorage.getItem('inputValue');
+    const storedEngineName = localStorage.getItem('engineName')
     const storagedEngineId = localStorage.getItem('engineSort')
-    const storagedEngineKitName = localStorage.getItem('repare-kit')
+    const storagedEngineKitName = localStorage.getItem('engineKitSortName')
     const storagedEngineKitId = localStorage.getItem('engineKitSort')
+
     const [page, setPage] = useState(1);
     const [filterMark, setFilterMark] = useState([])
 
@@ -36,10 +38,10 @@ function Catalog({ maxWidth760 }) {
     console.log(SEARCH_URL)
 
     useEffect(() => {
-        if (!storagedEngineKitId) {
+        if (!storagedEngineKitId&&!storagedEngineId) {
             getAllCatalog()
         }
-    }, [storagedEngineKitId])
+    }, [storagedEngineKitId, storagedEngineId])
 
     function getAllCatalog() {
         fetch(SEARCH_URL)
@@ -77,14 +79,27 @@ function Catalog({ maxWidth760 }) {
         localStorage.clear()
         setFilteredData(allCatalog)
         setDisplayedItems(allCatalog.results)
-
     }
 
     useEffect(() => {
-        if (storagedEngineId & storedEngineName) {
-            setSelectedGroup([...selectedGroup, storagedEngineId]);
-            setFilterMark([...filterMark, storedEngineName]);
-            handleSubmit(page)
+        if (storagedEngineId) {
+           ;
+            
+
+            fetch(`${BASE_URL}/catalog/catalog/?engine_cat=${storagedEngineId}&page=1`)
+            .then(res => res.json())
+            .then(resData => {
+                const fetchedData = JSON.parse(JSON.stringify(resData))
+                setDisplayedItems(fetchedData)
+                setFilterMark([...filterMark, storedEngineName]);
+                setSelectedEngine([...selectedEngine, storagedEngineId])
+            }).catch(res => {
+                if (res.status == 500) {
+                    navigate('./error')
+                } else {
+                    console.log("Ошибка при получении данных:", res.message)
+                }
+            });
         }
     }, [storagedEngineId])
 
@@ -96,8 +111,7 @@ function Catalog({ maxWidth760 }) {
                 .then(res => res.json())
                 .then(resData => {
                     const fetchedData = JSON.parse(JSON.stringify(resData))
-                    setFilteredData(fetchedData)
-                    setDisplayedItems(fetchedData.results)
+                    setDisplayedItems(fetchedData)
                 }).catch(res => {
                     if (res.status == 500) {
                         navigate('./error')
@@ -106,7 +120,7 @@ function Catalog({ maxWidth760 }) {
                     }
                 });
         }
-    }, [storagedEngineId])
+    }, [storagedEngineKitId])
 
     function submitInput() {
         handleSubmit(page)
@@ -147,7 +161,7 @@ function Catalog({ maxWidth760 }) {
                     {(dislayedItems && dislayedItems.length > 0) ?
                         <>
                             <div className='catalog__span-group'>
-                                {allCatalog&&<span className='catalog__span'>Показано {dislayedItems.length} из {allCatalog.count}</span>}
+                                {allCatalog && <span className='catalog__span'>Показано {dislayedItems.length} из {allCatalog.count}</span>}
 
                                 {(!maxWidth760 && (dislayedItems.length < fiteredData.results.length)) &&
                                     <button className='catalog__clear-button' onClick={clearFilters}>Сбросить фильтры</button>}

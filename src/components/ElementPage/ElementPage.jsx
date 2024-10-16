@@ -34,9 +34,6 @@ function ElementPage({ maxWidth760 }) {
         } 
     };
 
-
-
-
     useEffect(() => {
         if (element) {
             setMainImage(element.images[0].image)
@@ -47,12 +44,10 @@ function ElementPage({ maxWidth760 }) {
         if (element && maxWidth760) {
             const images = element?.images?.map(img => img.image) || [];
             const sparePartImages = element?.parts?.map(part => part.spare_part?.main_image) || [];
-        
             const validImages = images.filter(img => img !== undefined);
             const validSparePartImages = sparePartImages.filter(img => img !== undefined);
-        
             const combinedImages = validImages.concat(validSparePartImages);
-            console.log(combinedImages);
+            
             setAllImages(combinedImages);
             setMainImage(combinedImages[0]);
         }
@@ -88,16 +83,17 @@ function ElementPage({ maxWidth760 }) {
     }
 
     function handleRepKitFilter() {
-        const value = element.engine_cat.id
-        localStorage.setItem('engineKitSort', value)
-        localStorage.setItem('repairKitSort', 'repare-kit')
+        const id = element.engine_cat.id
+        const name = element.engine_cat.name
+        localStorage.setItem('engineKitSort', id)
+        localStorage.setItem('engineKitSortName', name)
         navigate('/catalog')
     }
 
     function handleMapFilter() {
-        const value = element.engine_cat.id
+        const id = element.engine_cat.id
         const name = element.engine_cat.name
-        localStorage.setItem('engineSort', value)
+        localStorage.setItem('engineSort', id)
         localStorage.setItem('engineName', name)
         navigate('/')
     }

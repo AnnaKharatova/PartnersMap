@@ -43,19 +43,11 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
   const storagedEngineId = localStorage.getItem('engineSort')
   const storagedEngineName = localStorage.getItem('engineName')
 
-  console.log(filteredData)
-
-  console.log(selectedTags)
-
-  console.log(storagedEngineName)
-
-
   useEffect(() => {
     if (storagedEngineId) {
       setFilterMark([...filterMark, storagedEngineName]);
       setSelectedTags([...selectedTags, storagedEngineId]);
       const url = `${BASE_URL}/partners/?parts_available=${storagedEngineId}`
-      console.log(url)
       fetch(url)
         .then(res => res.json())
         .then(resData => {

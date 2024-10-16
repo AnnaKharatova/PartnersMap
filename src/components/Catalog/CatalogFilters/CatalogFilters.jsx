@@ -31,7 +31,10 @@ function CatalogFilters({
             setSelectedEngine(selectedEngine.filter((part) => part !== value));
             setFilterMark(filterMark.filter((item) => item !== name));
         }
+        handleSubmit(1)
     }
+    
+console.log(filterMark)
 
     const handleGroupCheckboxChange = (event) => {
         const { value, checked, name } = event.target;
@@ -46,6 +49,7 @@ function CatalogFilters({
             setSelectedGroup(selectedGroup.filter(part => part !== value));
             setFilterMark(filterMark.filter((item) => item !== name));
         }
+        handleSubmit(1)
     };
 
     useEffect(() => {
@@ -75,12 +79,6 @@ function CatalogFilters({
                 }
             });
     }, [])
-
-    useEffect(() => {
-        if (selectedEngine, selectedGroup) {
-            handleSubmit(1)
-        }
-    }, [selectedEngine, selectedGroup])
 
     return (
         <div className='catalog-filters'>

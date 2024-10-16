@@ -57,11 +57,10 @@
 
 .catalog-item__copied {
     position: absolute;
-    top: 3%;
-    right: 3%;
+    bottom: 0;
+    right: 2%;
     padding: 4px 6px;
     border-radius: 20px;
-    border: 1px solid #C4C4C4;
     font-size: 16px;
     font-weight: 400;
     line-height: 20.8px;
