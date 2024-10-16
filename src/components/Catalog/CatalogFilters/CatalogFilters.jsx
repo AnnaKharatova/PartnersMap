@@ -33,8 +33,6 @@ function CatalogFilters({
         }
         handleSubmit(1)
     }
-    
-console.log(filterMark)
 
     const handleGroupCheckboxChange = (event) => {
         const { value, checked, name } = event.target;

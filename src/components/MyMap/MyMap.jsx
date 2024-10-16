@@ -24,6 +24,8 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
         'control.Button'
     ]);
 
+    console.log(userLocation)
+
     function getCenter(city) {
         ymaps.geocode(city)
             .then(function (result) {

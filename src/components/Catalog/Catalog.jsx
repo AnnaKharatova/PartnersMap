@@ -21,15 +21,14 @@ function Catalog({ maxWidth760 }) {
     const [selectedEngine, setSelectedEngine] = useState([]);
     const [selectedGroup, setSelectedGroup] = useState([]);
     const [filtersPopupOpen, setFiltersPopupOpen] = useState(false)
+    const [page, setPage] = useState(1);
+    const [filterMark, setFilterMark] = useState([])
 
     const storedValue = localStorage.getItem('inputValue');
     const storedEngineName = localStorage.getItem('engineName')
     const storagedEngineId = localStorage.getItem('engineSort')
     const storagedEngineKitName = localStorage.getItem('engineKitSortName')
     const storagedEngineKitId = localStorage.getItem('engineKitSort')
-
-    const [page, setPage] = useState(1);
-    const [filterMark, setFilterMark] = useState([])
 
     const groups = selectedGroup ? selectedGroup.map(group => `group=${group}&`).join('') : '';
     const engins = selectedEngine ? selectedEngine.map(engine => `engine_cat=${engine}&`).join('') : '';
@@ -83,9 +82,6 @@ function Catalog({ maxWidth760 }) {
 
     useEffect(() => {
         if (storagedEngineId) {
-           ;
-            
-
             fetch(`${BASE_URL}/catalog/catalog/?engine_cat=${storagedEngineId}&page=1`)
             .then(res => res.json())
             .then(resData => {
@@ -135,7 +131,6 @@ function Catalog({ maxWidth760 }) {
             setInputValue(storedValue)
         }
     }, [storedValue, allCatalog])
-
 
     useEffect(() => {
         setFilterCount(selectedEngine.length + selectedGroup.length)
