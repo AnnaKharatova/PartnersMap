@@ -11,7 +11,8 @@ function CatalogFilters({
     selectedEngine,
     setSelectedEngine,
     filterMark,
-    setFilterMark
+    setFilterMark,
+    storagedEngineId
 }) {
 
     const navigate = useNavigate()
@@ -22,6 +23,7 @@ function CatalogFilters({
         const { value, checked, name } = event.target;
         if (checked) {
             setSelectedEngine([...selectedEngine, value]);
+
             if (filterMark.includes(name)) {
                 setFilterMark(filterMark.filter((item) => item !== name));
             } else {
@@ -31,7 +33,6 @@ function CatalogFilters({
             setSelectedEngine(selectedEngine.filter((part) => part !== value));
             setFilterMark(filterMark.filter((item) => item !== name));
         }
-        handleSubmit(1)
     }
 
     const handleGroupCheckboxChange = (event) => {
@@ -47,8 +48,15 @@ function CatalogFilters({
             setSelectedGroup(selectedGroup.filter(part => part !== value));
             setFilterMark(filterMark.filter((item) => item !== name));
         }
-        handleSubmit(1)
     };
+
+    useEffect(() => {
+        if (!storagedEngineId) {
+            if (selectedGroup || selectedEngine) {
+                handleSubmit(1)
+            }
+        }
+    }, [selectedGroup, selectedEngine, storagedEngineId])
 
     useEffect(() => {
         fetch(`${BASE_URL}/catalog/engine/`)
@@ -77,6 +85,7 @@ function CatalogFilters({
                 }
             });
     }, [])
+
 
     return (
         <div className='catalog-filters'>

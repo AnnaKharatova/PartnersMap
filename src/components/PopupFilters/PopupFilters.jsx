@@ -8,7 +8,6 @@ function PopupFilters({ setPartnerInfo, engines, setEngines, tags, setTags, filt
 
     const handleEngineCheckboxChange = (event) => {
         const { value, checked, name } = event.target;
-
         if (checked) {
             setSelectedParts([...selectedParts, value]);
             if (filterMark.includes(name)) {

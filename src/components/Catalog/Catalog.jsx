@@ -27,7 +27,6 @@ function Catalog({ maxWidth760 }) {
     const storedValue = localStorage.getItem('inputValue');
     const storedEngineName = localStorage.getItem('engineName')
     const storagedEngineId = localStorage.getItem('engineSort')
-    const storagedEngineKitName = localStorage.getItem('engineKitSortName')
     const storagedEngineKitId = localStorage.getItem('engineKitSort')
 
     const groups = selectedGroup ? selectedGroup.map(group => `group=${group}&`).join('') : '';
@@ -62,6 +61,7 @@ function Catalog({ maxWidth760 }) {
                 const fetchedData = JSON.parse(JSON.stringify(resData))
                 setFilteredData(fetchedData)
                 setDisplayedItems(fetchedData.results)
+                console.log('handleSubmit')
             }).catch(res => {
                 if (res.status == 500) {
                     navigate('./error')
@@ -152,7 +152,7 @@ function Catalog({ maxWidth760 }) {
                     </div>
                 </div>
                 <div className='catalog__main'>
-                    {!maxWidth760 && <CatalogFilters filterMark={filterMark} setFilterMark={setFilterMark} handleSubmit={handleSubmit} maxWidth760={maxWidth760} setFilteredData={setFilteredData} clearFilters={clearFilters} selectedEngine={selectedEngine} setSelectedEngine={setSelectedEngine} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} />}
+                    {!maxWidth760 && <CatalogFilters storagedEngineId={storagedEngineId} filterMark={filterMark} setFilterMark={setFilterMark} handleSubmit={handleSubmit} maxWidth760={maxWidth760} setFilteredData={setFilteredData} clearFilters={clearFilters} selectedEngine={selectedEngine} setSelectedEngine={setSelectedEngine} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} />}
                     {(dislayedItems && dislayedItems.length > 0) ?
                         <>
                             <div className='catalog__span-group'>
@@ -194,7 +194,7 @@ function Catalog({ maxWidth760 }) {
                         <div className='catalog-popup__header'>
                             <h2 className="catalog-popup__title">Фильтры</h2>
                         </div>
-                        <CatalogFilters filterMark={filterMark} setFilterMark={setFilterMark} handleSubmit={handleSubmit} maxWidth760={maxWidth760} setFilteredData={setFilteredData} clearFilters={clearFilters} selectedEngine={selectedEngine} setSelectedEngine={setSelectedEngine} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} />
+                        <CatalogFilters storagedEngineId={storagedEngineId} filterMark={filterMark} setFilterMark={setFilterMark} handleSubmit={handleSubmit} maxWidth760={maxWidth760} setFilteredData={setFilteredData} clearFilters={clearFilters} selectedEngine={selectedEngine} setSelectedEngine={setSelectedEngine} selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} />
                         <button className="catalog-popup__submit-button" id="filter-submit-button" type="submit" onClick={() => { setFiltersPopupOpen(false) }}>Готово</button>
                     </div>
                 </div>

@@ -77,18 +77,20 @@ function ElementPage({ maxWidth760 }) {
     }
 
     function handleEngineFilter() {
-        const value = element.engine_cat.id
-        localStorage.setItem('engineSort', value)
+        const id = element.engine_cat.id
+        const name = element.engine_cat.name
+        localStorage.setItem('engineSort', id)
+        localStorage.setItem('engineName', name)
         navigate('/catalog')
     }
 
     function handleRepKitFilter() {
+        handleEngineFilter()
         const id = element.engine_cat.id
-        const name = element.engine_cat.name
         localStorage.setItem('engineKitSort', id)
-        localStorage.setItem('engineKitSortName', name)
         navigate('/catalog')
     }
+
 
     function handleMapFilter() {
         const id = element.engine_cat.id
