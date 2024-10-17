@@ -8,6 +8,7 @@ const MyPagination = ({ handleSubmit, fiteredData, page, setPage }) => {
     const handleNumberClick = (number) => {
         setPage(number);
         handleSubmit(number);
+        console.log('handleNumberClick')
     };
 
     return (

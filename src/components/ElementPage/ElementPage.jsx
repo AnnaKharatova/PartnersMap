@@ -85,10 +85,12 @@ function ElementPage({ maxWidth760 }) {
     }
 
     function handleRepKitFilter() {
-        handleEngineFilter()
         const id = element.engine_cat.id
-        localStorage.setItem('engineKitSort', id)
+        const name = element.engine_cat.name
+        localStorage.setItem('engineSort', id)
+        localStorage.setItem('engineName', name)
         navigate('/catalog')
+        localStorage.setItem('engineKitSort', id)
     }
 
 

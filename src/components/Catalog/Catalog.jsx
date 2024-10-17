@@ -11,6 +11,11 @@ import { BASE_URL } from '../../constants/constants.js';
 import MyPagination from './MyPaginate/MyPaginate.jsx';
 
 function Catalog({ maxWidth760 }) {
+    const storedValue = localStorage.getItem('inputValue');
+    const storedEngineName = localStorage.getItem('engineName')
+    const storagedEngineId = localStorage.getItem('engineSort')
+    const storagedEngineKitId = localStorage.getItem('engineKitSort')
+
     const [filterCount, setFilterCount] = useState()
     const navigate = useNavigate()
     const [burgerMenuOpen, setBurgerMenuOpen] = useState(false)
@@ -24,11 +29,6 @@ function Catalog({ maxWidth760 }) {
     const [page, setPage] = useState(1);
     const [filterMark, setFilterMark] = useState([])
 
-    const storedValue = localStorage.getItem('inputValue');
-    const storedEngineName = localStorage.getItem('engineName')
-    const storagedEngineId = localStorage.getItem('engineSort')
-    const storagedEngineKitId = localStorage.getItem('engineKitSort')
-
     const groups = selectedGroup ? selectedGroup.map(group => `group=${group}&`).join('') : '';
     const engins = selectedEngine ? selectedEngine.map(engine => `engine_cat=${engine}&`).join('') : '';
     const SEARCH_URL = `${BASE_URL}/catalog/catalog/?${groups}${engins}search=${inputValue}&page=${page}`;
@@ -36,12 +36,19 @@ function Catalog({ maxWidth760 }) {
     console.log(SEARCH_URL)
 
     useEffect(() => {
-        if (!storagedEngineKitId&&!storagedEngineId) {
+        if (storagedEngineId) {
+            setSelectedEngine([...selectedEngine, storagedEngineId])
+            setFilterMark([...filterMark, storagedEngineId])
+        }
+    }, [storagedEngineId, storagedEngineId])
+
+    /* useEffect(() => {
+        if (!storagedEngineId) {
             getAllCatalog()
         }
-    }, [storagedEngineKitId, storagedEngineId])
+    }, [storagedEngineId]) */
 
-    function getAllCatalog() {
+    /* function getAllCatalog() {
         fetch(SEARCH_URL)
             .then(res => res.json())
             .then(resData => {
@@ -49,26 +56,31 @@ function Catalog({ maxWidth760 }) {
                 setAllCatalog(fetchedData)
                 setFilteredData(fetchedData)
                 setDisplayedItems(fetchedData.results)
+                console.log('getAllCatalog')
+
             }).catch(error => {
                 console.error("Ошибка при получении данных:", error);
             });
-    }
+    } */
 
     function handleSubmit(page) {
-        fetch(`${BASE_URL}/catalog/catalog/?${groups}${engins}search=${inputValue}&page=${page}`)
-            .then(res => res.json())
-            .then(resData => {
-                const fetchedData = JSON.parse(JSON.stringify(resData))
-                setFilteredData(fetchedData)
-                setDisplayedItems(fetchedData.results)
-                console.log('handleSubmit')
-            }).catch(res => {
-                if (res.status == 500) {
-                    navigate('./error')
-                } else {
-                    console.log("Ошибка при получении данных:", res.message)
-                }
-            });
+        if (!storagedEngineId) {
+            fetch(`${BASE_URL}/catalog/catalog/?${groups}${engins}search=${inputValue}&page=${page}`)
+                .then(res => res.json())
+                .then(resData => {
+                    const fetchedData = JSON.parse(JSON.stringify(resData))
+                    setAllCatalog(fetchedData)
+                    setFilteredData(fetchedData)
+                    setDisplayedItems(fetchedData.results)
+                    console.log('handleSubmit')
+                }).catch(res => {
+                    if (res.status == 500) {
+                        navigate('./error')
+                    } else {
+                        console.log("Ошибка при получении данных:", res.message)
+                    }
+                });
+        }
     };
 
     function clearFilters() {
@@ -78,36 +90,43 @@ function Catalog({ maxWidth760 }) {
         localStorage.clear()
         setFilteredData(allCatalog)
         setDisplayedItems(allCatalog.results)
+        setFilterMark([])
     }
 
     useEffect(() => {
-        if (storagedEngineId) {
+        if (storagedEngineId && !storagedEngineKitId) {
             fetch(`${BASE_URL}/catalog/catalog/?engine_cat=${storagedEngineId}&page=1`)
-            .then(res => res.json())
-            .then(resData => {
-                const fetchedData = JSON.parse(JSON.stringify(resData))
-                setDisplayedItems(fetchedData)
-                setFilterMark([...filterMark, storedEngineName]);
-                setSelectedEngine([...selectedEngine, storagedEngineId])
-            }).catch(res => {
-                if (res.status == 500) {
-                    navigate('./error')
-                } else {
-                    console.log("Ошибка при получении данных:", res.message)
-                }
-            });
-        }
-    }, [storagedEngineId])
-
-    useEffect(() => {
-        if (storagedEngineKitId) {
-            setSelectedEngine([...selectedEngine, storagedEngineKitId]);
-            setFilterMark([...filterMark, storagedEngineKitName]);
-            fetch(`${BASE_URL}/catalog/repair_kit/?engine_cat=${storagedEngineKitId}&page=1`)
                 .then(res => res.json())
                 .then(resData => {
                     const fetchedData = JSON.parse(JSON.stringify(resData))
-                    setDisplayedItems(fetchedData)
+                    setAllCatalog(fetchedData)
+                    setFilteredData(fetchedData)
+                    setDisplayedItems(fetchedData.results)
+                    setFilterMark([...filterMark, storedEngineName]);
+                    setSelectedEngine([...selectedEngine, storagedEngineId])
+                }).catch(res => {
+                    if (res.status == 500) {
+                        navigate('./error')
+                    } else {
+                        console.log("Ошибка при получении данных:", res.message)
+                    }
+                });
+        }
+    }, [storagedEngineId, storagedEngineKitId])
+
+console.log(dislayedItems)
+
+    useEffect(() => {
+        if (storagedEngineKitId) {
+            fetch(`${BASE_URL}/catalog/repair_kit/?engine_cat=${storagedEngineId}&page=1`)
+                .then(res => res.json())
+                .then(resData => {
+                    const fetchedData = JSON.parse(JSON.stringify(resData))
+                    setAllCatalog(fetchedData)
+                    setFilteredData(fetchedData)
+                    setDisplayedItems(fetchedData.results)
+                    setFilterMark([...filterMark, storedEngineName]);
+                    setSelectedEngine([...selectedEngine, storagedEngineId])
                 }).catch(res => {
                     if (res.status == 500) {
                         navigate('./error')
@@ -116,15 +135,16 @@ function Catalog({ maxWidth760 }) {
                     }
                 });
         }
-    }, [storagedEngineKitId])
+    }, [storagedEngineKitId, storagedEngineId, storedEngineName])
 
     function submitInput() {
         handleSubmit(page)
+        console.log('submitInput')
     }
 
     setTimeout(() => {
         localStorage.clear()
-    }, 5000)
+    }, 2000)
 
     useEffect(() => {
         if (storedValue && allCatalog) {
