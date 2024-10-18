@@ -47,22 +47,21 @@ function AnotherMap({ partners, partner, setPartnerInfo, selectedPartner, select
     // Получение местоположения пользователя
     useEffect(() => {
         if (navigator.geolocation) {
-            if (window.confirm('Разрешить доступ к геолокации?')) {
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        setUserLocation([position.coords.latitude, position.coords.longitude]);
-                        if (map) {
-                            map.setCenter(userLocation, 4); // Update map center if available
-                        }
-                    },
-                    (error) => {
-                        setUserLocation([55.7522, 37.6156]);
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    setUserLocation([position.coords.latitude, position.coords.longitude]);
+                    if (map) {
+                        map.setCenter(userLocation, 4); // Update map center if available
                     }
-                );
-            } else {
-                setUserLocation([55.7522, 37.6156]);
-            }
+                },
+                (error) => {
+                    setUserLocation([55.7522, 37.6156]);
+                }
+            );
+        } else {
+            setUserLocation([55.7522, 37.6156]);
         }
+
     }, []);
 
     useEffect(() => {
