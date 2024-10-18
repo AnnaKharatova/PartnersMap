@@ -5,7 +5,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 function CatalogItem({ item }) {
     const navigate = useNavigate()
-    const photo = `http://stroymashdevelop.ddns.net${item.main_image}`
+    const photo = `https://stroymashdevelop.ddns.net${item.main_image}`
     const [isCopied, setIsCopied] = useState(false)
 
     function handleMapFilter() {
