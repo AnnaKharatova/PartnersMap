@@ -11,13 +11,12 @@ import { BASE_URL } from '../../constants/constants.js';
 import MyPagination from './MyPaginate/MyPaginate.jsx';
 
 function Catalog({ maxWidth760 }) {
+    const navigate = useNavigate()
     const storedValue = localStorage.getItem('inputValue');
     const storedEngineName = localStorage.getItem('engineName')
     const storagedEngineId = localStorage.getItem('engineSort')
     const storagedEngineKitId = localStorage.getItem('engineKitSort')
-
     const [filterCount, setFilterCount] = useState()
-    const navigate = useNavigate()
     const [burgerMenuOpen, setBurgerMenuOpen] = useState(false)
     const [allCatalog, setAllCatalog] = useState([])
     const [fiteredData, setFilteredData] = useState([])
@@ -31,7 +30,7 @@ function Catalog({ maxWidth760 }) {
 
     const groups = selectedGroup ? selectedGroup.map(group => `group=${group}&`).join('') : '';
     const engins = selectedEngine ? selectedEngine.map(engine => `engine_cat=${engine}&`).join('') : '';
-    const SEARCH_URL = `${BASE_URL}/catalog/catalog/?${groups}${engins}search=${inputValue}&page=${page}`;
+    //const SEARCH_URL = `${BASE_URL}/catalog/catalog/?${groups}${engins}search=${inputValue}&page=${page}`;
 
     useEffect(() => {
         if (storagedEngineId) {
@@ -39,27 +38,6 @@ function Catalog({ maxWidth760 }) {
             setFilterMark([...filterMark, storagedEngineId])
         }
     }, [storagedEngineId, storagedEngineId])
-
-    /* useEffect(() => {
-        if (!storagedEngineId) {
-            getAllCatalog()
-        }
-    }, [storagedEngineId]) */
-
-    /* function getAllCatalog() {
-        fetch(SEARCH_URL)
-            .then(res => res.json())
-            .then(resData => {
-                const fetchedData = JSON.parse(JSON.stringify(resData))
-                setAllCatalog(fetchedData)
-                setFilteredData(fetchedData)
-                setDisplayedItems(fetchedData.results)
-                console.log('getAllCatalog')
-
-            }).catch(error => {
-                console.error("Ошибка при получении данных:", error);
-            });
-    } */
 
     function handleSubmit(page) {
         if (!storagedEngineId) {
@@ -70,7 +48,6 @@ function Catalog({ maxWidth760 }) {
                     setAllCatalog(fetchedData)
                     setFilteredData(fetchedData)
                     setDisplayedItems(fetchedData.results)
-                    console.log('handleSubmit')
                 }).catch(res => {
                     if (res.status == 500) {
                         navigate('./error')
@@ -80,6 +57,12 @@ function Catalog({ maxWidth760 }) {
                 });
         }
     };
+
+    useEffect(() => {
+        if (!storagedEngineId && maxWidth760) {
+            handleSubmit(1)
+        }
+    }, [maxWidth760, storagedEngineId])
 
     function clearFilters() {
         setInputValue('')
@@ -91,26 +74,17 @@ function Catalog({ maxWidth760 }) {
         setFilterMark([])
     }
 
-    /* useEffect(()=> {
-        setDisplayedItems(fiteredData.results)
-    },[fiteredData]) */
-
     useEffect(() => {
-        if (storagedEngineId&&!storagedEngineKitId) {
+        if (storagedEngineId && !storagedEngineKitId) {
             fetch(`${BASE_URL}/catalog/catalog/?engine_cat=${storagedEngineId}&page=1`)
                 .then(res => res.json())
                 .then(res => {
                     const fetchedData = JSON.parse(JSON.stringify(res))
-                    console.log(`${BASE_URL}/catalog/repair_kit/?engine_cat=${storagedEngineId}&page=1`)
-                    console.log(fetchedData)
                     setFilteredData(fetchedData)
                     setAllCatalog(fetchedData)
-                    setDisplayedItems(fetchedData.results)  
+                    setDisplayedItems(fetchedData.results)
                     setFilterMark([...filterMark, storedEngineName]);
                     setSelectedEngine([...selectedEngine, storagedEngineId])
-                    setFilteredData(fetchedData)
-                    setAllCatalog(fetchedData)
-                    console.log()
                 }).catch(res => {
                     if (res.status == 500) {
                         navigate('./error')
@@ -118,22 +92,20 @@ function Catalog({ maxWidth760 }) {
                         console.log("Ошибка при получении данных:", res.message)
                     }
                 });
-        }  
+        }
     }, [storagedEngineId, storagedEngineKitId])
-    
 
-     useEffect(() => {
+    useEffect(() => {
         if (storagedEngineKitId) {
             fetch(`${BASE_URL}/catalog/repair_kit/?engine_cat=${storagedEngineId}&page=1`)
                 .then(res => res.json())
                 .then(resData => {
                     const fetchedData = JSON.parse(JSON.stringify(resData))
                     setFilteredData(fetchedData)
-                    console.log(fetchedData)
+                    setAllCatalog(fetchedData)
                     setDisplayedItems(fetchedData.results)
                     setFilterMark([...filterMark, storedEngineName]);
                     setSelectedEngine([...selectedEngine, storagedEngineId])
-                    console.log(`${BASE_URL}/catalog/repair_kit/?engine_cat=${storagedEngineId}&page=1`)
                 }).catch(res => {
                     if (res.status == 500) {
                         navigate('./error')
@@ -146,7 +118,6 @@ function Catalog({ maxWidth760 }) {
 
     function submitInput() {
         handleSubmit(page)
-        console.log('submitInput')
     }
 
     setTimeout(() => {
@@ -162,8 +133,6 @@ function Catalog({ maxWidth760 }) {
     useEffect(() => {
         setFilterCount(selectedEngine.length + selectedGroup.length)
     }, [selectedEngine, selectedGroup])
-
-    if(!dislayedItems) return <div>Загрузка данных...</div>
 
     return (
         <>

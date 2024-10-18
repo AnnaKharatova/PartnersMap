@@ -58,7 +58,10 @@ function ElementPage({ maxWidth760 }) {
             setRepairKit(true)
         } else if (type == 'spare_part') {
             setRepairKit(false)
+        } else {
+            setRepairKit(true)
         }
+
     }, [type])
 
     function getElement() {
@@ -81,16 +84,14 @@ function ElementPage({ maxWidth760 }) {
         const name = element.engine_cat.name
         localStorage.setItem('engineSort', id)
         localStorage.setItem('engineName', name)
+        navigate ('/catalog')
     }
 
     function handleRepKitFilter() {
+        handleEngineFilter()
         const id = element.engine_cat.id
-        const name = element.engine_cat.name
-        localStorage.setItem('engineSort', id)
-        localStorage.setItem('engineName', name)
         localStorage.setItem('engineKitSort', id)
     }
-
 
     function handleMapFilter() {
         const id = element.engine_cat.id

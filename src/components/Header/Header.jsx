@@ -5,6 +5,9 @@ import { email, phoneNumber, addPartner } from '../../constants/constants.js'
 
 function Header({ maxWidth760, setBurgerMenuOpen, showTitle, catalog }) {
 
+  const menuRef = useRef(null); 
+  const buttonRef = useRef(null);
+
   const [contactsOpen, setContactsOpen] = useState(false)
 
   const handleMailClick = () => {
@@ -18,9 +21,6 @@ function Header({ maxWidth760, setBurgerMenuOpen, showTitle, catalog }) {
       window.location.href = `https://wa.me/${phoneNumber}`;
     }
   };
-
-  const menuRef = useRef(null); // Ссылка на меню
-  const buttonRef = useRef(null); // Ссылка на кнопку
 
   const handleMouseOver = () => {
     setContactsOpen(true);

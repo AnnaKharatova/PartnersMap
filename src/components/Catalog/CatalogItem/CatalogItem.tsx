@@ -26,7 +26,7 @@ function CatalogItem({ item }) {
             <div className='catalog__img-container'>
                 <img className='catalog-item__img' src={photo} alt='изображение детали' />
             </div>
-            <Link className='catalog-item__title' to={`/catalog/${item.type}/${item.id}`}>{item.name}</Link>
+            <Link className='catalog-item__title' to={item.type ? `/catalog/${item.type}/${item.id}` : `/catalog/repair_kit/${item.id}`}>{item.name}</Link>
             <div className='catalog-item__article'>
                 <p className='catalog-item__articke-p'>{item.article}</p>
                 <CopyToClipboard text={item.article} onCopy={onCopyText}>

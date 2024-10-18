@@ -57,7 +57,7 @@ function CatalogFilters({
     useEffect(() => {
         if (!storagedEngineId) {
             if (selectedGroup || selectedEngine) {
-                handleSubmit(1)               
+                handleSubmit(1)
             }
         }
     }, [selectedGroup, selectedEngine, storagedEngineId])
@@ -89,7 +89,6 @@ function CatalogFilters({
                 }
             });
     }, [])
-
 
     return (
         <div className='catalog-filters'>
