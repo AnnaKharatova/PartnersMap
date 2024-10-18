@@ -33,8 +33,6 @@ function Catalog({ maxWidth760 }) {
     const engins = selectedEngine ? selectedEngine.map(engine => `engine_cat=${engine}&`).join('') : '';
     const SEARCH_URL = `${BASE_URL}/catalog/catalog/?${groups}${engins}search=${inputValue}&page=${page}`;
 
-    console.log(SEARCH_URL)
-
     useEffect(() => {
         if (storagedEngineId) {
             setSelectedEngine([...selectedEngine, storagedEngineId])
@@ -93,17 +91,26 @@ function Catalog({ maxWidth760 }) {
         setFilterMark([])
     }
 
+    /* useEffect(()=> {
+        setDisplayedItems(fiteredData.results)
+    },[fiteredData]) */
+
     useEffect(() => {
-        if (storagedEngineId && !storagedEngineKitId) {
+        if (storagedEngineId&&!storagedEngineKitId) {
             fetch(`${BASE_URL}/catalog/catalog/?engine_cat=${storagedEngineId}&page=1`)
                 .then(res => res.json())
-                .then(resData => {
-                    const fetchedData = JSON.parse(JSON.stringify(resData))
-                    setAllCatalog(fetchedData)
+                .then(res => {
+                    const fetchedData = JSON.parse(JSON.stringify(res))
+                    console.log(`${BASE_URL}/catalog/repair_kit/?engine_cat=${storagedEngineId}&page=1`)
+                    console.log(fetchedData)
                     setFilteredData(fetchedData)
-                    setDisplayedItems(fetchedData.results)
+                    setAllCatalog(fetchedData)
+                    setDisplayedItems(fetchedData.results)  
                     setFilterMark([...filterMark, storedEngineName]);
                     setSelectedEngine([...selectedEngine, storagedEngineId])
+                    setFilteredData(fetchedData)
+                    setAllCatalog(fetchedData)
+                    console.log()
                 }).catch(res => {
                     if (res.status == 500) {
                         navigate('./error')
@@ -111,22 +118,22 @@ function Catalog({ maxWidth760 }) {
                         console.log("Ошибка при получении данных:", res.message)
                     }
                 });
-        }
+        }  
     }, [storagedEngineId, storagedEngineKitId])
+    
 
-console.log(dislayedItems)
-
-    useEffect(() => {
+     useEffect(() => {
         if (storagedEngineKitId) {
             fetch(`${BASE_URL}/catalog/repair_kit/?engine_cat=${storagedEngineId}&page=1`)
                 .then(res => res.json())
                 .then(resData => {
                     const fetchedData = JSON.parse(JSON.stringify(resData))
-                    setAllCatalog(fetchedData)
                     setFilteredData(fetchedData)
+                    console.log(fetchedData)
                     setDisplayedItems(fetchedData.results)
                     setFilterMark([...filterMark, storedEngineName]);
                     setSelectedEngine([...selectedEngine, storagedEngineId])
+                    console.log(`${BASE_URL}/catalog/repair_kit/?engine_cat=${storagedEngineId}&page=1`)
                 }).catch(res => {
                     if (res.status == 500) {
                         navigate('./error')
@@ -144,7 +151,7 @@ console.log(dislayedItems)
 
     setTimeout(() => {
         localStorage.clear()
-    }, 2000)
+    }, 5000)
 
     useEffect(() => {
         if (storedValue && allCatalog) {
@@ -155,6 +162,8 @@ console.log(dislayedItems)
     useEffect(() => {
         setFilterCount(selectedEngine.length + selectedGroup.length)
     }, [selectedEngine, selectedGroup])
+
+    if(!dislayedItems) return <div>Загрузка данных...</div>
 
     return (
         <>

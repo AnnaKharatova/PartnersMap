@@ -118,7 +118,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
   }, []);
 
   function getAllPartners() {
-     fetch(`${BASE_URL}/partners/`)
+    fetch(`${BASE_URL}/partners/`)
       .then(res => res.json())
       .then(resData => {
         const fetchedData = JSON.parse(JSON.stringify(resData))
@@ -130,10 +130,10 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
         } else {
           console.error("Ошибка при получении данных:", res.message);
         }
-      }); 
+      });
   }
 
-   useEffect(() => {
+  useEffect(() => {
     if (!storagedEngineId) {
       getAllPartners()
     }
@@ -188,7 +188,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
   }, [selectedTags]) */
 
   function getQuery() {
-     if (selectedParts || selectedTags || selectedCity) {
+    if (selectedParts || selectedTags || selectedCity) {
       const queryParams = !selectedCity ? (selectedTags.map(tag => `tags=${tag}`).join('&') + `&` + selectedParts.map(id => `parts_available=${id}`).join('&')) : (`city=${selectedCity.id}` + `&` + selectedTags.map(tag => `tags=${tag}`).join('&') + `&` + selectedParts.map(id => `parts_available=${id}`).join('&'))
       const url = `${BASE_URL}/partners/?${queryParams}`
       fetch(url)
@@ -290,7 +290,8 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
               </ul> : null
             }
             <YMaps query={{
-              apikey: '6fb19312-2127-40e5-8c22-75d1f84f2daa&lang=ru_RU',
+              apikey: '6fb19312-2127-40e5-8c22-75d1f84f2daa',
+              lang: 'ru_RU',
               ns: "use-load-option",
               load: "Map,Placemark,control.FullscreenControl,geoObject.addon.balloon",
             }}>

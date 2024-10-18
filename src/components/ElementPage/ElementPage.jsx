@@ -81,7 +81,6 @@ function ElementPage({ maxWidth760 }) {
         const name = element.engine_cat.name
         localStorage.setItem('engineSort', id)
         localStorage.setItem('engineName', name)
-        navigate('/catalog')
     }
 
     function handleRepKitFilter() {
@@ -89,7 +88,6 @@ function ElementPage({ maxWidth760 }) {
         const name = element.engine_cat.name
         localStorage.setItem('engineSort', id)
         localStorage.setItem('engineName', name)
-        navigate('/catalog')
         localStorage.setItem('engineKitSort', id)
     }
 
@@ -113,8 +111,8 @@ function ElementPage({ maxWidth760 }) {
                     <div className='element__road'>
                         <button className='element__road-back' onClick={() => navigate(-1)}></button>
                         <Link className='element__link' to={`/catalog`}>Каталог продукции /</Link>
-                        <p className='element__link' onClick={handleEngineFilter}> {element.engine_cat.name} / </p>
-                        {repairKit && <a className='element__link' onClick={handleRepKitFilter}>Ремкомплекты / </a>}
+                        <a href='/catalog' className='element__link' onClick={handleEngineFilter}> {element.engine_cat.name} / </a>
+                        {repairKit && <a href='/catalog' className='element__link' onClick={handleRepKitFilter}>Ремкомплекты / </a>}
                         <p className='element__road-name' >{element.name}</p>
                     </div>
 
