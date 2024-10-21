@@ -22,6 +22,8 @@ function ElementPage({ maxWidth760 }) {
     const [allImages, setAllImages] = useState([]);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+    console.log(element)
+
     useEffect(() => {
         getElement()
     }, [])
@@ -170,7 +172,7 @@ function ElementPage({ maxWidth760 }) {
                 </div>
             </main>
             <Footer />
-            {burgerMenuOpen && <BurgerMenu setBurgerMenuOpen={setBurgerMenuOpen} />}
+            {burgerMenuOpen && <BurgerMenu setBurgerMenuOpen={setBurgerMenuOpen} catalog={true}/>}
             {openInput && <MyInput maxWidth760={maxWidth760} setOpenInput={setOpenInput} />}
         </>
     )
