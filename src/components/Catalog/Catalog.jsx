@@ -27,6 +27,8 @@ function Catalog({ maxWidth760 }) {
     const [filtersPopupOpen, setFiltersPopupOpen] = useState(false)
     const [page, setPage] = useState(1);
     const [filterMark, setFilterMark] = useState([])
+    const [showTitle, setShowTitle] = useState(false)
+
 
     const groups = selectedGroup ? selectedGroup.map(group => `group=${group}&`).join('') : '';
     const engins = selectedEngine ? selectedEngine.map(engine => `engine_cat=${engine}&`).join('') : '';
@@ -39,6 +41,23 @@ function Catalog({ maxWidth760 }) {
         }
     }, [storagedEngineId, storagedEngineId])
 
+    useEffect(() => {
+        const handleScroll = () => {
+          const header = document.querySelector(".header");
+          const title = document.querySelector("h1");
+          if (header && title) {
+            if (window.scrollY > title.offsetTop) {
+              setShowTitle(true)
+            } else {
+              setShowTitle(false)
+            }
+          }
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+      }, []);
+    
+
     function handleSubmit(page) {
         if (!storagedEngineId) {
             fetch(`${BASE_URL}/catalog/catalog/?${groups}${engins}search=${inputValue}&page=${page}`)
@@ -48,6 +67,7 @@ function Catalog({ maxWidth760 }) {
                     setAllCatalog(fetchedData)
                     setFilteredData(fetchedData)
                     setDisplayedItems(fetchedData.results)
+                    localStorage.clear()
                 }).catch(res => {
                     if (res.status == 500) {
                         navigate('./error')
@@ -104,7 +124,7 @@ function Catalog({ maxWidth760 }) {
                     setFilteredData(fetchedData)
                     setAllCatalog(fetchedData)
                     setDisplayedItems(fetchedData.results)
-                    setFilterMark([...filterMark, storedEngineName]);
+                    setFilterMark([...filterMark, storedEngineName, 'Ремкомплекты']);
                     setSelectedEngine([...selectedEngine, storagedEngineId])
                 }).catch(res => {
                     if (res.status == 500) {
@@ -118,11 +138,8 @@ function Catalog({ maxWidth760 }) {
 
     function submitInput() {
         handleSubmit(page)
+   
     }
-
-    setTimeout(() => {
-        localStorage.clear()
-    }, 5000)
 
     useEffect(() => {
         if (storedValue && allCatalog) {
@@ -136,7 +153,7 @@ function Catalog({ maxWidth760 }) {
 
     return (
         <>
-            <Header maxWidth760={maxWidth760} setBurgerMenuOpen={setBurgerMenuOpen} showTitle={false} catalog={true} />
+            <Header maxWidth760={maxWidth760} setBurgerMenuOpen={setBurgerMenuOpen} showTitle={showTitle} catalog={true} />
             <main className='catalog'>
                 <div className='catalog__intro'>
                     <h1 className='catalog__title'>Каталог продукции АО&nbsp;Строймаш</h1>
@@ -156,7 +173,7 @@ function Catalog({ maxWidth760 }) {
                             <div className='catalog__span-group'>
                                 {allCatalog && <span className='catalog__span'>Показано {dislayedItems.length} из {allCatalog.count}</span>}
 
-                                {(!maxWidth760 && (dislayedItems.length < fiteredData.results.length)) &&
+                                {(!maxWidth760 && filterMark.length > 0) &&
                                     <button className='catalog__clear-button' onClick={clearFilters}>Сбросить фильтры</button>}
                                 {maxWidth760 && <button className="catalog__popup-button" id="partner-filter-big" onClick={() => setFiltersPopupOpen(true)}>
                                     Фильтры

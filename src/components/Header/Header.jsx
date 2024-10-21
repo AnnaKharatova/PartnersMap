@@ -47,7 +47,7 @@ function Header({ maxWidth760, setBurgerMenuOpen, showTitle, catalog }) {
         <img src={Logo} alt="Логотип Строймаш" className="header__logo" />
 
         {!maxWidth760 ? <p className="header__title">Строймаш</p> : <p style={{ display: 'none' }}></p>}
-        {!maxWidth760 & showTitle ? <p className="header__title">ОФИЦИАЛЬНЫЕ ПАРТНЕРЫ</p > : <p style={{ display: 'none' }}></p>}
+        {!maxWidth760 & showTitle ? <p className="header__title">{!catalog ? 'ОФИЦИАЛЬНЫЕ ПАРТНЕРЫ' : 'КАТАЛОГ ПРОДУКЦИИ'}</p > : <p style={{ display: 'none' }}></p>}
 
         {maxWidth760 & !showTitle ? <p className="header__title">Строймаш</p> : <p style={{ display: 'none' }}></p>}
         {maxWidth760 & showTitle ? <p className="header__title" style={{ paddingRight: '0' }}>Официальные партнеры АО Строймаш</p> : <p></p>}

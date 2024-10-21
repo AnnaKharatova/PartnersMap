@@ -128,7 +128,7 @@ function ElementPage({ maxWidth760 }) {
                         <img className='element__photo-main' src={mainImage} />
                         {(maxWidth760 && mainImage) && <button  className='element__photo-next' onClick={handleMainPhoto}>&gt;</button>}
                         {!maxWidth760 && <ul className='element__photo-list'>
-                            {element.images.map(image => (
+                            {(element.images.length>1)&&element.images.map(image => (
                                 <img className='element__photo-item' src={image.image} key={uuidv4()} onClick={() => { setMainImage(image.image) }} />
                             ))}
                             {repairKit && (element.parts.map((item) => (

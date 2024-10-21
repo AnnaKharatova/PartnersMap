@@ -1,7 +1,7 @@
 .element {
     box-sizing: border-box;
     padding: 100px 60px 40px 64px;
-    min-height: 74vh;
+    min-height: 85vh;
 }
 
 .element__header {

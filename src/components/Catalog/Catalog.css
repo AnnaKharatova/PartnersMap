@@ -105,7 +105,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     padding: 0 10px 50px 60px;
-    gap: 40px;
+    gap: 36px;
 }
 
 .catalog__popup-button {

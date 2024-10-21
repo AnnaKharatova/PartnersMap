@@ -4,8 +4,8 @@
 
 .catalog-filters__engine {
     display: flex;
-    flex-direction: row;
     gap: 20px;
+    flex-direction: row;
     flex-wrap: wrap;
     margin-top: 10px;
     margin-bottom: 30px;
@@ -19,13 +19,14 @@
     border: 1px solid #C4C4C4;
     background-color: inherit;
     border-radius: 8px;
-    padding: 8px 15px;
+    padding: 13px 18px;
     color: #191919;
     font-family: "IBMPlexSans";
     font-size: 16px;
     font-weight: 400;
     line-height: 20.8px;
     cursor: pointer;
+    margin-top: 20px;
 }
 
 .catalog-filters__engine-label:hover {
@@ -82,7 +83,7 @@
     }
 
     .catalog-filters__engine {
-        gap: 15px;
+        gap: 35px 15px;
         margin-bottom: 30px;
         box-sizing: border-box;
     }
@@ -93,7 +94,7 @@
     }
 
     .catalog-filters__engine-label {
-        padding: 6px 15px;
+        padding: 11px 18px;
         margin: 20px 0;
     }
 }

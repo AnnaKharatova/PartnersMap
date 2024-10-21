@@ -1,11 +1,14 @@
 import React from 'react';
 import './PartnerElement.css'
 
-const PartnerElement = ({ partner, setStore, setSelectedPartner, setPopupPartnersListOpen }) => {
+const PartnerElement = ({ setPartnerInfo ,partner, setStore, setSelectedPartner, setPopupPartnersListOpen }) => {
 
     const tagsArray = partner.tags
 
     function handleClick() {
+        if(setPartnerInfo) {
+            setPartnerInfo(partner)
+        }
         setSelectedPartner(partner)
         if (setPopupPartnersListOpen) {
             setPopupPartnersListOpen(false)
@@ -29,20 +32,20 @@ const PartnerElement = ({ partner, setStore, setSelectedPartner, setPopupPartner
     };
 
     return (
-        <li className='partner' onClick={handleClick}>
+        <li className='partner'>
             <p className='partner__engines'> {partner.parts_available.map((part, index) => (
                 <React.Fragment key={index}>
                     {part.name}
                     {index < partner.parts_available.length - 1 && <span className='partner__engines-dot'></span>}
                 </React.Fragment>
             ))}</p>
-            <h2 className='partner__name'>{partner.name}</h2>
-            <p className='partner__engines'> {tagsArray.map((part, index) => (
+            <h2 className='partner__name' onClick={handleClick}>{partner.name}</h2>
+            {/*<p className='partner__engines'> {tagsArray.map((part, index) => (
                 <React.Fragment key={index}>
                     {part.name}
                     {index < tagsArray.length - 1 && <span className='partner__engines-dot'></span>}
                 </React.Fragment>
-            ))}</p>
+            ))}</p> */}
             <p className='partner__address'>{partner.address}</p>
             <div className='partner__block'>
                 <div className='partner__contacts'>

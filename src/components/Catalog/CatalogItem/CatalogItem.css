@@ -3,14 +3,16 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background-color: #FFFFFF;
+    padding-bottom: 20px;
 }
 
 .catalog__img-container {
     width: 301px;
     height: 190px;
-    border: 1px solid #E8E8E8;
+    border: 2px solid rgba(232, 232, 232, 1);
     background-color: #FFFFFF;
-    margin-bottom: 10px;
+    overflow: hidden;
 }
 
 .catalog-item__img {
@@ -23,16 +25,25 @@
     font-size: 16px;
     font-weight: 400;
     line-height: 20.8px;
-    color: #191919;
+    color: rgba(25, 25, 25, 1);
     cursor: pointer;
-    margin-top: 15px;
-    margin-bottom: 13px;
+    padding: 15px;
+    height: 2em;
+    overflow: hidden; /* Обязательно нужно добавить overflow: hidden */
+    text-overflow: ellipsis;
+    line-clamp: 2;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Ограничиваем количество строк */
+    -webkit-box-orient: vertical;
 }
+
 
 .catalog-item__article {
     display: flex;
     margin-bottom: 13px;
     position: relative;
+    padding: 5px 15px;
+    
 }
 
 .catalog-item__articke-p {
@@ -78,6 +89,7 @@
     color: #191919;
     width: fit-content;
     cursor: pointer;
+    margin-left: 15px;
 }
 
 @media screen and (max-width: 760px) {
@@ -85,18 +97,18 @@
         width: 168px;
         margin-bottom: 10px;
     }
-    
+
     .catalog__img-container {
         width: 168px;
         height: 115px;
         margin-bottom: 8px;
     }
-    
+
     .catalog-item__img {
         width: 100%;
         height: auto;
     }
-    
+
     .catalog-item__title {
         font-size: 14px;
         font-weight: 400;
@@ -104,6 +116,7 @@
         margin-top: 0;
         margin-bottom: 0;
     }
+
     .catalog-item__articke-p {
         margin: 5 15px 0 0;
         font-size: 14px;

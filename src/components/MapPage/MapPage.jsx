@@ -10,7 +10,7 @@ import PopupFilters from '../PopupFilters/PopupFilters.jsx';
 import PartnerDetails from '../PartnerDetails/PartnerDetails.jsx'
 import FilterMarkItem from '../FilterMarkItem/FilterMarkItem.jsx';
 import Bunner1440 from '../../images/Banner_1440.png'
-import Bunner1024 from '../../images/Banner_1024.png'
+import Bunner1024 from '../../images/Banner_Н280.png'
 import BurgerMenu from '../BurgerMenu/BurgerMenu.jsx'
 import NothingFoundInFilter from '../NothingFoundInFilter/NothingFoundInFilter.jsx';
 import NothingFoundInCity from '../NothingFoundInCity/NothingFoundInCity.jsx';
@@ -42,6 +42,8 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
 
   const storagedEngineId = localStorage.getItem('engineSort')
   const storagedEngineName = localStorage.getItem('engineName')
+
+  console.log(partnerInfo)
 
   useEffect(() => {
     if (storagedEngineId) {
@@ -169,23 +171,6 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
     }
   }
 
-  /* useEffect(() => {
-    if (selectedCity) {
-      getQuery()
-    }
-  }, [selectedCity])
-
-  useEffect(() => {
-    if (selectedParts) {
-      getQuery()
-    }
-  }, [selectedParts])
-
-  useEffect(() => {
-    if (selectedTags) {
-      getQuery()
-    }
-  }, [selectedTags]) */
 
   function getQuery() {
     if (selectedParts || selectedTags || selectedCity) {
@@ -243,7 +228,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
     <>
       <Header maxWidth760={maxWidth760} setBurgerMenuOpen={setBurgerMenuOpen} showTitle={showTitle} catalog={false} />
       <main>
-        <img alt='баннер' className="bunner" src={maxWidth1024 ? Bunner1440 : Bunner1024} />
+        <img alt='баннер' className="bunner" src={Bunner1024} />
         <h1 className="title">{!maxWidth760 ? `Официальные партнёры АО Строймаш` : "Официальные партнёры завода"}</h1>
         <div className="map">
           <div className="partners">
@@ -263,10 +248,10 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
                   <>
                     <div className="partners__container" ref={listRef}>
                       {partnerInfo ?
-                        <PartnerDetails maxWidth760={maxWidth760} partner={partnerInfo} setPartnerInfo={setPartnerInfo} setStore={setStore} /> :
+                        <PartnerDetails setPartnerInfo={setPartnerInfo}  maxWidth760={maxWidth760} partner={partnerInfo} setStore={setStore} /> :
                         <ul className="popup-filter__partners-list">
                           {filteredData.length > 0 && filteredData.map((partner) => (
-                            <PartnerElement setSelectedPartner={setSelectedPartner} partner={partner} setStore={setStore} key={partner.id} />
+                            <PartnerElement setPartnerInfo={setPartnerInfo} setSelectedPartner={setSelectedPartner} selectedPartner partner={partner} setStore={setStore} key={partner.id} />
                           ))}
                         </ul>
                       }
