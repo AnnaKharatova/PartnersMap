@@ -43,7 +43,6 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
   const storagedEngineId = localStorage.getItem('engineSort')
   const storagedEngineName = localStorage.getItem('engineName')
 
-  console.log(partnerInfo)
 
   useEffect(() => {
     if (storagedEngineId) {
@@ -64,10 +63,6 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
         });
     }
   }, [])
-
-  setTimeout(() => {
-    localStorage.clear()
-  }, 6000)
 
   useEffect(() => {
     const handleScroll = () => {

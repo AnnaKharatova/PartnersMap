@@ -50,10 +50,6 @@ function CatalogFilters({
         }
     };
 
-    setTimeout(() => {
-        localStorage.clear()
-    }, 5000)
-
     useEffect(() => {
         if (!storagedEngineId) {
             if (selectedGroup || selectedEngine) {

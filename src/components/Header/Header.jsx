@@ -56,8 +56,8 @@ function Header({ maxWidth760, setBurgerMenuOpen, showTitle, catalog }) {
       {maxWidth760 ? <button className="header__nav-burger" onClick={() => { setBurgerMenuOpen(true) }} id="header-nav-burger"></button> :
         <nav className="header__nav">
           {!catalog ?
-            <a className="header__item" href="/catalog">КАТАЛОГ</a> :
-            <a className="header__item" href="/">КАРТА ОФИЦИАЛЬНЫХ ПАРТНЁРОВ</a>
+            <a className="header__item" href="/catalog" onClick={()=> {localStorage.clear()}}>КАТАЛОГ</a> :
+            <a className="header__item" href="/" onClick={()=> {localStorage.clear()}}>КАРТА ОФИЦИАЛЬНЫХ ПАРТНЁРОВ</a>
           }
           <a className="header__item" target="_blank" href={addPartner}>ДОБАВИТЬ ПАРТНЁРА</a>
           <button className="header__item-contacts" ref={buttonRef} onMouseOver={handleMouseOver}>КОНТАКТЫ</button>

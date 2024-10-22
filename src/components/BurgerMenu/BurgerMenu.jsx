@@ -28,7 +28,7 @@ function BurgerMenu({ setBurgerMenuOpen, catalog }) {
                     <button className="popup-menu__close-button" onClick={() => { setBurgerMenuOpen(false) }}></button>
                 </div>
                 <nav className="popup-menu__main">
-                    {!catalog ? <a className="popup-menu__item" href="/catalog">КАТАЛОГ</a> : <a className="popup-menu__item" href="/">КАРТА ОФИЦИАЛЬНЫХ ПАРТНЕРОВ</a>}
+                    {!catalog ? <a className="popup-menu__item" href="/catalog" onClick={()=> {localStorage.clear()}}>КАТАЛОГ</a> : <a className="popup-menu__item" href="/" onClick={()=> {localStorage.clear()}}>КАРТА ОФИЦИАЛЬНЫХ ПАРТНЕРОВ</a>}
                     <a className="popup-menu__item" target="_blank" rel="noreferrer" href={addPartner}>ДОБАВИТЬ ПАРТНЕРА</a>
                     <p className="popup-menu__item-contacts" href="#">КОНТАКТЫ</p>
                     <a className="popup-menu__contacts" onClick={handlePhoneClick} href="#">{phoneNumber}</a>

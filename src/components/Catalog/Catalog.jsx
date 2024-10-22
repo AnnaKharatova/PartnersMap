@@ -29,6 +29,7 @@ function Catalog({ maxWidth760 }) {
     const [filterMark, setFilterMark] = useState([])
     const [showTitle, setShowTitle] = useState(false)
 
+    const catalogLentgh =  localStorage.getItem('catalogLentgh')
 
     const groups = selectedGroup ? selectedGroup.map(group => `group=${group}&`).join('') : '';
     const engins = selectedEngine ? selectedEngine.map(engine => `engine_cat=${engine}&`).join('') : '';
@@ -67,7 +68,9 @@ function Catalog({ maxWidth760 }) {
                     setAllCatalog(fetchedData)
                     setFilteredData(fetchedData)
                     setDisplayedItems(fetchedData.results)
-                    localStorage.clear()
+                    if(groups.length == 0 && engins.length==0&& !inputValue) {
+                        localStorage.setItem('catalogLentgh', fetchedData.count)
+                    }
                 }).catch(res => {
                     if (res.status == 500) {
                         navigate('./error')
@@ -171,7 +174,7 @@ function Catalog({ maxWidth760 }) {
                     {(dislayedItems && dislayedItems.length > 0) ?
                         <>
                             <div className='catalog__span-group'>
-                                {allCatalog && <span className='catalog__span'>Показано {dislayedItems.length} из {allCatalog.count}</span>}
+                                {allCatalog && <span className='catalog__span'>Найдено {allCatalog.count} из {catalogLentgh}</span>}
 
                                 {(!maxWidth760 && filterMark.length > 0) &&
                                     <button className='catalog__clear-button' onClick={clearFilters}>Сбросить фильтры</button>}

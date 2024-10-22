@@ -30,7 +30,7 @@
 }
 
 .partner-details__engines {
-    color: #1347FF;
+    color: rgba(133, 133, 130, 1);
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -39,11 +39,32 @@
     margin-bottom: 10px;
 }
 
+.partner-details__tags {
+    display: flex;
+    gap: 10px;
+}
+
+.partner-details__tag {
+    color: rgba(74, 74, 74, 1);
+    background-color: rgba(245, 245, 245, 1);
+    border-radius: 6px;
+    padding: 4px 8px;
+    width: fit-content;
+    font-style: normal;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 15.6px;
+    text-align: left;
+
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
 .partner-details__engines-dot {
     display: inline-block;
     width: 5px;
     height: 5px;
-    background-color: #1347FF;
+    background-color: rgba(133, 133, 130, 1);
     border-radius: 50%;
     margin: 0 4px 2px 4px;
     text-align: center;
@@ -77,7 +98,7 @@
     background-image: url('../../images/Icon-adress.svg');
     background-position: left top;
     background-repeat: no-repeat;
-    margin-right: 15px;
+    margin: 10px 0 0;
     text-align: start;
     align-content: center;
 }
@@ -91,7 +112,7 @@
     height: 30px;
     text-decoration: none;
     cursor: pointer;
-    padding: 5px 0 5px 30px;
+    padding: 0 0 5px 30px;
     background-image: url('../../images/Icon-phone.svg');
     background-position: left;
     background-repeat: no-repeat;
@@ -134,19 +155,19 @@
 .partner-details__route-button {
     border-radius: 12px;
     border: 1px solid #7D9AFF;
-    padding: 6px 10px 6px 30px;
+    padding: 6px 5px 6px 20px;
     background-image: url('../../images/Icon-way.svg');
-    background-position: 7px 4px;
+    background-position: 9px 4px;
     background-repeat: no-repeat;
     color: #1347FF;
     font-family: "IBM Plex Sans";
-    font-size: 16px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 400;
-    line-height: 130%;
+    line-height: 18.2px;
     background-color: inherit;
     height: 33px;
-    width: 120px;
+    width: 110px;
     cursor: pointer;
     margin-bottom: 10px;
 }
@@ -183,6 +204,6 @@
     }
 
     .partner-details__route-button {
-         margin-bottom: 0;
+        margin-bottom: 0;
     }
 }

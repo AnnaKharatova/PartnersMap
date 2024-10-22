@@ -35,13 +35,12 @@ const PartnerDetails = ({ partner, setPartnerInfo, maxWidth760, setStore, setPop
                     </React.Fragment>
                 ))}</p>
             <h2 className='partner-details__name'>{partner.name}</h2>
-            <p className='partner-details__engines' style={{marginTop:"5px"}}>
-                {partner.tags.map((part, index) => (
-                    <React.Fragment key={part.id}>
-                        {part.name}
-                        {index < partner.tags.length - 1 && <span className='partner-details__engines-dot'></span>}
-                    </React.Fragment>
-                ))}</p>
+            <div  className='partner-details__tags'>
+            {partner.tags.map((part) => (
+                <p className='partner-details__tag'>
+                    {part.name}</p>
+            ))}
+            </div>
             <p className='partner-details__address'>{partner.address}</p>
             <div className='partner-details__contacts'>
                 {partner.phone && <a href='#' className="partner-details__phone" onClick={handlePhoneClick}>{partner.phone}</a>}

@@ -22,7 +22,6 @@ function ElementPage({ maxWidth760 }) {
     const [allImages, setAllImages] = useState([]);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-    console.log(element)
 
     useEffect(() => {
         getElement()
