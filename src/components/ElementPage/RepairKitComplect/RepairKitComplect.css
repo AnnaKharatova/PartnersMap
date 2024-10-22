@@ -1,34 +1,33 @@
 .repair-kit {
-    margin-top: 30px;
+  margin-top: 30px;
 }
 
 .repair-kit__item {
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 20.8px;
-    color: #191919;
-    text-decoration: none;
-    cursor: pointer;
-    margin-bottom: 30px;
-    cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20.8px;
+  color: #191919;
+  text-decoration: none;
+  cursor: pointer;
+  margin-bottom: 30px;
+  cursor: pointer;
 }
 
 .repair-kit__item:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .repair-kit__description {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 20.8px;
-    color: #191919;
-    margin-bottom: 0;
-    margin-top: 10px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20.8px;
+  color: #191919;
+  margin-bottom: 0;
+  margin-top: 10px;
 }
 
 @media screen and (max-width: 760px) {
-
-    .repair-kit {
-        margin: 20px 15px 0;
-    }
+  .repair-kit {
+    margin: 20px 15px 0;
+  }
 }

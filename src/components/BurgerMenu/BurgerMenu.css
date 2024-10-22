@@ -1,101 +1,101 @@
-    .popup-menu {
-        box-sizing: border-box;
-        position: fixed;
-        z-index: 4;
-        left: 0;
-        bottom: 0;
-        width: 100vw;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-    }
+.popup-menu {
+  box-sizing: border-box;
+  position: fixed;
+  z-index: 4;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
 
-    .popup-menu__content {
-        box-sizing: border-box;
-        background-color: #191919;
-        padding: 5px 15px 20px 0;
-        position: absolute;
-        bottom: -5px;
-        animation: slideUp 0.5s ease-in-out forwards;
-        height: 100%;
-        overflow: auto;
-        min-width: 100vw;
-    }
+.popup-menu__content {
+  box-sizing: border-box;
+  background-color: #191919;
+  padding: 5px 15px 20px 0;
+  position: absolute;
+  bottom: -5px;
+  animation: slideUp 0.5s ease-in-out forwards;
+  height: 100%;
+  overflow: auto;
+  min-width: 100vw;
+}
 
-    .popup-menu__header {
-        display: flex;
-        justify-content: space-between;
-    }
+.popup-menu__header {
+  display: flex;
+  justify-content: space-between;
+}
 
-    .popup-menu__close-button {
-        float: right;
-        background-color: inherit;
-        background-image: url(../../images/Icon-cross-white.svg);
-        background-repeat: no-repeat;
-        background-position: center;
-        border: none;
-        width: 28px;
-        height: 28px;
-        cursor: pointer;
-        margin-top: 10px;
-    }
+.popup-menu__close-button {
+  float: right;
+  background-color: inherit;
+  background-image: url(../../images/Icon-cross-white.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  margin-top: 10px;
+}
 
-    .popup-menu__main {
-        width: 80%;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        margin: 16px;
-    }
+.popup-menu__main {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 16px;
+}
 
-    .popup-menu__item {
-        text-decoration: none;
-        cursor: pointer;
-        color: #E8E8E8;
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 130%;
-        margin-top: 22px;
-        margin-bottom: 12px;
-    }
+.popup-menu__item {
+  text-decoration: none;
+  cursor: pointer;
+  color: #e8e8e8;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+  margin-top: 22px;
+  margin-bottom: 12px;
+}
 
-    .popup-menu__item-contacts {
-        margin-top: 22px;
-        margin-bottom: 0;
-        color: #858582;
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 130%;
-    }
+.popup-menu__item-contacts {
+  margin-top: 22px;
+  margin-bottom: 0;
+  color: #858582;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+}
 
-    .popup-menu__contacts {
-        color: #E8E8E8;
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 130%;
-        text-decoration: none;
-        cursor: pointer;
-        margin: 5px 0 0 0;
-    }
+.popup-menu__contacts {
+  color: #e8e8e8;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+  text-decoration: none;
+  cursor: pointer;
+  margin: 5px 0 0 0;
+}
 
-    .popup-menu__item-copyright {
-        margin-top: 25px;
-        text-decoration: none;
-        color: #858582;
-        font-size: 13px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 120%;
-    }
+.popup-menu__item-copyright {
+  margin-top: 25px;
+  text-decoration: none;
+  color: #858582;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+}
 
-    .popup-menu__copyright {
-        margin-top: 3px;
-        color: #858582;
-        font-size: 13px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 120%;
-    }
+.popup-menu__copyright {
+  margin-top: 3px;
+  color: #858582;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+}

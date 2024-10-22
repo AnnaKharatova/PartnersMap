@@ -1,148 +1,147 @@
 .header {
-    background-color: #191919;
-    width: 100vw;
-    min-width: 375px;
-    position: fixed;
-    top: 0;
-    z-index: 4;
-    display: flex;
-    justify-content: space-between;
-    margin: 0 auto;
+  background-color: #191919;
+  width: 100vw;
+  min-width: 375px;
+  position: fixed;
+  top: 0;
+  z-index: 4;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
 }
 
 .header__main {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    padding-left: 64px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding-left: 64px;
 }
 
 .header__title {
-    color: #ffff;
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 28px;
-    padding-right: 0;
+  color: #ffff;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 28px;
+  padding-right: 0;
 }
 
 .header__logo {
-    height: 40px;
-    width: 40px;
+  height: 40px;
+  width: 40px;
 }
 
 .header__nav-burger {
-    background-color: inherit;
-    background-image: url('../../images/BurgerMenuButton.svg');
-    background-repeat: no-repeat;
-    width: 30px;
-    height: 30px;
-    border: none;
-    margin-top: 10px;
-    margin-right: 16px;
-    cursor: pointer;
+  background-color: inherit;
+  background-image: url("../../images/BurgerMenuButton.svg");
+  background-repeat: no-repeat;
+  width: 30px;
+  height: 30px;
+  border: none;
+  margin-top: 10px;
+  margin-right: 16px;
+  cursor: pointer;
 }
 
 .header__item {
-    padding-right: 50px;
-    text-decoration: none;
-    color: #ffff;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 20.8px;
-    text-align: center;
+  padding-right: 50px;
+  text-decoration: none;
+  color: #ffff;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20.8px;
+  text-align: center;
 }
 
 .header__item-contacts {
-    padding-right: 30px;
-    text-decoration: none;
-    color: #ffff;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 20.8px;
-    text-align: center;
-    background-image: url('../../images/icon-arrow-down-white.svg');
-    background-repeat: no-repeat;
-    background-position: right center;
-    background-color: inherit;
-    border: none;
-    cursor: pointer;
+  padding-right: 30px;
+  text-decoration: none;
+  color: #ffff;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20.8px;
+  text-align: center;
+  background-image: url("../../images/icon-arrow-down-white.svg");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
 }
 
 .header__nav {
-    padding: 25px 56px 30px 30px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 30px;
+  padding: 25px 56px 30px 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
 }
 
 .header__contacts {
-    box-sizing: border-box;
-    position: absolute;
-    top: 75px;
-    right: -5px;
-    display: flex;
-    flex-direction: column;
-    width: 269px;
-    height: 122px;
-    padding: 28px 64px 36px 36px;
-    border-radius: 8px;
-    background-color: #191919;
-    gap: 16px;
+  box-sizing: border-box;
+  position: absolute;
+  top: 75px;
+  right: -5px;
+  display: flex;
+  flex-direction: column;
+  width: 269px;
+  height: 122px;
+  padding: 28px 64px 36px 36px;
+  border-radius: 8px;
+  background-color: #191919;
+  gap: 16px;
 }
 
 .header__contact {
-    text-decoration: none;
-    cursor: pointer;
-    color: #FFF;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 130%;
-    text-align: right;
+  text-decoration: none;
+  cursor: pointer;
+  color: #fff;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+  text-align: right;
 }
 
 @media screen and (max-width: 1024px) {
-    .header__main {
-        padding-left: 36px;
-    }
+  .header__main {
+    padding-left: 36px;
+  }
 
-    .header__item {
-        padding-right: 30px;
-    }
+  .header__item {
+    padding-right: 30px;
+  }
 
-    .header__nav {
-        padding-right: 26px;
-    }
+  .header__nav {
+    padding-right: 26px;
+  }
 
-    .header__contacts {
-        width: 229px;
-        height: 90px;
-        padding: 16px 36px 24px 24px;
-    }
+  .header__contacts {
+    width: 229px;
+    height: 90px;
+    padding: 16px 36px 24px 24px;
+  }
 }
 
 @media screen and (max-width: 760px) {
+  .header__main {
+    padding-left: 16px;
+  }
 
-    .header__main {
-        padding-left: 16px;
-    }
+  .header__title {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20.8px;
+  }
 
-    .header__title {
-        font-size: 16px;
-        font-weight: 500;
-        line-height: 20.8px;
-    }
-
-    .header__logo {
-        height: 30px;
-        width: 30px;
-    }
+  .header__logo {
+    height: 30px;
+    width: 30px;
+  }
 }
 
 @media screen and (max-width: 425px) {
-    .header__title {
-        font-size: 14px;
-        line-height: 16.8px;
-    }
+  .header__title {
+    font-size: 14px;
+    line-height: 16.8px;
+  }
 }

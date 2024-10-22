@@ -1,209 +1,209 @@
 .partner-details {
-    padding: 20px 24px 24px 62px;
-    display: flex;
-    flex-direction: column;
-    max-width: 460px;
+  padding: 20px 24px 24px 62px;
+  display: flex;
+  flex-direction: column;
+  max-width: 460px;
 }
 
 .partner-details__back-button {
-    color: #191919;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 130%;
-    background-color: inherit;
-    border: none;
-    cursor: pointer;
-    padding: 5px 0 5px 30px;
-    background-image: url('../../images/Icon arrow-back.svg');
-    background-position: left;
-    background-repeat: no-repeat;
-    margin-right: 15px;
-    margin-bottom: 20px;
-    text-align: start;
+  color: #191919;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+  padding: 5px 0 5px 30px;
+  background-image: url("../../images/Icon arrow-back.svg");
+  background-position: left;
+  background-repeat: no-repeat;
+  margin-right: 15px;
+  margin-bottom: 20px;
+  text-align: start;
 }
 
 .partner-details__photo {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
 }
 
 .partner-details__engines {
-    color: rgba(133, 133, 130, 1);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 130%;
-    margin-top: 20px;
-    margin-bottom: 10px;
+  color: rgba(133, 133, 130, 1);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 .partner-details__tags {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 .partner-details__tag {
-    color: rgba(74, 74, 74, 1);
-    background-color: rgba(245, 245, 245, 1);
-    border-radius: 6px;
-    padding: 4px 8px;
-    width: fit-content;
-    font-style: normal;
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 15.6px;
-    text-align: left;
+  color: rgba(74, 74, 74, 1);
+  background-color: rgba(245, 245, 245, 1);
+  border-radius: 6px;
+  padding: 4px 8px;
+  width: fit-content;
+  font-style: normal;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 15.6px;
+  text-align: left;
 
-    margin-top: 15px;
-    margin-bottom: 10px;
+  margin-top: 15px;
+  margin-bottom: 10px;
 }
 
 .partner-details__engines-dot {
-    display: inline-block;
-    width: 5px;
-    height: 5px;
-    background-color: rgba(133, 133, 130, 1);
-    border-radius: 50%;
-    margin: 0 4px 2px 4px;
-    text-align: center;
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  background-color: rgba(133, 133, 130, 1);
+  border-radius: 50%;
+  margin: 0 4px 2px 4px;
+  text-align: center;
 }
 
 .partner-details__contacts {
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    align-items: start;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  align-items: start;
 }
 
 .partner-details__name {
-    color: #191919;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 31.2px;
-    margin-top: 0;
-    margin-bottom: 0;
+  color: #191919;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 31.2px;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .partner-details__address {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 20.8px;
-    color: #191919;
-    font-style: normal;
-    padding: 0 0 5px 30px;
-    background-image: url('../../images/Icon-adress.svg');
-    background-position: left top;
-    background-repeat: no-repeat;
-    margin: 10px 0 0;
-    text-align: start;
-    align-content: center;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20.8px;
+  color: #191919;
+  font-style: normal;
+  padding: 0 0 5px 30px;
+  background-image: url("../../images/Icon-adress.svg");
+  background-position: left top;
+  background-repeat: no-repeat;
+  margin: 10px 0 0;
+  text-align: start;
+  align-content: center;
 }
 
 .partner-details__phone {
-    color: #1347FF;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 130%;
-    height: 30px;
-    text-decoration: none;
-    cursor: pointer;
-    padding: 0 0 5px 30px;
-    background-image: url('../../images/Icon-phone.svg');
-    background-position: left;
-    background-repeat: no-repeat;
-    margin-right: 15px;
-    margin-bottom: 7px;
-    text-align: center;
-    align-content: center;
+  color: #1347ff;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+  height: 30px;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 0 0 5px 30px;
+  background-image: url("../../images/Icon-phone.svg");
+  background-position: left;
+  background-repeat: no-repeat;
+  margin-right: 15px;
+  margin-bottom: 7px;
+  text-align: center;
+  align-content: center;
 }
 
 .partner-details__website {
-    color: #1347FF;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 130%;
-    text-decoration: none;
-    cursor: pointer;
-    padding: 5px 0 5px 30px;
-    background-image: url('../../images/Icon-website.svg');
-    background-position: left;
-    background-repeat: no-repeat;
+  color: #1347ff;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 5px 0 5px 30px;
+  background-image: url("../../images/Icon-website.svg");
+  background-position: left;
+  background-repeat: no-repeat;
 }
 
 .partner-details__open {
-    padding-left: 30px;
-    background-image: url('../../images/Icon-time.svg');
-    background-position: top left;
-    background-repeat: no-repeat;
+  padding-left: 30px;
+  background-image: url("../../images/Icon-time.svg");
+  background-position: top left;
+  background-repeat: no-repeat;
 }
 
 .partner-details__open-time {
-    margin: 0 0 7px 0;
+  margin: 0 0 7px 0;
 }
 
 .partner-details__block {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .partner-details__route-button {
-    border-radius: 12px;
-    border: 1px solid #7D9AFF;
-    padding: 6px 5px 6px 20px;
-    background-image: url('../../images/Icon-way.svg');
-    background-position: 9px 4px;
-    background-repeat: no-repeat;
-    color: #1347FF;
-    font-family: "IBM Plex Sans";
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 18.2px;
-    background-color: inherit;
-    height: 33px;
-    width: 110px;
-    cursor: pointer;
-    margin-bottom: 10px;
+  border-radius: 12px;
+  border: 1px solid #7d9aff;
+  padding: 6px 5px 6px 20px;
+  background-image: url("../../images/Icon-way.svg");
+  background-position: 9px 4px;
+  background-repeat: no-repeat;
+  color: #1347ff;
+  font-family: "IBM Plex Sans";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18.2px;
+  background-color: inherit;
+  height: 33px;
+  width: 110px;
+  cursor: pointer;
+  margin-bottom: 10px;
 }
 
 @media screen and (max-width: 1024px) {
-    .partner-details {
-        padding-left: 34px;
-    }
+  .partner-details {
+    padding-left: 34px;
+  }
 
-    .partner-details__photo {
-        height: 160px;
-    }
+  .partner-details__photo {
+    height: 160px;
+  }
 
-    .partner-details__engines {
-        margin-top: 17px;
-        margin-bottom: 10px;
-    }
+  .partner-details__engines {
+    margin-top: 17px;
+    margin-bottom: 10px;
+  }
 
-    .partner-details__address {
-        margin-bottom: 0;
-        padding-bottom: 0;
-    }
+  .partner-details__address {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
 
-    .partner-details__phone {
-        margin-bottom: 0;
-    }
+  .partner-details__phone {
+    margin-bottom: 0;
+  }
 }
 
 @media screen and (max-width: 760px) {
-    .partner-details {
-        padding: 30px 16px;
-        display: flex;
-        flex-direction: column;
-    }
+  .partner-details {
+    padding: 30px 16px;
+    display: flex;
+    flex-direction: column;
+  }
 
-    .partner-details__route-button {
-        margin-bottom: 0;
-    }
+  .partner-details__route-button {
+    margin-bottom: 0;
+  }
 }

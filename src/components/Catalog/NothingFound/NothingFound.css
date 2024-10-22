@@ -1,84 +1,82 @@
 .empty {
-    box-sizing: border-box;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0 60px 120px;
-    min-height: 30vh;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 60px 120px;
+  min-height: 30vh;
 }
 
 .empty__title {
-    text-align: center;
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 28px;
-    color: #191919;
-    margin-bottom: 10px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 28px;
+  color: #191919;
+  margin-bottom: 10px;
 }
 
 .empty__subtitle {
-    margin-top: 0;
-    margin-bottom: 35px;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 20.8px;
-    text-align: center;
-    color: #191919;
+  margin-top: 0;
+  margin-bottom: 35px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20.8px;
+  text-align: center;
+  color: #191919;
 }
 
 .empty__button {
-    margin: 0 auto;
-    border: 1px solid #7D9AFF;
-    border-radius: 12px;
-    background-color: inherit;
-    padding: 8px 10px;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 20.8px;
-    color: #1347FF;
-    cursor: pointer;
-    width: 170px;
+  margin: 0 auto;
+  border: 1px solid #7d9aff;
+  border-radius: 12px;
+  background-color: inherit;
+  padding: 8px 10px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20.8px;
+  color: #1347ff;
+  cursor: pointer;
+  width: 170px;
 }
 
 .empty__button:hover {
-    border: 1px solid #1347FF;
+  border: 1px solid #1347ff;
 }
 
 @media screen and (max-width: 1024px) {
-    .empty {
-        padding-bottom: 40px;
+  .empty {
+    padding-bottom: 40px;
+  }
 
-    }
+  .empty__title {
+    margin-bottom: 10px;
+    font-size: 16px;
+    line-height: 20.8px;
+  }
 
-    .empty__title {
-        margin-bottom: 10px;
-        font-size: 16px;
-        line-height: 20.8px;
-    }
+  .empty__subtitle {
+    margin-bottom: 30px;
+    font-size: 14px;
+    line-height: 18.2px;
+  }
 
-    .empty__subtitle {
-        margin-bottom: 30px;
-        font-size: 14px;
-        line-height: 18.2px;
-    }
-
-    .empty__button {
-        font-size: 14px;
-        line-height: 18.2px;
-        padding: 5px 8px;
-        width: 147px;
-    }
+  .empty__button {
+    font-size: 14px;
+    line-height: 18.2px;
+    padding: 5px 8px;
+    width: 147px;
+  }
 }
 
 @media screen and (max-width: 760px) {
-    .empty__title {
-        margin-top: 38px;
-    }
+  .empty__title {
+    margin-top: 38px;
+  }
 
-    .empty {
-        padding-left: 30px;
-        padding-right: 30px;
-    }
-
+  .empty {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
 }

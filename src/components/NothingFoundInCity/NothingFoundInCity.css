@@ -1,79 +1,78 @@
 .no-content__container {
-    padding: 30px;
-    padding-left: 64px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  padding: 30px;
+  padding-left: 64px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .no-content__image {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
 }
 
 .no-content__image-loop {
-    width: 65px;
-    height: 65px;
-    margin: 0 auto;
-    margin-bottom: 15px;
+  width: 65px;
+  height: 65px;
+  margin: 0 auto;
+  margin-bottom: 15px;
 }
 
 .no-content__title {
-    color: #191919;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 130%;
-    text-align: center;
-    margin-bottom: 15px;
+  color: #191919;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 130%;
+  text-align: center;
+  margin-bottom: 15px;
 }
 
 .no-content__text {
-    color: #191919;
-    text-align: center;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 130%;
-    align-items: center;
-    margin-top: 0;
-
+  color: #191919;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+  align-items: center;
+  margin-top: 0;
 }
 
 .no-content__clear-button {
-    background-color: inherit;
-    color: #1347FF;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 130%;
-    border-radius: 12px;
-    border: 1px solid #7D9AFF;
-    height: 40px;
-    padding: 8px 2px;
-    align-items: center;
-    width: 175px;
-    margin: 30px auto;
+  background-color: inherit;
+  color: #1347ff;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+  border-radius: 12px;
+  border: 1px solid #7d9aff;
+  height: 40px;
+  padding: 8px 2px;
+  align-items: center;
+  width: 175px;
+  margin: 30px auto;
 }
 
 @media screen and (max-width: 1024px) {
-    .no-content__container {
-        padding: 20px 10px;
-    }
+  .no-content__container {
+    padding: 20px 10px;
+  }
 
-    .no-content__image-loop {
-        width: 55px;
-        height: 55px;
-        margin-bottom: 5px;
-    }
+  .no-content__image-loop {
+    width: 55px;
+    height: 55px;
+    margin-bottom: 5px;
+  }
 
-    .no-content__title {
-        margin-bottom: 10px;
-    }
+  .no-content__title {
+    margin-bottom: 10px;
+  }
 
-    .no-content__clear-button {
-        margin-top: 20px;
-    }
+  .no-content__clear-button {
+    margin-top: 20px;
+  }
 }
