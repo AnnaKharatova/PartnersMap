@@ -20,8 +20,8 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
   const listPopupRef = useRef(null);
   const navigate = useNavigate();
 
-  const storagedEngineId = localStorage.getItem("engineSort");
-  const storagedEngineName = localStorage.getItem("engineName");
+  const storagedEngineId = localStorage.getItem("engineMapSort");
+  const storagedEngineName = localStorage.getItem("engineMapName");
 
   const [citiesPopup, setCitiesPopup] = useState(false);
   const [filtersPopup, setFiltersPopup] = useState(false);
@@ -45,7 +45,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
   useEffect(() => {
     if (storagedEngineId) {
       setFilterMark([...filterMark, storagedEngineName]);
-      setSelectedTags([...selectedTags, storagedEngineId]);
+      setSelectedParts([...selectedParts, storagedEngineId]);
       const url = `${BASE_URL}/partners/?parts_available=${storagedEngineId}`;
       fetch(url)
         .then((res) => res.json())
@@ -182,7 +182,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
         selectedParts.map((id) => `parts_available=${id}`).join("&")
         : `city=${selectedCity.id}` +
         `&` +
-        selectedTags.map((tag) => `tags=${tag}`).join("&") +
+        selectedTags&&selectedTags.map((tag) => `tags=${tag}`).join("&") +
         `&` +
         selectedParts.map((id) => `parts_available=${id}`).join("&");
       const url = `${BASE_URL}/partners/?${queryParams}`;

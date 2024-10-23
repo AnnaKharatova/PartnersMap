@@ -97,10 +97,11 @@ function ElementPage({ maxWidth760 }) {
   function handleMapFilter() {
     const id = element.engine_cat.id;
     const name = element.engine_cat.name;
-    localStorage.setItem("engineSort", id);
-    localStorage.setItem("engineName", name);
+    localStorage.setItem("engineMapSort", id);
+    localStorage.setItem("engineMapName", name);
     navigate("/");
   }
+
 
   if (!element) return;
 
