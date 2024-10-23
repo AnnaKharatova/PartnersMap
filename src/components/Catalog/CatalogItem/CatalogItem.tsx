@@ -11,8 +11,8 @@ function CatalogItem({ item }) {
   function handleMapFilter() {
     const value = item.engine_cat.id;
     const name = item.engine_cat.name;
-    localStorage.setItem("engineSort", value);
-    localStorage.setItem("engineName", name);
+    localStorage.setItem("engineMapSort", value);
+    localStorage.setItem("engineMapName", name);
     navigate("/");
   }
 
