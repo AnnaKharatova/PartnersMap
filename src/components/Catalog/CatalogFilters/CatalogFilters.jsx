@@ -19,6 +19,7 @@ function CatalogFilters({
   const [groups, setGroups] = useState([]);
 
   const handleEngineCheckboxChange = (event) => {
+    localStorage.clear();
     const { value, checked, name } = event.target;
     if (checked) {
       setSelectedEngine([...selectedEngine, value]);
@@ -35,6 +36,7 @@ function CatalogFilters({
   };
 
   const handleGroupCheckboxChange = (event) => {
+    localStorage.clear();
     const { value, checked, name } = event.target;
     if (checked) {
       setSelectedGroup([...selectedGroup, value]);

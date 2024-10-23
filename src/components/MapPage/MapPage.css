@@ -433,6 +433,7 @@ main {
   }
 
   .map__container {
+    height: 95vh;
     width: 100vw;
     min-width: 375px;
   }

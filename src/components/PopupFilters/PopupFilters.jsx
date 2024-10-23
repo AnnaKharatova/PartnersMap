@@ -21,7 +21,6 @@ function PopupFilters({
   setSelectedParts,
 }) {
   const navigate = useNavigate();
-
   const handleEngineCheckboxChange = (event) => {
     const { value, checked, name } = event.target;
     if (checked) {

@@ -112,12 +112,12 @@
   height: 30px;
   text-decoration: none;
   cursor: pointer;
-  padding: 0 0 5px 30px;
+  padding: 0 0 0 30px;
   background-image: url("../../images/Icon-phone.svg");
   background-position: left;
   background-repeat: no-repeat;
-  margin-right: 15px;
-  margin-bottom: 7px;
+  margin: 10px 0;
+
   text-align: center;
   align-content: center;
 }

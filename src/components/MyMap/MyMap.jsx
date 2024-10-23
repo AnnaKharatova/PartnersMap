@@ -85,6 +85,8 @@ function AnotherMap({
     const mapInstance = new ymaps.Map(mapRef.current, {
       center: [55.76, 37.64],
       zoom: 8,
+      minZoom: 5, 
+      maxZoom: 15,
       controls: [],
     });
     setMap(mapInstance);
@@ -123,6 +125,8 @@ function AnotherMap({
         );
 
         // Изменение маркера при наведении
+
+        console.log(placemark)
 
         placemark.events.add("mouseenter", () => {
           placemark.options.set("iconImageHref", HoverIcon);

@@ -21,6 +21,7 @@
 .popup-city__content {
   box-sizing: border-box;
   padding: 0 24px 0 64px;
+
 }
 
 .popup-filter__del-button {
@@ -127,7 +128,7 @@
 
 @media screen and (max-width: 760px) {
   .popup-city__content {
-    z-index: 3;
+    z-index: 10;
     position: fixed;
     box-sizing: border-box;
     background-color: #fff;
@@ -137,7 +138,7 @@
     min-width: 100vw;
     animation: slideUP 0.5s ease-in-out forwards;
     height: 100%;
-    top: 30px;
+    top: 0;
   }
 
   .popup-filter__cities-list {

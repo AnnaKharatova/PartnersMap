@@ -29,7 +29,7 @@ function Catalog({ maxWidth760 }) {
   const [filterMark, setFilterMark] = useState([]);
   const [showTitle, setShowTitle] = useState(false);
 
-  const catalogLentgh = localStorage.getItem("catalogLentgh");
+  const catalogLentgh = sessionStorage.getItem("catalogLentgh");
 
   const groups = selectedGroup
     ? selectedGroup.map((group) => `group=${group}&`).join("")
@@ -37,6 +37,8 @@ function Catalog({ maxWidth760 }) {
   const engins = selectedEngine
     ? selectedEngine.map((engine) => `engine_cat=${engine}&`).join("")
     : "";
+
+
 
   useEffect(() => {
     if (storagedEngineId) {
@@ -73,7 +75,7 @@ function Catalog({ maxWidth760 }) {
           setFilteredData(fetchedData);
           setDisplayedItems(fetchedData.results);
           if (groups.length == 0 && engins.length == 0 && !inputValue) {
-            localStorage.setItem("catalogLentgh", fetchedData.count);
+            sessionStorage.setItem("catalogLentgh", fetchedData.count);
           }
         })
         .catch((res) => {
@@ -90,7 +92,7 @@ function Catalog({ maxWidth760 }) {
     if (!storagedEngineId && maxWidth760) {
       handleSubmit(1);
     }
-  }, [maxWidth760, storagedEngineId]);
+  }, [maxWidth760, storagedEngineId, dislayedItems]);
 
   function clearFilters() {
     setInputValue("");
@@ -164,6 +166,11 @@ function Catalog({ maxWidth760 }) {
     setFilterCount(selectedEngine.length + selectedGroup.length);
   }, [selectedEngine, selectedGroup]);
 
+  function handleClear(){
+    clearFilters()
+    handleSubmit(1);
+  }
+
   return (
     <>
       <Header
@@ -234,7 +241,7 @@ function Catalog({ maxWidth760 }) {
                 {maxWidth760 && filterCount > 0 && dislayedItems.length > 0 && (
                   <button
                     className="catalog__cross-filters-button"
-                    onClick={clearFilters}
+                    onClick={handleClear}
                   ></button>
                 )}
               </div>
@@ -263,10 +270,10 @@ function Catalog({ maxWidth760 }) {
                   onClick={() => setFiltersPopupOpen(true)}
                 >
                   Фильтры
-                  <span className="catalog__button-item">0</span>
+                  <span className="catalog__button-item">{filterCount}</span>
                 </button>
               )}
-              <NothingFound handleDisableRadios={clearFilters} />
+              <NothingFound handleDisableRadios={handleClear} />
             </>
           )}
         </div>

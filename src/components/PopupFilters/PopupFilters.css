@@ -209,7 +209,7 @@
 
 @media screen and (max-width: 760px) {
   .popup-filter__content {
-    z-index: 3;
+    z-index: 10;
     position: fixed;
     box-sizing: border-box;
     background-color: #fff;
@@ -218,8 +218,8 @@
     overflow: auto;
     min-width: 100vw;
     animation: slideUP 0.5s ease-in-out forwards;
-    height: 100%;
-    top: 30px;
+    height: 100vh;
+    top: 0;
   }
 
   .popup-filter__subtitle {

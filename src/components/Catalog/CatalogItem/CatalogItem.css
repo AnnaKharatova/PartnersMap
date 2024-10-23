@@ -5,12 +5,14 @@
   justify-content: space-between;
   background-color: #ffffff;
   padding-bottom: 20px;
+  border: 1px solid rgba(232, 232, 232, 1);
+
 }
 
 .catalog__img-container {
   width: 301px;
   height: 190px;
-  border: 2px solid rgba(232, 232, 232, 1);
+  border-bottom: 1px solid rgba(232, 232, 232, 1);
   background-color: #ffffff;
   overflow: hidden;
 }

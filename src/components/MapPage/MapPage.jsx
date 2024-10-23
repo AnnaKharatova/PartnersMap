@@ -9,7 +9,6 @@ import PopupCitiesFilter from "../PopupCitiesFilter/PopupCitiesFilter.jsx";
 import PopupFilters from "../PopupFilters/PopupFilters.jsx";
 import PartnerDetails from "../PartnerDetails/PartnerDetails.jsx";
 import FilterMarkItem from "../FilterMarkItem/FilterMarkItem.jsx";
-import Bunner1440 from "../../images/Banner_1440.png";
 import Bunner1024 from "../../images/Banner_Н280.png";
 import BurgerMenu from "../BurgerMenu/BurgerMenu.jsx";
 import NothingFoundInFilter from "../NothingFoundInFilter/NothingFoundInFilter.jsx";
@@ -63,6 +62,12 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
         });
     }
   }, []);
+
+  useEffect(() => {
+    if (selectedCity || filterMark) {
+      getQuery()
+    }
+  }, [selectedCity, filterMark])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -173,14 +178,15 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
     if (selectedParts || selectedTags || selectedCity) {
       const queryParams = !selectedCity
         ? selectedTags.map((tag) => `tags=${tag}`).join("&") +
-          `&` +
-          selectedParts.map((id) => `parts_available=${id}`).join("&")
+        `&` +
+        selectedParts.map((id) => `parts_available=${id}`).join("&")
         : `city=${selectedCity.id}` +
-          `&` +
-          selectedTags.map((tag) => `tags=${tag}`).join("&") +
-          `&` +
-          selectedParts.map((id) => `parts_available=${id}`).join("&");
+        `&` +
+        selectedTags.map((tag) => `tags=${tag}`).join("&") +
+        `&` +
+        selectedParts.map((id) => `parts_available=${id}`).join("&");
       const url = `${BASE_URL}/partners/?${queryParams}`;
+      console.log(url)
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
@@ -228,6 +234,8 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
       setPopupPartnersListOpen(true);
     }
   }, [partnerInfo]);
+
+  console.log(partnerInfo)
 
   return (
     <>
@@ -307,9 +315,10 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
                     <div className="partners__container" ref={listRef}>
                       {partnerInfo ? (
                         <PartnerDetails
-                          setPartnerInfo={setPartnerInfo}
                           maxWidth760={maxWidth760}
+                          setPopupPartnersListOpen={setPopupPartnersListOpen}
                           partner={partnerInfo}
+                          setPartnerInfo={setPartnerInfo}
                           setStore={setStore}
                         />
                       ) : (
@@ -467,11 +476,12 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
                 {filteredData.length > 0 &&
                   filteredData.map((partner) => (
                     <PartnerElement
-                      setPopupPartnersListOpen={setPopupPartnersListOpen}
-                      setSelectedPartner={setSelectedPartner}
-                      partner={partner}
-                      setStore={setStore}
-                      key={partner.id}
+                    setPartnerInfo={setPartnerInfo}
+                    setSelectedPartner={setSelectedPartner}
+                    selectedPartner
+                    partner={partner}
+                    setStore={setStore}
+                    key={partner.id}
                     />
                   ))}
               </ul>

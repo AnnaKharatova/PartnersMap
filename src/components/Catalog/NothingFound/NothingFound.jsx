@@ -2,6 +2,7 @@ import "./NothingFound.css";
 import React from "react";
 
 function NothingFound({ handleDisableRadios }) {
+
   return (
     <div className="empty">
       <h4 className="empty__title">Ничего не нашлось</h4>

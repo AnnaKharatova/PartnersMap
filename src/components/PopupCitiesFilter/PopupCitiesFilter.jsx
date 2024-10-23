@@ -55,6 +55,8 @@ function PopupCitiesFilter({
     setSearchCities(results);
   };
 
+
+  
   function handleAllPartners() {
     getQuery();
     selectCity(null);

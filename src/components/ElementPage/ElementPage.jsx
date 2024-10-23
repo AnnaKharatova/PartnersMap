@@ -104,6 +104,8 @@ function ElementPage({ maxWidth760 }) {
 
   if (!element) return;
 
+  console.log(element)
+
   return (
     <>
       <Header
@@ -167,7 +169,7 @@ function ElementPage({ maxWidth760 }) {
                 {element.images.length > 1 &&
                   element.images.map((image) => (
                     <img
-                      className="element__photo-item"
+                      className={mainImage!=image.image ? "element__photo-item": "element__photo-item element__photo-item_active"}
                       src={image.image}
                       key={uuidv4()}
                       onClick={() => {
@@ -178,7 +180,7 @@ function ElementPage({ maxWidth760 }) {
                 {repairKit &&
                   element.parts.map((item) => (
                     <img
-                      className="element__photo-item"
+                    className={mainImage!=item.spare_part.main_image ? "element__photo-item": "element__photo-item element__photo-item_active"}
                       src={item.spare_part.main_image}
                       key={uuidv4()}
                       onClick={() => {
