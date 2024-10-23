@@ -356,15 +356,15 @@ main {
 
 @media screen and (max-width: 760px) {
   .bunner {
-    padding-top: 40px;
+   display: none;
   }
 
   .title {
-    font-size: 36px;
+    font-size: 24px;
     font-style: normal;
     line-height: 100%;
     letter-spacing: -0.72px;
-    margin-top: 24px;
+    margin-top: 74px;
     padding-bottom: 24px;
     padding-left: 16px;
   }
