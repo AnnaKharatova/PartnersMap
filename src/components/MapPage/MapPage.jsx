@@ -42,6 +42,11 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
   const [showTitle, setShowTitle] = useState(false);
   const [buttonsShadow, setButtonsShadow] = useState(false);
 
+  const tagsQuery =  selectedTags&&selectedTags.map((tag) => `tags=${tag}`).join("&")
+  const partsQuery =  selectedParts&&selectedParts.map((id) => `parts_available=${id}`).join("&")
+  const cityQuery = selectedCity&&`city=${selectedCity.id}`
+  const url =  `${BASE_URL}/partners/?${tagsQuery}&${partsQuery}&${cityQuery}`;
+
   useEffect(() => {
     if (storagedEngineId) {
       setFilterMark([...filterMark, storagedEngineName]);
@@ -64,10 +69,18 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
   }, []);
 
   useEffect(() => {
-    if (selectedCity || filterMark) {
+    if (filterMark) {
       getQuery()
     }
-  }, [selectedCity, filterMark])
+  }, [filterMark])
+
+  useEffect(()=> {
+    if (selectedCity) {
+      getQuery()
+    } else {
+      getQuery()
+    }
+  }, [selectedCity])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -147,6 +160,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
     getAllPartners();
     setSelectedParts([]);
     setSelectedTags([]);
+    localStorage.clear()
   }
 
   function deleteFilterMark(name) {
@@ -176,16 +190,6 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
 
   function getQuery() {
     if (selectedParts || selectedTags || selectedCity) {
-      const queryParams = !selectedCity
-        ? selectedTags.map((tag) => `tags=${tag}`).join("&") +
-        `&` +
-        selectedParts.map((id) => `parts_available=${id}`).join("&")
-        : `city=${selectedCity.id}` +
-        `&` +
-        selectedTags&&selectedTags.map((tag) => `tags=${tag}`).join("&") +
-        `&` +
-        selectedParts.map((id) => `parts_available=${id}`).join("&");
-      const url = `${BASE_URL}/partners/?${queryParams}`;
       console.log(url)
       fetch(url)
         .then((response) => response.json())
@@ -332,6 +336,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
                                 partner={partner}
                                 setStore={setStore}
                                 key={partner.id}
+                                setPopupPartnersListOpen={setPopupPartnersListOpen}
                               />
                             ))}
                         </ul>
@@ -482,6 +487,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
                     partner={partner}
                     setStore={setStore}
                     key={partner.id}
+                    setPopupPartnersListOpen={setPopupPartnersListOpen}
                     />
                   ))}
               </ul>

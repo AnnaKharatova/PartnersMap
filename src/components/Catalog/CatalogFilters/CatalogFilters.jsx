@@ -52,12 +52,18 @@ function CatalogFilters({
   };
 
   useEffect(() => {
-    if (!storagedEngineId) {
+    if (!storagedEngineId&&!maxWidth760) {
       if (selectedGroup || selectedEngine) {
         handleSubmit(1);
       }
     }
-  }, [selectedGroup, selectedEngine, storagedEngineId]);
+  }, [selectedGroup, selectedEngine, storagedEngineId, maxWidth760]);
+
+  /* useEffect(()=> {
+    if (!storagedEngineId&&maxWidth760) {
+        handleSubmit(1);
+    }
+  }, [maxWidth760]) */
 
   useEffect(() => {
     fetch(`${BASE_URL}/catalog/engine/`)

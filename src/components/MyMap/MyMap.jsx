@@ -39,7 +39,7 @@ function AnotherMap({
         const coords = result.geoObjects.get(0).geometry.getCoordinates();
         map.setCenter(coords, 4);
       })
-      .catch(function (error) {});
+      .catch(function (error) { });
   }
 
   // центрирование карты при клике на партнера
@@ -85,7 +85,7 @@ function AnotherMap({
     const mapInstance = new ymaps.Map(mapRef.current, {
       center: [55.76, 37.64],
       zoom: 8,
-      minZoom: 5, 
+      minZoom: 5,
       maxZoom: 15,
       controls: [],
     });

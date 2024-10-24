@@ -45,6 +45,7 @@ function PopupCitiesFilter({
     setSelectedCity(selectedCity);
     setCitiesPopup(false);
     setPartnerInfo(null);
+
   }
 
   const handleChange = (event) => {

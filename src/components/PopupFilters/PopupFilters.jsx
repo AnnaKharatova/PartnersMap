@@ -22,6 +22,7 @@ function PopupFilters({
 }) {
   const navigate = useNavigate();
   const handleEngineCheckboxChange = (event) => {
+    localStorage.clear()
     const { value, checked, name } = event.target;
     if (checked) {
       setSelectedParts([...selectedParts, value]);
@@ -37,6 +38,7 @@ function PopupFilters({
   };
 
   const handleTagsCheckboxChange = (event) => {
+    localStorage.clear()
     const { value, checked, name } = event.target;
     if (checked) {
       setSelectedTags([...selectedTags, value]);
@@ -94,6 +96,7 @@ function PopupFilters({
     setFiltersPopup(false);
     getQuery();
     setPartnerInfo(null);
+    localStorage.clear()
   }
 
   function getOpenStores(stores) {

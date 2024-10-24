@@ -28,6 +28,7 @@ function Catalog({ maxWidth760 }) {
   const [page, setPage] = useState(1);
   const [filterMark, setFilterMark] = useState([]);
   const [showTitle, setShowTitle] = useState(false);
+  const [clear, setClear] = useState(false)
 
   const catalogLentgh = sessionStorage.getItem("catalogLentgh");
 
@@ -37,8 +38,6 @@ function Catalog({ maxWidth760 }) {
   const engins = selectedEngine
     ? selectedEngine.map((engine) => `engine_cat=${engine}&`).join("")
     : "";
-
-
 
   useEffect(() => {
     if (storagedEngineId) {
@@ -65,6 +64,7 @@ function Catalog({ maxWidth760 }) {
 
   function handleSubmit(page) {
     if (!storagedEngineId) {
+      console.log('handleSubmit')
       fetch(
         `${BASE_URL}/catalog/catalog/?${groups}${engins}search=${inputValue}&page=${page}`,
       )
@@ -88,11 +88,11 @@ function Catalog({ maxWidth760 }) {
     }
   }
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (!storagedEngineId && maxWidth760) {
       handleSubmit(1);
     }
-  }, [maxWidth760, storagedEngineId, dislayedItems]);
+  }, [maxWidth760, storagedEngineId]); */
 
   function clearFilters() {
     setInputValue("");
@@ -102,7 +102,16 @@ function Catalog({ maxWidth760 }) {
     setFilteredData(allCatalog);
     setDisplayedItems(allCatalog.results);
     setFilterMark([]);
+    setClear(true)
   }
+
+  useEffect(()=>{
+    if(clear) {
+      handleSubmit(1)
+      setClear(false)
+    }
+  }, [clear])
+  
 
   useEffect(() => {
     if (storagedEngineId && !storagedEngineKitId) {
@@ -169,6 +178,11 @@ function Catalog({ maxWidth760 }) {
   function handleClear(){
     clearFilters()
     handleSubmit(1);
+  }
+
+  function handleFilters() {
+    setFiltersPopupOpen(false);
+    handleSubmit(1)
   }
 
   return (
@@ -305,9 +319,7 @@ function Catalog({ maxWidth760 }) {
               className="catalog-popup__submit-button"
               id="filter-submit-button"
               type="submit"
-              onClick={() => {
-                setFiltersPopupOpen(false);
-              }}
+              onClick={handleFilters}
             >
               Готово
             </button>
