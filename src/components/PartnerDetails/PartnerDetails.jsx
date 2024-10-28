@@ -1,6 +1,7 @@
 import React from "react";
 import "./PartnerDetails.css";
-import PartnerPhoto from "../../images/PartnerPhoto.png";
+import { v4 as uuidv4 } from "uuid";
+
 
 const PartnerDetails = ({
   partner,
@@ -38,14 +39,14 @@ const PartnerDetails = ({
       >
         Все партнеры
       </button>
-      <img
+      {partner.image&&<img
         className="partner-details__photo"
         alt="Фото точки продаж"
-        src={PartnerPhoto}
-      />
+        src={partner.image}
+      />}
       <p className="partner-details__engines">
         {partner.parts_available.map((part, index) => (
-          <React.Fragment key={part.id}>
+          <React.Fragment key={uuidv4()}>
             {part.name}
             {index < partner.parts_available.length - 1 && (
               <span className="partner-details__engines-dot"></span>
@@ -56,7 +57,7 @@ const PartnerDetails = ({
       <h2 className="partner-details__name">{partner.name}</h2>
       <div className="partner-details__tags">
         {partner.tags.map((part) => (
-          <p className="partner-details__tag">{part.name}</p>
+          <p className="partner-details__tag" key={uuidv4()}>{part.name}</p>
         ))}
       </div>
       <p className="partner-details__address">{partner.address}</p>

@@ -102,10 +102,7 @@ function ElementPage({ maxWidth760 }) {
     navigate("/");
   }
 
-
   if (!element) return;
-
-  console.log(element)
 
   return (
     <>

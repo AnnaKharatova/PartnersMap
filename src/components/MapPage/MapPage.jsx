@@ -9,7 +9,6 @@ import PopupCitiesFilter from "../PopupCitiesFilter/PopupCitiesFilter.jsx";
 import PopupFilters from "../PopupFilters/PopupFilters.jsx";
 import PartnerDetails from "../PartnerDetails/PartnerDetails.jsx";
 import FilterMarkItem from "../FilterMarkItem/FilterMarkItem.jsx";
-import Bunner1024 from "../../images/Banner_Н280.png";
 import BurgerMenu from "../BurgerMenu/BurgerMenu.jsx";
 import NothingFoundInFilter from "../NothingFoundInFilter/NothingFoundInFilter.jsx";
 import NothingFoundInCity from "../NothingFoundInCity/NothingFoundInCity.jsx";
@@ -21,7 +20,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
   const navigate = useNavigate();
 
   const storagedEngineId = localStorage.getItem("engineMapSort");
-  const storagedEngineName = localStorage.getItem("engineMapName");
+  // const storagedEngineName = localStorage.getItem("engineMapName");
 
   const [citiesPopup, setCitiesPopup] = useState(false);
   const [filtersPopup, setFiltersPopup] = useState(false);
@@ -41,13 +40,31 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
   const [showNoContentInfo, setshowNoContentInfo] = useState(false);
   const [showTitle, setShowTitle] = useState(false);
   const [buttonsShadow, setButtonsShadow] = useState(false);
+  const [bunner, setBunner] = useState(null)
 
   const tagsQuery =  selectedTags&&selectedTags.map((tag) => `tags=${tag}`).join("&")
   const partsQuery =  selectedParts&&selectedParts.map((id) => `parts_available=${id}`).join("&")
   const cityQuery = selectedCity&&`city=${selectedCity.id}`
   const url =  `${BASE_URL}/partners/?${tagsQuery}&${partsQuery}&${cityQuery}`;
 
-  useEffect(() => {
+
+  useEffect(()=> {
+    fetch(`${BASE_URL}/banner/`)
+    .then((res) => res.json())
+    .then((resData) => {
+      const fetchedData = JSON.parse(JSON.stringify(resData));
+      setBunner(fetchedData.image);
+    })
+    .catch((res) => {
+      if (res.status == 500) {
+        navigate("./error");
+      } else {
+        console.log("Ошибка при получении данных:", res.message);
+      }
+    });
+  },[])
+
+  /* useEffect(() => {
     if (storagedEngineId) {
       setFilterMark([...filterMark, storagedEngineName]);
       setSelectedParts([...selectedParts, storagedEngineId]);
@@ -66,7 +83,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
           }
         });
     }
-  }, []);
+  }, []); */
 
   useEffect(() => {
     if (filterMark) {
@@ -239,8 +256,6 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
     }
   }, [partnerInfo]);
 
-  console.log(partnerInfo)
-
   return (
     <>
       <Header
@@ -250,7 +265,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
         catalog={false}
       />
       <main>
-        <img alt="баннер" className="bunner" src={Bunner1024} />
+        {bunner&&<img alt="баннер" className="bunner" src={bunner} />}
         <h1 className="title">
           {!maxWidth760
             ? `Официальные партнёры АО Строймаш`

@@ -85,53 +85,17 @@ function Header({ maxWidth760, setBurgerMenuOpen, showTitle, catalog }) {
         ></button>
       ) : (
         <nav className="header__nav">
-          {!catalog ? (
-            <a
-              className="header__item"
-              href="/catalog"
-              onClick={() => {
-                localStorage.clear();
-              }}
-            >
-              КАТАЛОГ
-            </a>
-          ) : (
-            <a
-              className="header__item"
-              href="/"
-              onClick={() => {
-                localStorage.clear();
-              }}
-            >
-              КАРТА ОФИЦИАЛЬНЫХ ПАРТНЁРОВ
-            </a>
-          )}
-          <a className="header__item" target="_blank" href={addPartner}>
-            ДОБАВИТЬ ПАРТНЁРА
-          </a>
-          <button
-            className="header__item-contacts"
-            ref={buttonRef}
-            onMouseOver={handleMouseOver}
-          >
-            КОНТАКТЫ
-          </button>
-        </nav>
-      )}
-      {contactsOpen && (
-        <div
-          className="header__contacts"
-          ref={menuRef}
-          onMouseOver={handleMouseOver}
-          onMouseOut={handleMouseOut}
-        >
-          <a className="header__contact" onClick={handleMailClick} href="#">
+          <a className="header__item header__item-letter" onClick={handleMailClick} href="#">
             {email}
           </a>
-          <a className="header__contact" onClick={handlePhoneClick} href="#">
+          <a className="header__item header__item-phone" onClick={handlePhoneClick} href="#">
             {phoneNumber}
           </a>
-        </div>
+          <a className="header__item header__item-partner " target="_blank" href={addPartner}>
+            Добавить партнера
+          </a>
+
+        </nav>
       )}
     </header>
   );

@@ -2,8 +2,8 @@ import "./App.css";
 import React, { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import MapPage from "./MapPage/MapPage.jsx";
-import Catalog from "./Catalog/Catalog.jsx";
-import ElementPage from "./ElementPage/ElementPage.jsx";
+// import Catalog from "./Catalog/Catalog.jsx";
+// import ElementPage from "./ElementPage/ElementPage.jsx";
 import Error500 from "./Error500/Error500.jsx";
 
 function App() {
@@ -37,11 +37,11 @@ function App() {
           <MapPage maxWidth1024={maxWidth1024} maxWidth760={maxWidth760} />
         }
       />
-      <Route path="/catalog" element={<Catalog maxWidth760={maxWidth760} />} />
+     {/*  <Route path="/catalog" element={<Catalog maxWidth760={maxWidth760} />} />
       <Route
         path="/catalog/:type/:id"
         element={<ElementPage maxWidth760={maxWidth760} />}
-      />
+      /> */}
       <Route path="/error" element={<Error500 />} />
     </Routes>
   );

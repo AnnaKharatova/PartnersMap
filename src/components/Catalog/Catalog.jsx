@@ -64,7 +64,6 @@ function Catalog({ maxWidth760 }) {
 
   function handleSubmit(page) {
     if (!storagedEngineId) {
-      console.log('handleSubmit')
       fetch(
         `${BASE_URL}/catalog/catalog/?${groups}${engins}search=${inputValue}&page=${page}`,
       )

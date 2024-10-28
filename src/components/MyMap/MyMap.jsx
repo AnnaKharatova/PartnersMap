@@ -126,8 +126,6 @@ function AnotherMap({
 
         // Изменение маркера при наведении
 
-        console.log(placemark)
-
         placemark.events.add("mouseenter", () => {
           placemark.options.set("iconImageHref", HoverIcon);
           placemark.options.set("iconImageSize", [30, 30]);

@@ -2,7 +2,6 @@
   background-color: #191919;
   width: 100vw;
   min-width: 375px;
-  position: fixed;
   top: 0;
   z-index: 4;
   display: flex;
@@ -43,13 +42,42 @@
 }
 
 .header__item {
-  padding-right: 50px;
+  box-sizing: border-box;
+  margin-right: 50px;
   text-decoration: none;
   color: #ffff;
   font-size: 16px;
   font-weight: 400;
   line-height: 20.8px;
   text-align: center;
+  border-bottom: 1px solid #191919;
+
+}
+
+.header__item:hover {
+  border-bottom: 1px solid #ffffff;
+  opacity: 0.9;
+}
+
+.header__item-phone {
+  background-image: url(../../images/phone-white.svg);
+  background-repeat: no-repeat;
+  background-position: left;
+  padding-left: 30px;
+}
+
+.header__item-letter {
+  background-image: url(../../images/letter-white.svg);
+  background-repeat: no-repeat;
+  background-position: left;
+  padding-left: 30px;
+}
+
+.header__item-partner {
+  background-image: url(../../images/partner-white.svg);
+  background-repeat: no-repeat;
+  background-position: left;
+  padding-left: 30px;
 }
 
 .header__item-contacts {
