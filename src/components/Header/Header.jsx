@@ -75,7 +75,6 @@ function Header({ maxWidth760, setBurgerMenuOpen, showTitle, catalog }) {
           <p></p>
         )}
       </div>
-      {maxWidth760 ? (
         <button
           className="header__nav-burger"
           onClick={() => {
@@ -83,7 +82,6 @@ function Header({ maxWidth760, setBurgerMenuOpen, showTitle, catalog }) {
           }}
           id="header-nav-burger"
         ></button>
-      ) : (
         <nav className="header__nav">
           <a className="header__item header__item-letter" onClick={handleMailClick} href="#">
             {email}
@@ -94,8 +92,21 @@ function Header({ maxWidth760, setBurgerMenuOpen, showTitle, catalog }) {
           <a className="header__item header__item-partner " target="_blank" href={addPartner}>
             Добавить партнера
           </a>
-
         </nav>
+      {contactsOpen && (
+        <div
+          className="header__contacts"
+          ref={menuRef}
+          onMouseOver={handleMouseOver}
+          onMouseOut={handleMouseOut}
+        >
+          <a className="header__contact" onClick={handleMailClick} href="#">
+            {email}
+          </a>
+          <a className="header__contact" onClick={handlePhoneClick} href="#">
+            {phoneNumber}
+          </a>
+        </div>
       )}
     </header>
   );

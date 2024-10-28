@@ -32,27 +32,6 @@ function BurgerMenu({ setBurgerMenuOpen, catalog }) {
           ></button>
         </div>
         <nav className="popup-menu__main">
-          {!catalog ? (
-            <a
-              className="popup-menu__item"
-              href="/catalog"
-              onClick={() => {
-                localStorage.clear();
-              }}
-            >
-              КАТАЛОГ
-            </a>
-          ) : (
-            <a
-              className="popup-menu__item"
-              href="/"
-              onClick={() => {
-                localStorage.clear();
-              }}
-            >
-              КАРТА ОФИЦИАЛЬНЫХ ПАРТНЕРОВ
-            </a>
-          )}
           <a
             className="popup-menu__item"
             target="_blank"
