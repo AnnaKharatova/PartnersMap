@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { YMaps, useYMaps } from "@pbe/react-yandex-maps";
+import { useYMaps, Clusterer, Placemark } from "@pbe/react-yandex-maps";
 import DefaultIcon from "../../images/Map_default.svg";
 import HoverIcon from "../../images/Map_hover.svg";
 
@@ -21,6 +21,7 @@ function AnotherMap({
   const [map, setMap] = useState();
   const ymaps = useYMaps([
     "Map",
+    "Clusterer",
     "geocode",
     "Placemark",
     "geolocation",
@@ -98,23 +99,38 @@ function AnotherMap({
     }
   }, [map]);
 
+
   // метки
   useEffect(() => {
     if (map) {
       map.geoObjects.removeAll();
+
+      const clusterer = new ymaps.Clusterer({
+        preset: "islands#darkBlueClusterIcons",
+        groupByCoordinates: false,
+        clusterDisableClickZoom: true,
+        clusterHideIconOnBalloonOpen: false,
+        geoObjectHideIconOnBalloonOpen: false
+      })
+
+      clusterer.options.set({
+        gridSize: 80,
+        clusterDisableClickZoom: true
+      })
+
       partners.forEach((store) => {
         const placemark = new ymaps.Placemark(
           [store.latitude, store.longitude],
           {
             balloonContentBody: `<div class='ballon'>
-                        <p class='ballon__header'>${store.name}</p>
-                        <p class='balloon__text'>${store.tags.map((tag) => tag.name)}</p>
-                        <p class='balloon__text'>${store.address}</p> 
-                        <div class='ballon__status'>
-                            <div class='baloon__status-dot'></div>
-                            <p class='balloon__text'>Открыто</p>
-                        </div>
-                    </div>`,
+                         <p class='ballon__header'>${store.name}</p>
+                         <p class='balloon__text'>${store.tags.map((tag) => tag.name)}</p>
+                         <p class='balloon__text'>${store.address}</p> 
+                         <div class='ballon__status'>
+                             <div class='baloon__status-dot'></div>
+                             <p class='balloon__text'>Открыто</p>
+                         </div>
+                     </div>`,
           },
           {
             iconLayout: "default#image",
@@ -159,14 +175,22 @@ function AnotherMap({
           placemark.options.set("iconImageHref", HoverIcon);
           placemark.options.set("iconImageSize", [30, 30]);
         });
-        map.geoObjects.add(placemark);
+
+
+        map.geoObjects.add(placemark); // Добавляем метку на карту
+        clusterer.add(placemark); // Добавляем метку в кластеризатор
       });
 
+      map.geoObjects.add(clusterer); // Добавляем кластеризатор на карту
+      map.setBounds(clusterer.getBounds(), {
+        checkZoomRange: true // Устанавливаем границы карты по кластеризатору
+      });
       function setStoreInfo(store) {
         setPartnerInfo(store);
       }
     }
   }, [ymaps, partners, userLocation, map]);
+
 
   // Обработка обновлений маршрута (когда изменяется partner)
   useEffect(() => {
@@ -292,7 +316,58 @@ function AnotherMap({
     }
   }, [map]);
 
-  return <div ref={mapRef} style={{ width: "100%", height: "100%" }} />;
+  useEffect(() => {
+    if (map && partners) {
+      map.events.add('ready', () => {
+        map.geoObjects.add(
+          <Clusterer
+            options={{
+              preset: "islands#invertedVioletClusterIcons", // Выбор стиля
+              groupByCoordinates: true, // Группировка по координатам
+              clusterBalloonContentLayout: 'islands#balloonContent', // Шаблон балуна 
+              clusterBalloonPanelMaxMapArea: 2, // Максимальная площадь для открытия балуна
+              clusterDisableClickZoom: false, // Отключение увеличения карты при клике
+              clusterIconContentLayout: 'islands#clusterIconContent', // Шаблон иконки 
+            }}
+          >
+            {partners.forEach((store) => {
+              const placemark = new ymaps.Placemark(
+                [store.latitude, store.longitude],
+                {
+                  balloonContentBody: `<div class='ballon'>
+                         <p class='ballon__header'>${store.name}</p>
+                         <p class='balloon__text'>${store.tags.map((tag) => tag.name)}</p>
+                         <p class='balloon__text'>${store.address}</p> 
+                         <div class='ballon__status'>
+                             <div class='baloon__status-dot'></div>
+                             <p class='balloon__text'>Открыто</p>
+                         </div>
+                     </div>`,
+                },
+                {
+                  iconLayout: "default#image",
+                  iconImageHref: DefaultIcon,
+                  iconImageSize: [25, 25],
+                  iconImageOffset: [0, 0],
+                },
+              );
+              map.geoObjects.add(placemark);
+            })
+            }
+          </Clusterer>
+        );
+      });
+    }
+  }, [map, partners]);
+
+  console.log(partners)
+
+
+
+  return (
+    <div ref={mapRef} style={{ width: "100%", height: "100%" }}>
+    </div>
+  );
 }
 
 export default AnotherMap;

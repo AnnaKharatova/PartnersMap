@@ -47,7 +47,6 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
   const cityQuery = selectedCity&&`city=${selectedCity.id}`
   const url =  `${BASE_URL}/partners/?${tagsQuery}&${partsQuery}&${cityQuery}`;
 
-
   useEffect(()=> {
     fetch(`${BASE_URL}/banner/`)
     .then((res) => res.json())

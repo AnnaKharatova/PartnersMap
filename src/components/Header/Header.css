@@ -74,13 +74,6 @@
   padding-left: 30px;
 }
 
-.header__item-partner {
-  background-image: url(../../images/partner-white.svg);
-  background-repeat: no-repeat;
-  background-position: left;
-  padding-left: 30px;
-}
-
 .header__item-contacts {
   padding-right: 30px;
   text-decoration: none;

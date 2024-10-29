@@ -89,7 +89,7 @@ function Header({ maxWidth760, setBurgerMenuOpen, showTitle, catalog }) {
           <a className="header__item header__item-phone" onClick={handlePhoneClick} href="#">
             {phoneNumber}
           </a>
-          <a className="header__item header__item-partner " target="_blank" href={addPartner}>
+          <a className="header__item" target="_blank" href={addPartner}>
             Добавить партнера
           </a>
         </nav>
