@@ -40,17 +40,15 @@ function AnotherMap({
         const coords = result.geoObjects.get(0).geometry.getCoordinates();
         map.setCenter(coords, 4);
       })
-      .catch(function (error) { });
+      .catch(function (error) {});
   }
 
-  // центрирование карты при клике на партнера
   useEffect(() => {
     if (selectedPartner && map) {
       map.setCenter([selectedPartner.latitude, selectedPartner.longitude], 12);
     }
   }, [selectedPartner, map]);
 
-  // Получение местоположения пользователя
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -65,7 +63,7 @@ function AnotherMap({
         },
         (error) => {
           setUserLocation([55.7522, 37.6156]);
-        },
+        }
       );
     } else {
       setUserLocation([55.7522, 37.6156]);
@@ -78,7 +76,6 @@ function AnotherMap({
     }
   }, [selectedCity]);
 
-  // инициализация карты
   useEffect(() => {
     if (!ymaps || !mapRef.current) {
       return;
@@ -99,7 +96,6 @@ function AnotherMap({
     }
   }, [map]);
 
-  // метки
   useEffect(() => {
     if (map) {
       map.geoObjects.removeAll();
@@ -109,80 +105,81 @@ function AnotherMap({
         groupByCoordinates: false,
         clusterDisableClickZoom: true,
         clusterHideIconOnBalloonOpen: false,
-        geoObjectHideIconOnBalloonOpen: false
-      })
+        geoObjectHideIconOnBalloonOpen: false,
+      });
 
       clusterer.options.set({
         gridSize: 80,
-        clusterDisableClickZoom: true
-      })
+        clusterDisableClickZoom: true,
+      });
 
-      partners.forEach((store) => {
-        const placemark = new ymaps.Placemark(
-          [store.latitude, store.longitude],
-          {
-            balloonContentBody: `<div class='ballon'>
+      if (partners && partners.length > 0) {
+        partners.forEach((store) => {
+          const placemark = new ymaps.Placemark(
+            [store.latitude, store.longitude],
+            {
+              balloonContentBody: `<div class='ballon'>
                          <p class='ballon__header'>${store.name}</p>
-                         <p class='balloon__text'>${store.tags.map((tag) => tag.name)}</p>
+                         <p class='balloon__text'>${store.tags
+                           .map((tag) => tag.name)
+                           .join(", ")}</p>
                          <p class='balloon__text'>${store.address}</p> 
                          <div class='ballon__status'>
                              <div class='baloon__status-dot'></div>
                              <p class='balloon__text'>Открыто</p>
                          </div>
                      </div>`,
-          },
-          {
-            iconLayout: "default#image",
-            iconImageHref: DefaultIcon,
-            iconImageSize: [25, 25],
-            iconImageOffset: [0, 0],
-          },
-        );
-
-        // Изменение маркера при наведении
-
-        placemark.events.add("mouseenter", () => {
-          placemark.options.set("iconImageHref", HoverIcon);
-          placemark.options.set("iconImageSize", [30, 30]);
-        });
-
-        placemark.events.add("mouseleave", () => {
-          placemark.options.set("iconImageHref", DefaultIcon);
-          placemark.options.set("iconImageSize", [25, 25]);
-        });
-
-        placemark.events.add("click", (e) => {
-          e.preventDefault();
-          map.geoObjects.each((placemark) => {
-            if (placemark !== e.placemark) {
-              placemark.options.set("iconImageHref", DefaultIcon);
-              placemark.options.set("iconImageSize", [25, 25]);
+            },
+            {
+              iconLayout: "default#image",
+              iconImageHref: DefaultIcon,
+              iconImageSize: [25, 25],
+              iconImageOffset: [0, 0],
             }
-          });
+          );
+
           placemark.events.add("mouseenter", () => {
             placemark.options.set("iconImageHref", HoverIcon);
             placemark.options.set("iconImageSize", [30, 30]);
           });
-          placemark.events.add("mouseleave", () => {
+placemark.events.add("mouseleave", () => {
+            placemark.options.set("iconImageHref", DefaultIcon);
+            placemark.options.set("iconImageSize", [25, 25]);
+          });
+
+          placemark.events.add("click", (e) => {
+            e.preventDefault();
+            map.geoObjects.each((p) => {
+              if (p !== e.placemark) {
+                p.options.set("iconImageHref", DefaultIcon);
+                p.options.set("iconImageSize", [25, 25]);
+              }
+            });
             placemark.options.set("iconImageHref", HoverIcon);
             placemark.options.set("iconImageSize", [30, 30]);
+            setStoreInfo(store);
+            if (maxWidth760) {
+              setPopupPartnersListOpen(true);
+            }
           });
-          setStoreInfo(store);
-          if (maxWidth760) {
-            setPopupPartnersListOpen(true);
-          }
-          placemark.options.set("iconImageHref", HoverIcon);
-          placemark.options.set("iconImageSize", [30, 30]);
+
+          map.geoObjects.add(placemark);
+          clusterer.add(placemark);
         });
 
-        map.geoObjects.add(placemark); // Добавляем метку на карту
-        clusterer.add(placemark); // Добавляем метку в кластеризатор
-      });
+        const bounds = clusterer.getBounds();
+        if (bounds) {
+          map.setBounds(bounds, {
+            checkZoomRange: true,
+          });
+        } else {
+          map.setCenter([55.76, 37.64], 8);
+        }
+      } else {
+        map.setCenter([55.76, 37.64], 8);
+      }
 
-      map.geoObjects.add(clusterer); // Добавляем кластеризатор на карту
-      map.setBounds(clusterer.getBounds(), {
-        checkZoomRange: true // Устанавливаем границы карты по кластеризатору
-      });
+      map.geoObjects.add(clusterer);
 
       function setStoreInfo(store) {
         setPartnerInfo(store);
@@ -190,7 +187,6 @@ function AnotherMap({
     }
   }, [ymaps, partners, userLocation, map]);
 
-  // Обработка обновлений маршрута (когда изменяется partner)
   useEffect(() => {
     if (map && partner && userLocation.length > 0) {
       if (multiRouteRef.current) {
@@ -204,46 +200,15 @@ function AnotherMap({
       }
 
       const multiRoute = new ymaps.multiRouter.MultiRoute({
-        referencePoints: [
-          [userLocation],
-          [partner.latitude, partner.longitude],
-        ],
+        referencePoints: [userLocation, [partner.latitude, partner.longitude]],
         params: {
           routingMode: "auto",
         },
       });
-      const myRoutePanel = new ymaps.control.RouteButton({
-        options: {
-          float: "none",
-          position: {
-            top: 450,
-            right: 5,
-          },
-          size: "small",
-        },
-      });
-
-      myRoutePanel.routePanel.state.set({
-        fromEnabled: true,
-        from: userLocation,
-        toEnabled: true,
-        to: `${partner.latitude}, ${partner.longitude}`,
-        state: "expanded",
-      });
-
-      if (myRoutePanelRef.current) {
-        map.controls.remove(myRoutePanelRef.current);
-        myRoutePanelRef.current = null;
-      }
-
-      myRoutePanel.state.set("expanded", true);
-      map.controls.add(myRoutePanel);
 
       map.geoObjects.add(multiRoute);
       multiRouteRef.current = multiRoute;
-      myRoutePanelRef.current = myRoutePanel;
 
-      // кнопка сброса маршрута
       const button = new ymaps.control.Button({
         data: {
           content: "Сбросить маршрут",
@@ -253,35 +218,19 @@ function AnotherMap({
           selectOnClick: false,
           maxWidth: [30, 100, 150],
           float: "none",
-          position: {
-            bottom: 55,
-            right: 20,
-          },
+          position: { bottom: 55, right: 20 },
           floatIndex: 100,
         },
       });
-
-      if (maxWidth760) {
-        button.options.set({
-          position: {
-            bottom: 2,
-            right: 20,
-          },
-        });
-      }
 
       map.controls.add(button);
       resetButtonRef.current = button;
 
       button.events.add("click", () => {
         map.geoObjects.remove(multiRoute);
-        map.geoObjects.remove(multiRouteRef.current);
         map.controls.remove(button);
-        map.controls.remove(myRoutePanel);
-        map.controls.remove(myRoutePanelRef.current);
         setStore(null);
         multiRouteRef.current = null;
-        myRoutePanelRef.current = null;
         resetButtonRef.current = null;
       });
     }
@@ -290,33 +239,19 @@ function AnotherMap({
   useEffect(() => {
     if (map) {
       const zoomControl = new ymaps.control.ZoomControl({
-        options: {
-          size: "small",
-          float: "none",
-          position: {
-            top: 375,
-            right: 5,
-          },
-        },
+        options: { size: "small", float: "none", position: { top: 375, right: 5 } },
       });
 
       const geoControl = new ymaps.control.GeolocationControl({
-        options: {
-          float: "none",
-          position: {
-            top: 335,
-            right: 5,
-          },
-        },
+        options: { float: "none", position: { top: 335, right: 5 } },
       });
+
       map.controls.add(zoomControl);
       map.controls.add(geoControl);
     }
   }, [map]);
 
-  return (
-    <div ref={mapRef} style={{ width: "100%", height: "100%" }} />
-  );
+  return <div ref={mapRef} style={{ width: "100%", height: "100%" }} />;
 }
 
 export default AnotherMap;
