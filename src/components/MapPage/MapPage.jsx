@@ -42,26 +42,27 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
   const [buttonsShadow, setButtonsShadow] = useState(false);
   const [bunner, setBunner] = useState(null)
 
-  const tagsQuery =  selectedTags&&selectedTags.map((tag) => `tags=${tag}`).join("&")
-  const partsQuery =  selectedParts&&selectedParts.map((id) => `parts_available=${id}`).join("&")
-  const cityQuery = selectedCity&&`city=${selectedCity.id}`
-  const url =  `${BASE_URL}/partners/?${tagsQuery}&${partsQuery}&${cityQuery}`;
+  const tagsQuery = selectedTags ? selectedTags.map((tag) => `tags=${tag}`).join("&") : ''
+  const partsQuery = selectedParts ? selectedParts.map((id) => `parts_available=${id}`).join("&") : ''
+  const cityQuery = selectedCity ? `city=${selectedCity.id}` : ''
+  const query = (selectedTags | selectedParts | selectedCity) ? `?${tagsQuery}&${partsQuery}&${cityQuery}` : ''
+  const url = `${BASE_URL}/partners/${query}`;
 
-  useEffect(()=> {
+  useEffect(() => {
     fetch(`${BASE_URL}/banner/`)
-    .then((res) => res.json())
-    .then((resData) => {
-      const fetchedData = JSON.parse(JSON.stringify(resData));
-      setBunner(fetchedData.image);
-    })
-    .catch((res) => {
-      if (res.status == 500) {
-        navigate("./error");
-      } else {
-        console.log("Ошибка при получении данных:", res.message);
-      }
-    });
-  },[])
+      .then((res) => res.json())
+      .then((resData) => {
+        const fetchedData = JSON.parse(JSON.stringify(resData));
+        setBunner(fetchedData.image);
+      })
+      .catch((res) => {
+        if (res.status == 500) {
+          navigate("./error");
+        } else {
+          console.log("Ошибка при получении данных:", res.message);
+        }
+      });
+  }, [])
 
   /* useEffect(() => {
     if (storagedEngineId) {
@@ -90,7 +91,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
     }
   }, [filterMark])
 
-  useEffect(()=> {
+  useEffect(() => {
     if (selectedCity) {
       getQuery()
     } else {
@@ -264,7 +265,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
         catalog={false}
       />
       <main>
-        {bunner&&<img alt="баннер" className="bunner" src={bunner} />}
+        {bunner && <img alt="баннер" className="bunner" src={bunner} />}
         <h1 className="title">
           {!maxWidth760
             ? `Официальные партнёры АО Строймаш`
@@ -495,13 +496,13 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
                 {filteredData.length > 0 &&
                   filteredData.map((partner) => (
                     <PartnerElement
-                    setPartnerInfo={setPartnerInfo}
-                    setSelectedPartner={setSelectedPartner}
-                    selectedPartner
-                    partner={partner}
-                    setStore={setStore}
-                    key={partner.id}
-                    setPopupPartnersListOpen={setPopupPartnersListOpen}
+                      setPartnerInfo={setPartnerInfo}
+                      setSelectedPartner={setSelectedPartner}
+                      selectedPartner
+                      partner={partner}
+                      setStore={setStore}
+                      key={partner.id}
+                      setPopupPartnersListOpen={setPopupPartnersListOpen}
                     />
                   ))}
               </ul>
