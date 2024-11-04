@@ -354,10 +354,6 @@ main {
 }
 
 @media screen and (max-width: 760px) {
-  .bunner {
-   display: none;
-  }
-
   .title {
     font-size: 24px;
     font-style: normal;
@@ -468,5 +464,11 @@ main {
     padding-right: 5px;
     padding-left: 5px;
     gap: 10px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .bunner {
+   display: none;
   }
 }
