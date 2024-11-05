@@ -40,7 +40,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
   const [showNoContentInfo, setshowNoContentInfo] = useState(false);
   const [showTitle, setShowTitle] = useState(false);
   const [buttonsShadow, setButtonsShadow] = useState(false);
-  const [bunner, setBunner] = useState(null)
+  const [mainPhoto, setMainPhoto] = useState(null)
 
   const tagsQuery = selectedTags ? selectedTags.map((tag) => `tags=${tag}`).join("&") : ''
   const partsQuery = selectedParts ? selectedParts.map((id) => `parts_available=${id}`).join("&") : ''
@@ -53,7 +53,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
       .then((res) => res.json())
       .then((resData) => {
         const fetchedData = JSON.parse(JSON.stringify(resData));
-        setBunner(fetchedData.image);
+        setMainPhoto(fetchedData.image);        
       })
       .catch((res) => {
         if (res.status == 500) {
@@ -265,7 +265,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
         catalog={false}
       />
       <main>
-        {bunner && <img alt="баннер" className="bunner" src={bunner} />}
+        {mainPhoto && <img alt="АО Строймаш" className="main-photo" src={mainPhoto} />}
         <h1 className="title">
           {!maxWidth760
             ? `Официальные партнёры АО Строймаш`
