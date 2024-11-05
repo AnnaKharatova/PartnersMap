@@ -20,7 +20,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
   const navigate = useNavigate();
 
   const storagedEngineId = localStorage.getItem("engineMapSort");
-  // const storagedEngineName = localStorage.getItem("engineMapName");
+  // const storagedEngineName = localStorage.getItem("engineMapName"); - переход с каталога
 
   const [citiesPopup, setCitiesPopup] = useState(false);
   const [filtersPopup, setFiltersPopup] = useState(false);
@@ -49,7 +49,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
   const url = `${BASE_URL}/partners/${query}`;
 
   useEffect(() => {
-    fetch(`${BASE_URL}/banner/`)
+    fetch(`${BASE_URL}/head/`)
       .then((res) => res.json())
       .then((resData) => {
         const fetchedData = JSON.parse(JSON.stringify(resData));
@@ -64,7 +64,9 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
       });
   }, [])
 
-  /* useEffect(() => {
+  /* переход с каталога при клике на кнопку Где Купить: 
+  
+  useEffect(() => {
     if (storagedEngineId) {
       setFilterMark([...filterMark, storagedEngineName]);
       setSelectedParts([...selectedParts, storagedEngineId]);

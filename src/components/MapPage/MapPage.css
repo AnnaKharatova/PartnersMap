@@ -467,8 +467,8 @@ main {
   }
 }
 
-@media screen and (max-width: 400px) {
-  .bunner {
+ /* @media screen and (max-width: 400px) {
+  .main-photo {
    display: none;
   }
-}
+} */
