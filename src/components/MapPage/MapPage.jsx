@@ -42,11 +42,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
   const [buttonsShadow, setButtonsShadow] = useState(false);
   const [mainPhoto, setMainPhoto] = useState(null)
 
-  const tagsQuery = selectedTags ? selectedTags.map((tag) => `tags=${tag}`).join("&") : ''
-  const partsQuery = selectedParts ? selectedParts.map((id) => `parts_available=${id}`).join("&") : ''
-  const cityQuery = selectedCity ? `city=${selectedCity.id}` : ''
-  const query = (selectedTags | selectedParts | selectedCity) ? `?${tagsQuery}&${partsQuery}&${cityQuery}` : ''
-  const url = `${BASE_URL}/partners/${query}`;
+
 
   useEffect(() => {
     fetch(`${BASE_URL}/head/`)
@@ -95,6 +91,8 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
 
   useEffect(() => {
     if (selectedCity) {
+      console.log(selectedCity)
+
       getQuery()
     } else {
       getQuery()
@@ -209,6 +207,11 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
 
   function getQuery() {
     if (selectedParts || selectedTags || selectedCity) {
+      const tagsQuery = selectedTags ? selectedTags.map((tag) => `tags=${tag}`).join("&") : ''
+      const partsQuery = selectedParts ? selectedParts.map((id) => `parts_available=${id}`).join("&") : ''
+      const cityQuery = selectedCity ? `city=${selectedCity.id}` : ''
+      const query = (selectedTags | selectedParts | selectedCity) ? `?${tagsQuery}&${partsQuery}&${cityQuery}` : ''
+      const url = `${BASE_URL}/partners/${query}`;
       console.log(url)
       fetch(url)
         .then((response) => response.json())
