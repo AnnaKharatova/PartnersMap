@@ -1,4 +1,4 @@
-export const BASE_URL = ` https://stroymashdevelop.ddns.net/api`;
+export const BASE_URL = ` https://stroymash-partners.ru/api`;
 
 export const email = `stroymash@fsilicone.ru`;
 export const phoneNumber = `+7(8352)24-32-33`;

@@ -42,8 +42,6 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
   const [buttonsShadow, setButtonsShadow] = useState(false);
   const [mainPhoto, setMainPhoto] = useState(null)
 
-
-
   useEffect(() => {
     fetch(`${BASE_URL}/head/`)
       .then((res) => res.json())
@@ -61,7 +59,6 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
   }, [])
 
   /* переход с каталога при клике на кнопку Где Купить: 
-  
   useEffect(() => {
     if (storagedEngineId) {
       setFilterMark([...filterMark, storagedEngineName]);
@@ -91,8 +88,6 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
 
   useEffect(() => {
     if (selectedCity) {
-      console.log(selectedCity)
-
       getQuery()
     } else {
       getQuery()
@@ -209,8 +204,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
     const tagsQuery = selectedTags ? selectedTags.map((tag) => `tags=${tag}`).join("&") : ''
     const partsQuery = selectedParts ? selectedParts.map((id) => `parts_available=${id}`).join("&") : ''
     const cityQuery = selectedCity ? `city=${selectedCity.id}` : ''
-    const query = `?${tagsQuery}&${partsQuery}&${cityQuery}`
-    const url = `${BASE_URL}/partners/${query}`;
+    const url = `${BASE_URL}/partners/?${tagsQuery}&${partsQuery}&${cityQuery}`;
 
     if (selectedCity || selectedParts || selectedTags ) {
       console.log(url)
