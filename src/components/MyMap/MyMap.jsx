@@ -38,14 +38,14 @@ function AnotherMap({
       .geocode(city)
       .then(function (result) {
         const coords = result.geoObjects.get(0).geometry.getCoordinates();
-        map.setCenter(coords, 4);
+        map.setCenter(coords, 6);
       })
       .catch(function (error) {});
   }
 
   useEffect(() => {
     if (selectedPartner && map) {
-      map.setCenter([selectedPartner.latitude, selectedPartner.longitude], 12);
+      map.setCenter([selectedPartner.latitude, selectedPartner.longitude], 10);
     }
   }, [selectedPartner, map]);
 
@@ -58,7 +58,7 @@ function AnotherMap({
             position.coords.longitude,
           ]);
           if (map) {
-            map.setCenter(userLocation, 4);
+            map.setCenter(userLocation, 10);
           }
         },
         (error) => {
