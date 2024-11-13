@@ -207,7 +207,6 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
     const url = `${BASE_URL}/partners/?${tagsQuery}&${partsQuery}&${cityQuery}`;
 
     if (selectedCity || selectedParts || selectedTags ) {
-      console.log(url)
       fetch(url)
         .then((response) => response.json())
         .then((data) => {

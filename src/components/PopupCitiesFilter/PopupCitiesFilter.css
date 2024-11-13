@@ -20,7 +20,7 @@
 
 .popup-city__content {
   box-sizing: border-box;
-  padding: 0 24px 0 64px;
+  padding: 0 0 0 64px;
 
 }
 
@@ -58,7 +58,7 @@
   border-radius: 8px;
   border: 1px solid #e8e8e8;
   background: inherit;
-  width: 100%;
+  width: 94%;
   height: 45px;
   padding: 4px 8px 4px 15px;
   color: #191919;
@@ -81,6 +81,8 @@
 .popup-filter__cities-list {
   list-style: none;
   padding: 0;
+  height: 74vh;
+  overflow-y: scroll;
 }
 
 .popup-filter__city {
@@ -115,6 +117,10 @@
   .popup-filter__content {
     padding-left: 36px;
     width: 100%;
+  }
+
+  .popup-filter__cities-list {
+    height: 67vh;
   }
 
   .popup-filter__title {
