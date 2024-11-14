@@ -18,6 +18,7 @@ function AnotherMap({
   const myRoutePanelRef = useRef(null);
   const resetButtonRef = useRef(null);
   const [userLocation, setUserLocation] = useState([55.7522, 37.6156]);
+  const [activeMarkCoords, setActiveMarkCoords] = useState()
   const [map, setMap] = useState();
   const ymaps = useYMaps([
     "Map",
@@ -40,12 +41,13 @@ function AnotherMap({
         const coords = result.geoObjects.get(0).geometry.getCoordinates();
         map.setCenter(coords, 6);
       })
-      .catch(function (error) {});
+      .catch(function (error) { });
   }
 
   useEffect(() => {
     if (selectedPartner && map) {
       map.setCenter([selectedPartner.latitude, selectedPartner.longitude], 10);
+      setActiveMarkCoords(selectedPartner.latitude)
     }
   }, [selectedPartner, map]);
 
@@ -121,8 +123,8 @@ function AnotherMap({
               balloonContentBody: `<div class='ballon'>
                          <p class='ballon__header'>${store.name}</p>
                          <p class='balloon__text'>${store.tags
-                           .map((tag) => tag.name)
-                           .join(", ")}</p>
+                  .map((tag) => tag.name)
+                  .join(", ")}</p>
                          <p class='balloon__text'>${store.address}</p> 
                          <div class='ballon__status'>
                              <div class='baloon__status-dot'></div>
@@ -138,11 +140,15 @@ function AnotherMap({
             }
           );
 
+            placemark.options.set((activeMarkCoords === store.latitude)&&"iconImageHref", HoverIcon);
+            placemark.options.set((activeMarkCoords === store.latitude)&&"iconImageSize", [30, 30]);
+         
+          
           placemark.events.add("mouseenter", () => {
             placemark.options.set("iconImageHref", HoverIcon);
             placemark.options.set("iconImageSize", [30, 30]);
           });
-placemark.events.add("mouseleave", () => {
+          placemark.events.add("mouseleave", () => {
             placemark.options.set("iconImageHref", DefaultIcon);
             placemark.options.set("iconImageSize", [25, 25]);
           });
@@ -155,6 +161,7 @@ placemark.events.add("mouseleave", () => {
                 p.options.set("iconImageSize", [25, 25]);
               }
             });
+          
             placemark.options.set("iconImageHref", HoverIcon);
             placemark.options.set("iconImageSize", [30, 30]);
             setStoreInfo(store);
@@ -162,7 +169,6 @@ placemark.events.add("mouseleave", () => {
               setPopupPartnersListOpen(true);
             }
           });
-
           map.geoObjects.add(placemark);
           clusterer.add(placemark);
         });

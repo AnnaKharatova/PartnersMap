@@ -285,6 +285,7 @@ main {
 .popup-partners__container {
   z-index: 3;
   max-height: 60vh;
+  max-width: 100%;
   box-sizing: border-box;
   background-color: #fefefe;
   padding: 0;
