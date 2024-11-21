@@ -27,3 +27,14 @@
   src: url(./IBMPlexSans-Bold.woff) format("woff");
   src: url(./IBMPlexSans-Bold.woff2) format("woff2");
 }
+
+
+@font-face {
+  font-family: "Involve";
+  font-style: normal;
+  font-display: swap;
+  src: url(./Involve/involve-semibold.ttf) format("ttf");
+  src: url(./Involve/involve-semibold.otf) format("otf");
+  src: url(./Involve/involve-semibold.woff) format("woff");
+  src: url(./Involve/involve-semibold.woff2) format("woff2");
+}

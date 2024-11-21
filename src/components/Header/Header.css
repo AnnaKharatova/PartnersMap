@@ -18,8 +18,9 @@
 
 .header__title {
   color: #ffff;
+  font-family: 'Involve';
   font-size: 20px;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 28px;
   padding-right: 0;
 }
@@ -47,8 +48,9 @@
   margin-right: 50px;
   text-decoration: none;
   color: #ffff;
+  font-family: 'Involve';
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 20.8px;
   text-align: center;
   border-bottom: 1px solid #191919;
@@ -78,6 +80,7 @@
   padding-right: 30px;
   text-decoration: none;
   color: #ffff;
+  font-family: 'Involve';
   font-size: 16px;
   font-weight: 400;
   line-height: 20.8px;
@@ -117,6 +120,7 @@
   text-decoration: none;
   cursor: pointer;
   color: #fff;
+  font-family: 'Involve';
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
