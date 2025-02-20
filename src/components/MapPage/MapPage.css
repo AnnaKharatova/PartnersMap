@@ -128,7 +128,7 @@ main {
 
 .partners__container {
   box-sizing: border-box;
-  max-height: 93vh;
+  max-height: 91vh;
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: 10px;
@@ -182,7 +182,7 @@ main {
 
 .map__container {
   height: 100vh;
-  width: 80vw;
+  width: 80%;
   margin: 0;
   position: relative;
 }

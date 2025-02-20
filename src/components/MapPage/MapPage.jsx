@@ -413,12 +413,6 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
                 selectedCity={selectedCity}
               />
             </YMaps>
-            <div className="map__footer-nav">
-              <a className="map__footer-item" href="#">
-                Пользовательское соглашение
-              </a>
-              <p className="map__copyright">© 2024 Название</p>
-            </div>
             {maxWidth760 && (
               <button
                 className="map__button"
