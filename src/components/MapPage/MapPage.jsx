@@ -47,7 +47,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
       .then((res) => res.json())
       .then((resData) => {
         const fetchedData = JSON.parse(JSON.stringify(resData));
-        setMainPhoto(fetchedData.image);        
+        setMainPhoto(fetchedData.image);
       })
       .catch((res) => {
         if (res.status == 500) {
@@ -206,7 +206,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
     const cityQuery = selectedCity ? `city=${selectedCity.id}` : ''
     const url = `${BASE_URL}/partners/?${tagsQuery}&${partsQuery}&${cityQuery}`;
 
-    if (selectedCity || selectedParts || selectedTags ) {
+    if (selectedCity || selectedParts || selectedTags) {
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
