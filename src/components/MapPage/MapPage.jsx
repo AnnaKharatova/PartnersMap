@@ -13,6 +13,9 @@ import BurgerMenu from "../BurgerMenu/BurgerMenu.jsx";
 import NothingFoundInFilter from "../NothingFoundInFilter/NothingFoundInFilter.jsx";
 import NothingFoundInCity from "../NothingFoundInCity/NothingFoundInCity.jsx";
 import { BASE_URL } from "../../constants/constants.js";
+import InfoBlock from "../InfoBlock/InfoBlock.jsx";
+import Footer from '../Footer/Footer.jsx';
+import FormPopup from "../FormPopup/FormPopup.jsx";
 
 function MapPage({ maxWidth1024, maxWidth760 }) {
   const listRef = useRef(null);
@@ -38,47 +41,8 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
   const [burgerMenuOpen, setBurgerMenuOpen] = useState(false);
   const [popupPartnersListOpen, setPopupPartnersListOpen] = useState(false);
   const [showNoContentInfo, setshowNoContentInfo] = useState(false);
-  const [showTitle, setShowTitle] = useState(false);
   const [buttonsShadow, setButtonsShadow] = useState(false);
-  const [mainPhoto, setMainPhoto] = useState(null)
-
-  useEffect(() => {
-    fetch(`${BASE_URL}/head/`)
-      .then((res) => res.json())
-      .then((resData) => {
-        const fetchedData = JSON.parse(JSON.stringify(resData));
-        setMainPhoto(fetchedData.image);
-      })
-      .catch((res) => {
-        if (res.status == 500) {
-          navigate("./error");
-        } else {
-          console.log("Ошибка при получении данных:", res.message);
-        }
-      });
-  }, [])
-
-  /* переход с каталога при клике на кнопку Где Купить: 
-  useEffect(() => {
-    if (storagedEngineId) {
-      setFilterMark([...filterMark, storagedEngineName]);
-      setSelectedParts([...selectedParts, storagedEngineId]);
-      const url = `${BASE_URL}/partners/?parts_available=${storagedEngineId}`;
-      fetch(url)
-        .then((res) => res.json())
-        .then((resData) => {
-          const fetchedData = JSON.parse(JSON.stringify(resData));
-          setFilteredData(fetchedData);
-        })
-        .catch((res) => {
-          if (res.status == 500) {
-            navigate("./error");
-          } else {
-            console.log("Ошибка при получении данных:", res.message);
-          }
-        });
-    }
-  }, []); */
+  const [openForm, setOpenForm] = useState(false)
 
   useEffect(() => {
     if (filterMark) {
@@ -94,21 +58,6 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
     }
   }, [selectedCity])
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const header = document.querySelector(".header");
-      const title = document.querySelector("h1");
-      if (header && title) {
-        if (window.scrollY > title.offsetTop) {
-          setShowTitle(true);
-        } else {
-          setShowTitle(false);
-        }
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -260,17 +209,20 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
       <Header
         maxWidth760={maxWidth760}
         setBurgerMenuOpen={setBurgerMenuOpen}
-        showTitle={showTitle}
         catalog={false}
       />
       <main>
-        {mainPhoto && <img alt="АО Строймаш" className="main-photo" src={mainPhoto} />}
+        <section className="intro">
+          <h2 className="intro__title">Строймаш. Знаем цену надежности.</h2>
+          <h3 className="intro__subtitle">Только подлинные детали Строймаш гарантируют защиту!</h3>
+          <a href='#'><button className="intro__button">Смотреть видео</button></a>
+        </section>
         <h1 className="title">
           {!maxWidth760
-            ? `Официальные партнёры АО Строймаш`
+            ? `Официальные партнёры завода Строймаш`
             : "Официальные партнёры завода"}
         </h1>
-        <div className="map">
+        <section className="map" id='map'>
           <div className="partners">
             <div
               className={
@@ -424,7 +376,10 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
               </button>
             )}
           </div>
-        </div>
+        </section>
+        <InfoBlock setOpenForm={setOpenForm} />
+        <Footer />
+        {openForm && <FormPopup setOpenForm={setOpenForm}/>}
       </main>
 
       {citiesPopup && maxWidth760 && (

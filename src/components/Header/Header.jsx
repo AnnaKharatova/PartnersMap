@@ -1,11 +1,9 @@
 import "./Header.css";
-import React, { useState, useEffect, useRef } from "react";
-import Logo from "../../images/Logo.svg";
+import React, { useState } from "react";
+import Logo from "../../images/2.0/Group 2.svg";
 import { email, phoneNumber, addPartner } from "../../constants/constants.js";
 
-function Header({ maxWidth760, setBurgerMenuOpen, showTitle, catalog }) {
-  const menuRef = useRef(null);
-  const buttonRef = useRef(null);
+function Header({ maxWidth760, setBurgerMenuOpen, catalog }) {
 
   const [contactsOpen, setContactsOpen] = useState(false);
 
@@ -21,60 +19,12 @@ function Header({ maxWidth760, setBurgerMenuOpen, showTitle, catalog }) {
     }
   };
 
-  const handleMouseOver = () => {
-    setContactsOpen(true);
-  };
-
-  const handleMouseOut = () => {
-    setContactsOpen(false);
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        menuRef.current &&
-        !menuRef.current.contains(event.target) &&
-        !buttonRef.current.contains(event.target)
-      ) {
-        setContactsOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
   return (
     <header className="header">
       <div className="header__main">
         <img src={Logo} alt="Логотип Строймаш" className="header__logo" />
-
-        {!maxWidth760 ? (
-          <p className="header__title">Строймаш</p>
-        ) : (
-          <p style={{ display: "none" }}></p>
-        )}
-        {!maxWidth760 & showTitle ? (
-          <p className="header__title">
-            {!catalog ? "ОФИЦИАЛЬНЫЕ ПАРТНЕРЫ" : "КАТАЛОГ ПРОДУКЦИИ"}
-          </p>
-        ) : (
-          <p style={{ display: "none" }}></p>
-        )}
-
-        {maxWidth760 & !showTitle ? (
-          <p className="header__title">Строймаш</p>
-        ) : (
-          <p style={{ display: "none" }}></p>
-        )}
-        {maxWidth760 & showTitle ? (
-          <p className="header__title" style={{ paddingRight: "0" }}>
-            Официальные партнеры АО Строймаш
-          </p>
-        ) : (
-          <p></p>
-        )}
       </div>
+      {maxWidth760 ? (
         <button
           className="header__nav-burger"
           onClick={() => {
@@ -82,23 +32,41 @@ function Header({ maxWidth760, setBurgerMenuOpen, showTitle, catalog }) {
           }}
           id="header-nav-burger"
         ></button>
+      ) : (
         <nav className="header__nav">
-          <a className="header__item header__item-letter" onClick={handleMailClick} href="#">
-            {email}
-          </a>
-          <a className="header__item header__item-phone" onClick={handlePhoneClick} href="#">
-            {phoneNumber}
-          </a>
+            <a
+              className="header__item"
+              href="#catalog"
+              onClick={() => {
+                localStorage.clear();
+              }}
+            >
+              КАТАЛОГ
+            </a>
+            <a
+              className="header__item"
+              href="#map"
+              onClick={() => {
+                localStorage.clear();
+              }}
+            >
+              КАРТА ПАРТНЕРОВ
+            </a>
+          
           <a className="header__item" target="_blank" href={addPartner}>
-            Добавить партнера
+            СТАТЬ ПАРТНЕРОМ
           </a>
+          <button
+            className={!contactsOpen ? "header__item-contacts" : "header__item-contacts header__item-contacts_open"}
+            onClick={()=>setContactsOpen(!contactsOpen)}
+          >
+            КОНТАКТЫ
+          </button>
         </nav>
+      )}
       {contactsOpen && (
         <div
           className="header__contacts"
-          ref={menuRef}
-          onMouseOver={handleMouseOver}
-          onMouseOut={handleMouseOut}
         >
           <a className="header__contact" onClick={handleMailClick} href="#">
             {email}

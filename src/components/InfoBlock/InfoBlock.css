@@ -1,0 +1,111 @@
+.info {
+    padding: 54px 64px 85px;
+    margin: 0 auto;
+    text-align: center;
+    place-items: center;
+}
+
+.info__title {
+    font-family: "IBMPlexSans";
+    color: #191919;
+    margin: 0;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 130%;
+}
+
+.info__subtitle {
+    font-family: "IBMPlexSans";
+    color: #3397FF;
+    margin: 8px 0 50px;
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 130%;
+}
+
+.info__list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 33px;
+    margin-top: 40px;
+}
+
+.info__item {
+    width: 414px;
+    height: 227px;
+    background-color: #3397FF;
+    border-radius: 20px;
+    padding: 0 30px 20px 40px;
+    box-sizing: border-box;
+}
+
+.info__item-text {
+    text-align: left;
+    font-family: "IBMPlexSans";
+    color: #ffff;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 130%;
+}
+
+.info__item-img {
+    margin-top: -32px;
+    display: flex;
+    justify-self: flex-start;
+}
+
+.info__catalog {
+    box-sizing: border-box;
+    background-image: url('../../images/2.0/background_books.png');
+    background-repeat: no-repeat;
+    background-position: cover;
+    padding: 50px 40px 65px 50px;
+    margin: 50px auto 0;
+    max-width: 1313px;
+}
+
+.info__catalog-text {
+    font-family: "IBMPlexSans";
+    color: #ffff;
+    margin: 0;
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 130%;
+    width: 50%;
+    text-align: left;
+}
+
+.info__catalog-button {
+    display: flex;
+    justify-self: flex-start;
+    margin-top: 50px;
+    box-sizing: border-box;
+    background-color: #fff;
+    border-radius: 20px;
+    border: none;
+    padding: 18px 55px 18px 75px;
+    color: #3397FF;
+    font-family: 'IBMPlexSans';
+    font-size: 21px;
+    font-weight: 400;
+    line-height: 130%;
+    background-image: url('../../images/2.0/bxs-book.svg');
+    background-repeat: no-repeat;
+    background-position: 40px center;
+}
+
+.info__catalog-button:hover {
+    box-sizing: border-box;
+    cursor: pointer;
+    color: #fff;
+    background-color: #1b76d3;
+    background-image: url('../../images/2.0/bxs-book-white.svg');
+    outline: 2px solid white;
+
+
+}
