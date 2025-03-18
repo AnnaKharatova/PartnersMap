@@ -219,8 +219,8 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
         </section>
         <h1 className="title">
           {!maxWidth760
-            ? `Официальные партнёры завода Строймаш`
-            : "Официальные партнёры завода"}
+            ? `Официальные партнеры завода Строймаш`
+            : "Официальные партнеры завода"}
         </h1>
         <section className="map" id='map'>
           <div className="partners">

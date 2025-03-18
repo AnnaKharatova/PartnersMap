@@ -52,7 +52,7 @@ main {
 .intro__title {
   color: #fff;
   font-family: 'IBMPlexSans';
-  font-size: 38px;
+  font-size: 36px;
   font-weight: 700;
   line-height: 130%;
   margin-bottom: 15px;
@@ -61,10 +61,10 @@ main {
 .intro__subtitle {
   color: #fff;
   font-family: 'IBMPlexSans';
-  font-size: 34px;
+  font-size: 32px;
   font-weight: 400;
   line-height: 130%;
-  width: 40%;
+  width: 38%;
   margin: 0 0 30px;
 }
 
@@ -103,10 +103,10 @@ main {
   padding-left: 64px;
   margin-bottom: 0;
   padding-bottom: 25px;
-  font-size: 36px;
+  font-size: 35px;
   font-weight: 700;
   line-height: 140%;
-  letter-spacing: -2%;
+  letter-spacing: -0.1px;
 }
 
 .partners {

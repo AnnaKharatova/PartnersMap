@@ -63,7 +63,7 @@
     box-sizing: border-box;
     background-image: url('../../images/2.0/background_books.png');
     background-repeat: no-repeat;
-    background-position: cover;
+    background-position: contain;
     padding: 50px 40px 65px 50px;
     margin: 50px auto 0;
     max-width: 1313px;
