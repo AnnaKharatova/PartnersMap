@@ -1,11 +1,29 @@
 import "./Header.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Logo from "../../images/2.0/Group 2.svg";
 import { email, phoneNumber, addPartner } from "../../constants/constants.js";
 
-function Header({ maxWidth760, setBurgerMenuOpen, catalog }) {
+function Header({ setBurgerMenuOpen, catalog }) {
+
 
   const [contactsOpen, setContactsOpen] = useState(false);
+
+    const [maxWidth760, setMaxWidth760] = useState(false);
+
+      const handleResize = () => {
+        if (window.innerWidth < 830) {
+          setMaxWidth760(true);
+        } else {
+          setMaxWidth760(false);
+        }
+      };
+      window.addEventListener("resize", handleResize);
+    
+      useEffect(() => {
+        handleResize();
+        return () => window.removeEventListener("resize", handleResize);
+      }, [window.innerWidth]);
+  
 
   const handleMailClick = () => {
     window.location.href = `mailto:${encodeURIComponent(email)}`;

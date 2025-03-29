@@ -60,23 +60,31 @@
 }
 
 .info__catalog {
+    display: flex;
     box-sizing: border-box;
-    background-image: url('../../images/2.0/background_books.png');
-    background-repeat: no-repeat;
+    background-image: linear-gradient(to right bottom, #1e79d9, #185aa0);
     background-position: contain;
-    padding: 50px 40px 65px 50px;
-    margin: 50px auto 0;
+    background-size: 100%;
+    border-radius: 20px;
+    padding: 15px 40px 0 50px;
+    margin: 50px auto 40px;
     max-width: 1313px;
+    overflow: hidden;
+}
+
+.info__catalog-img {
+    margin-bottom: -110px;
 }
 
 .info__catalog-text {
     font-family: "IBMPlexSans";
+    padding-top: 40px;
     color: #ffff;
     margin: 0;
     font-size: 36px;
     font-weight: 400;
     line-height: 130%;
-    width: 50%;
+    width: 100%;
     text-align: left;
 }
 
@@ -108,4 +116,108 @@
     outline: 2px solid white;
 
 
+}
+
+@media screen and (max-width: 1250px) {
+    .info__catalog-button {
+        margin-top: 15px;
+    }
+}
+
+@media screen and (max-width: 1080px) {
+    .info__catalog {
+        padding-bottom: 30px;
+    }
+
+    .info__catalog-img {
+        width: 320px;
+        height: 220px;
+        align-self: center;
+        margin-bottom: 0;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .info {
+        padding: 30px;
+    }
+
+    .info__catalog {
+        padding: 20px;
+    }
+
+    .info__catalog-text {
+        box-sizing: border-box;
+        font-size: 20px;
+        padding: 10px 20px 10px 10px;
+        line-height: 1.3;
+    }
+
+    .info__catalog-button {
+        font-size: 16px;
+        padding: 15px 35px 15px 45px;
+        background-position: 20px center;
+        text-align: center;
+
+    }
+}
+
+@media screen and (max-width: 560px) {
+
+    .info {
+        padding: 30px 18px 0;
+    }
+
+    .info__list {
+        gap: 20px;
+    }
+
+    .info__title {
+        text-align: left;
+        font-size: 32px;
+        line-height: 1;
+    }
+
+    .info__subtitle {
+        display: block;
+        font-size: 20px;
+        text-align: left;
+        width: 90%;
+        margin-left: -30px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        line-height: 1;
+    }
+
+    .info__item {
+        width: 340px;
+        height: auto;
+        padding: 0 30px 20px 30px;
+
+    }
+
+    .info__item-img {
+        width: 80px;
+        margin-top: -20px;
+    }
+
+    .info__item-text {
+        font-size: 16px;
+        letter-spacing: 1;
+        padding-bottom: 10px;
+    }
+
+    .info__catalog {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .info__catalog-button {
+        margin: 20px auto 0;
+        width: 100%;
+        border-radius: 12px;
+        font-size: 16px;
+        background-position: 50px center;
+        place-content: center;
+    }
 }

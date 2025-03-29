@@ -28,8 +28,6 @@
   width: 30px;
   height: 30px;
   border: none;
-  margin-top: 10px;
-  margin-right: 16px;
   cursor: pointer;
   display: none;
 }
@@ -162,8 +160,9 @@
 }
 
 @media screen and (max-width: 830px) {
-  .header__main {
-    padding-left: 16px;
+  .header {
+    box-sizing: border-box;
+    padding: 26px;
   }
 
   .header__nav {
@@ -173,22 +172,14 @@
   .header__nav-burger {
     display: block;
   }
-
-  .header__title {
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 20.8px;
-  }
-
-  .header__logo {
-    height: 30px;
-    width: 30px;
-  }
 }
 
-@media screen and (max-width: 425px) {
-  .header__title {
-    font-size: 14px;
-    line-height: 16.8px;
+@media screen and (max-width: 560px) {
+  .header {
+    padding: 16px 16px 16px 8px;
+  }
+  .header__logo {
+    height: 16px;
+    width: auto;
   }
 }

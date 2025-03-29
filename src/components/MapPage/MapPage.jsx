@@ -16,8 +16,11 @@ import { BASE_URL } from "../../constants/constants.js";
 import InfoBlock from "../InfoBlock/InfoBlock.jsx";
 import Footer from '../Footer/Footer.jsx';
 import FormPopup from "../FormPopup/FormPopup.jsx";
+import InfoLogo from "../../images/2.0/header_img.svg";
+import InfoLogoMobile from '../../images/2.0/intro_mobile.svg'
+import AgreementPopup from "../AgreementPopup/AgreementPopup.jsx";
 
-function MapPage({ maxWidth1024, maxWidth760 }) {
+function MapPage({ maxWidth760 }) {
   const listRef = useRef(null);
   const listPopupRef = useRef(null);
   const navigate = useNavigate();
@@ -43,6 +46,7 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
   const [showNoContentInfo, setshowNoContentInfo] = useState(false);
   const [buttonsShadow, setButtonsShadow] = useState(false);
   const [openForm, setOpenForm] = useState(false)
+  const [agreementPopupOpen, setAgreementPopupOpen] = useState(false)
 
   useEffect(() => {
     if (filterMark) {
@@ -57,7 +61,6 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
       getQuery()
     }
   }, [selectedCity])
-
 
   useEffect(() => {
     const handleScroll = () => {
@@ -207,15 +210,17 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
   return (
     <>
       <Header
-        maxWidth760={maxWidth760}
         setBurgerMenuOpen={setBurgerMenuOpen}
         catalog={false}
       />
       <main>
         <section className="intro">
-          <h2 className="intro__title">Строймаш. Знаем цену надежности.</h2>
-          <h3 className="intro__subtitle">Только подлинные детали Строймаш гарантируют защиту!</h3>
-          <a href='#'><button className="intro__button">Смотреть видео</button></a>
+          <div>
+            <h2 className="intro__title">Строймаш. Знаем цену надежности.</h2>
+            <h3 className="intro__subtitle">Только подлинные детали Строймаш гарантируют защиту!</h3>
+            <a href='#'><button className="intro__button">Смотреть видео</button></a>
+          </div>
+          <img className="intro__img" alt='Логотип карты партнеров Строймаш' src={maxWidth760 ? InfoLogoMobile : InfoLogo} />
         </section>
         <h1 className="title">
           {!maxWidth760
@@ -378,8 +383,8 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
           </div>
         </section>
         <InfoBlock setOpenForm={setOpenForm} />
-        <Footer />
-        {openForm && <FormPopup setOpenForm={setOpenForm}/>}
+        <Footer maxWidth760={maxWidth760} setAgreementPopupOpen={setAgreementPopupOpen}/>
+        {openForm && <FormPopup setOpenForm={setOpenForm} />}
       </main>
 
       {citiesPopup && maxWidth760 && (
@@ -410,8 +415,9 @@ function MapPage({ maxWidth1024, maxWidth760 }) {
         />
       )}
       {burgerMenuOpen && (
-        <BurgerMenu catalog={false} setBurgerMenuOpen={setBurgerMenuOpen} />
+        <BurgerMenu catalog={false} setBurgerMenuOpen={setBurgerMenuOpen} setAgreementPopupOpen={setAgreementPopupOpen}/>
       )}
+      {agreementPopupOpen&&<AgreementPopup setAgreementPopupOpen={setAgreementPopupOpen}/>}
       {popupPartnersListOpen && maxWidth760 && (
         <div className="popup-partners__container">
           {!partnerInfo && (

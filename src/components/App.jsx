@@ -34,7 +34,7 @@ function App() {
       <Route
         path="/"
         element={
-          <MapPage maxWidth1024={maxWidth1024} maxWidth760={maxWidth760} />
+          <MapPage maxWidth760={maxWidth760} />
         }
       />
      {/*  <Route path="/catalog" element={<Catalog maxWidth760={maxWidth760} />} />

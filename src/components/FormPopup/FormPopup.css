@@ -110,3 +110,57 @@
     box-shadow: 0 4px 4px 0 #807f7f;
     transform: translate(0, -2px);
 }
+
+@media screen and (max-width: 1240px) {
+    .catalog-form__content {
+        width: 55%;
+    }
+  }
+
+  @media screen and (max-width: 940px) {
+    .catalog-form__content {
+        width: 65%;
+    }
+  }
+
+  @media screen and (max-width: 760px) {
+    .catalog-form__content {
+        width: 90%;
+        padding: 0 15px;
+
+    }
+
+    .catalog-form__close {
+        width: 20px;
+        height: 20px;
+        margin: 10px 0 20px;
+    }
+
+    .catalog-form__title {
+        font-size: 18px;
+        width: 95%;
+        margin: 0 auto;
+    }
+    
+    .catalog-form__subtitle {
+        font-size: 14px;
+        width: 90%;
+        padding-top: 20px;
+    }
+
+    .catalog-form__form {
+        width: 90%;
+        gap: 20px;
+    }
+
+    .catalog-form__caption {
+        width: 85%;
+    }
+
+    .catalog-form__button {
+        width: 100%;
+        background-position: 30% center;
+        margin-bottom: 40px;
+        font-size: 16px;
+    }
+  }

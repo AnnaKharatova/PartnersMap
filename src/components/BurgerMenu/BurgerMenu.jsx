@@ -1,9 +1,13 @@
 import "./BurgerMenu.css";
 import React from "react";
-import Logo from "../../images/Logo.svg";
 import { email, phoneNumber, addPartner } from "../../constants/constants.js";
+import Logo from "../../images/2.0/Group 2.svg";
 
-function BurgerMenu({ setBurgerMenuOpen, catalog }) {
+
+function BurgerMenu({ setBurgerMenuOpen, catalog, setAgreementPopupOpen }) {
+
+  const currentYear = new Date().getFullYear();
+
   const handleMailClick = () => {
     window.location.href = `mailto:${encodeURIComponent(email)}`;
   };
@@ -16,13 +20,17 @@ function BurgerMenu({ setBurgerMenuOpen, catalog }) {
     }
   };
 
+
+  const handleAgreementClick = () => {
+    setAgreementPopupOpen(true)
+  }
+
   return (
     <div className="popup-menu">
       <div className="popup-menu__content">
         <div className="popup-menu__header">
           <div className="header__main">
             <img src={Logo} alt="Логотип Строймаш" className="header__logo" />
-            <p className="header__title">Строймаш</p>
           </div>
           <button
             className="popup-menu__close-button"
@@ -57,10 +65,8 @@ function BurgerMenu({ setBurgerMenuOpen, catalog }) {
           >
             {email}
           </a>
-          <a className="popup-menu__item-copyright" href="#">
-            Пользовательское соглашение
-          </a>
-          <p className="popup-menu__copyright">© 2024 Название</p>
+          <a className="footer__item" onClick={handleAgreementClick}>Пользовательское соглашение</a>
+          <p className="footer__item" style={{ cursor: 'auto' }}>© {currentYear} "Строймаш"</p>
         </nav>
       </div>
     </div>
