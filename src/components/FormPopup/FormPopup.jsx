@@ -1,5 +1,6 @@
 import './FormPopup.css'
 import { useState } from 'react';
+import { BASE_URL } from '../../constants/constants.js'
 
 function FormPopup({ setOpenForm }) {
 
@@ -65,7 +66,7 @@ function FormPopup({ setOpenForm }) {
                     <p className="catalog-form__caption">* Это поле не обязательно для заполнения, но если вы укажете свой
                         номер — мы свяжемся с вами для подтверждения данных.</p>
                     <button className="catalog-form__button" type='submit'>Отправить</button>
-                    {error&&<span style={{color: 'red', paddingBottom: '30px'}}>{error}</span>}
+                    {error && <span style={{ color: 'red', paddingBottom: '30px' }}>{error}</span>}
                 </form>
             </div>
         </section>
