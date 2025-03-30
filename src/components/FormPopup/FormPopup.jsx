@@ -41,9 +41,9 @@ function FormPopup({ setOpenForm }) {
             const resData = await response.json();
             console.log('Успешно отправлено:', resData);
             // Очищаем поля формы после успешной отправки
-            setEmail('');
-            setAddress('');
-            setPhone('');
+            setRecipientName('');
+            setDeliveryAddress('');
+            setPhoneNumber('');
             setError(''); // Сбрасываем сообщение об ошибке
             setOpenForm(false)
         } catch (error) {
