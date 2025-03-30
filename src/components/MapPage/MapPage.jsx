@@ -218,7 +218,7 @@ function MapPage({ maxWidth760 }) {
           <div>
             <h2 className="intro__title">Строймаш. Знаем цену надежности.</h2>
             <h3 className="intro__subtitle">Только подлинные детали Строймаш гарантируют защиту!</h3>
-            <a href='#'><button className="intro__button">Смотреть видео</button></a>
+            <a href='https://vk.com/video-213808955_456239020' target='_blank'><button className="intro__button">Смотреть видео</button></a>
           </div>
           <img className="intro__img" alt='Логотип карты партнеров Строймаш' src={maxWidth760 ? InfoLogoMobile : InfoLogo} />
         </section>
