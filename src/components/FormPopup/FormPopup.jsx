@@ -18,9 +18,9 @@ function FormPopup({ setOpenForm }) {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    recipientName: recipientName,
-                    deliveryAddress: deliveryAddress,
-                    phoneNumber: phoneNumber,
+                    recipient_name: recipientName,
+                    delivery_address: deliveryAddress,
+                    phone_number: phoneNumber,
                 }),
             });
 
