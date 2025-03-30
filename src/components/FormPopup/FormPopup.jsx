@@ -1,6 +1,7 @@
 import './FormPopup.css'
 import { useState } from 'react';
 import { BASE_URL } from '../../constants/constants.js'
+import { useNavigate } from 'react-router-dom';
 
 function FormPopup({ setOpenForm }) {
 
@@ -8,6 +9,8 @@ function FormPopup({ setOpenForm }) {
     const [deliveryAddress, setDeliveryAddress] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [error, setError] = useState('');
+
+    const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
