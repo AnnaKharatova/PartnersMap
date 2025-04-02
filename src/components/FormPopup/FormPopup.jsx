@@ -1,4 +1,5 @@
 import './FormPopup.css'
+import React from 'react'
 import { useState } from 'react';
 import { BASE_URL } from '../../constants/constants.js'
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +10,7 @@ function FormPopup({ setOpenForm }) {
     const [deliveryAddress, setDeliveryAddress] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [error, setError] = useState('');
+    const [isSendForm, setIsSendForm] = useState(false)
 
     const navigate = useNavigate()
 
@@ -39,13 +41,16 @@ function FormPopup({ setOpenForm }) {
             }
 
             const resData = await response.json();
+            setIsSendForm(true)
+            setTimeout(() => {
+                setOpenForm(false)
+            }, 5000)
             console.log('Успешно отправлено:', resData);
             // Очищаем поля формы после успешной отправки
             setRecipientName('');
             setDeliveryAddress('');
             setPhoneNumber('');
             setError(''); // Сбрасываем сообщение об ошибке
-            setOpenForm(false)
         } catch (error) {
             console.error('Ошибка:', error);
             setError("Произошла ошибка при отправке данных. Пожалуйста, проверьте подключение к сети и попробуйте позже."); // Отображаем ошибку пользователю
@@ -54,24 +59,28 @@ function FormPopup({ setOpenForm }) {
 
     return (
         <section className="catalog-form">
-            <div className="catalog-form__content">
-                <button className='catalog-form__close' onClick={() => setOpenForm(false)}></button>
-                <h3 className="catalog-form__title">В настоящее время мы&nbsp;отправляем каталог нашим&nbsp;партнёрам и покупателям в бумажном виде.</h3>
-                <h4 className="catalog-form__subtitle"> Укажите адрес доставки, имя получателя и мы отправим его вам.</h4>
-                <form className="catalog-form__form" onSubmit={handleSubmit}>
-                    <input className="catalog-form__input" type='text' placeholder="Имя получателя" required value={recipientName}
-                        onChange={(e) => setRecipientName(e.target.value)} />
-                    <input className="catalog-form__input" type='text' placeholder="Адрес доставки" required value={deliveryAddress}
-                        onChange={(e) => setDeliveryAddress(e.target.value)}
-                    />
-                    <input className="catalog-form__input" type='number' placeholder="Контактный телефон *" value={phoneNumber}
-                        onChange={(e) => setPhoneNumber(e.target.value)} />
-                    <p className="catalog-form__caption">* Это поле не обязательно для заполнения, но если вы укажете свой
-                        номер — мы свяжемся с вами для подтверждения данных.</p>
-                    <button className="catalog-form__button" type='submit'>Отправить</button>
-                    {error && <span style={{ color: 'red', paddingBottom: '30px' }}>{error}</span>}
-                </form>
-            </div>
+            {!isSendForm ?
+                <div className="catalog-form__content">
+                    <button className='catalog-form__close' onClick={() => setOpenForm(false)}></button>
+                    <h3 className="catalog-form__title">В настоящее время мы&nbsp;отправляем каталог нашим&nbsp;партнёрам и покупателям в бумажном виде.</h3>
+                    <h4 className="catalog-form__subtitle"> Укажите адрес доставки, имя получателя и мы отправим его вам.</h4>
+                    <form className="catalog-form__form" onSubmit={handleSubmit}>
+                        <input className="catalog-form__input" type='text' placeholder="Имя получателя" required value={recipientName}
+                            onChange={(e) => setRecipientName(e.target.value)} />
+                        <input className="catalog-form__input" type='text' placeholder="Адрес доставки" required value={deliveryAddress}
+                            onChange={(e) => setDeliveryAddress(e.target.value)}
+                        />
+                        <input className="catalog-form__input" type='number' placeholder="Контактный телефон *" value={phoneNumber}
+                            onChange={(e) => setPhoneNumber(e.target.value)} />
+                        <p className="catalog-form__caption">* Это поле не обязательно для заполнения, но если вы укажете свой
+                            номер — мы свяжемся с вами для подтверждения данных.</p>
+                        <button className="catalog-form__button" type='submit'>Отправить</button>
+                        {error && <span style={{ color: 'red', paddingBottom: '30px' }}>{error}</span>}
+                    </form>
+                </div> :
+                <div className="catalog-form__content catalog-form__content_open" style={{ opacity: !isSendForm ? '0' : '1' }}>
+                    <p className="catalog-form__title">Форма успешно отправлена</p>
+                </div>}
         </section>
     )
 }

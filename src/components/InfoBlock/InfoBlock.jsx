@@ -1,11 +1,11 @@
 import "./InfoBlock.css";
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import PackLogo from '../../images/2.0/logo_pack.png'
 import QRLogo from '../../images/2.0/logo_qr-code.png'
 import UVLogo from '../../images/2.0/logo_uv.png'
 import Catalog from '../../images/2.0/catalog.png'
 
-function InfoBlock({ setOpenForm }) {
+function InfoBlock({ setOpenForm, maxWidth760 }) {
 
     function getCatalog() {
         setOpenForm(true)
@@ -21,11 +21,11 @@ function InfoBlock({ setOpenForm }) {
                     <p className="info__item-text">Детали «Строймаш» поставляются только в фирменной упаковке и маркируются товарным знаком</p>
                 </li>
                 <li className="info__item">
-                    <img className="info__item-img" style={{width: '60px'}} src={QRLogo} />
+                    <img className="info__item-img" style={{width: maxWidth760 ? '60px' : '90px'}} src={QRLogo} />
                     <p className="info__item-text" style={{ marginTop: '7px' }}>Проверьте подлинность изделий по QR-коду на упаковке через приложение «Строймаш Коннект»</p>
                 </li>
                 <li className="info__item">
-                    <img className="info__item-img" style={{width: '60px'}}  src={UVLogo} />
+                    <img className="info__item-img" style={{width: maxWidth760 ? '60px' : '110px'}}  src={UVLogo} />
                     <p className="info__item-text">Только настоящие изделия «Строймаш» светятся в ультрафиолетовом свете.</p>
                 </li>
             </ul>

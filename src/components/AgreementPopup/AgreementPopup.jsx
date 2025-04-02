@@ -1,3 +1,4 @@
+import React from 'react'
 import './AgreementPopup.css'
 
 function AgreementPopup({ setAgreementPopupOpen }) {

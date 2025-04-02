@@ -19,6 +19,10 @@ import FormPopup from "../FormPopup/FormPopup.jsx";
 import InfoLogo from "../../images/2.0/header_img.svg";
 import InfoLogoMobile from '../../images/2.0/intro_mobile.svg'
 import AgreementPopup from "../AgreementPopup/AgreementPopup.jsx";
+import VideoPopup from "../VideoPopup/VideoPopup.jsx";
+
+// "hash": "KZ3qqhK2vcquzGnJmbkJ2JcXymqNuLJf157E9qYTiK8",
+// "hash": "w3mzXxajWo4OcrJiOnMmsPgjgViqVsDj1WuwZJGXpfH",
 
 function MapPage({ maxWidth760 }) {
   const listRef = useRef(null);
@@ -47,6 +51,7 @@ function MapPage({ maxWidth760 }) {
   const [buttonsShadow, setButtonsShadow] = useState(false);
   const [openForm, setOpenForm] = useState(false)
   const [agreementPopupOpen, setAgreementPopupOpen] = useState(false)
+  const [openVideo, setOpenVideo] = useState(false)
 
   useEffect(() => {
     if (filterMark) {
@@ -218,7 +223,7 @@ function MapPage({ maxWidth760 }) {
           <div>
             <h2 className="intro__title">Строймаш. Знаем цену надежности.</h2>
             <h3 className="intro__subtitle">Только подлинные детали Строймаш гарантируют защиту!</h3>
-            <a href='https://vk.com/video-213808955_456239020' target='_blank'><button className="intro__button">Смотреть видео</button></a>
+            <button onClick={()=>setOpenVideo(true)} className="intro__button">Смотреть видео</button>
           </div>
           <img className="intro__img" alt='Логотип карты партнеров Строймаш' src={maxWidth760 ? InfoLogoMobile : InfoLogo} />
         </section>
@@ -382,9 +387,10 @@ function MapPage({ maxWidth760 }) {
             )}
           </div>
         </section>
-        <InfoBlock setOpenForm={setOpenForm} />
+        <InfoBlock setOpenForm={setOpenForm} maxWidth760={maxWidth760}/>
         <Footer maxWidth760={maxWidth760} setAgreementPopupOpen={setAgreementPopupOpen}/>
         {openForm && <FormPopup setOpenForm={setOpenForm} />}
+        {openVideo && <VideoPopup setOpenVideo={setOpenVideo}/>}
       </main>
 
       {citiesPopup && maxWidth760 && (

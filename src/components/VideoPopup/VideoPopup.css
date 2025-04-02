@@ -1,0 +1,42 @@
+.video-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #191919;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.video-popup__content {
+    width: fit-content;
+    text-align: center;
+    position: relative;
+}
+
+.video-popup__close {
+    background-image: url('../../images/Icon-cross-white.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-color: inherit;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border: none;
+    outline: none;
+    display: flex;
+    justify-self: flex-end;
+    cursor: pointer; 
+    right: 0;
+}
+
+.video-popup__close:hover {
+    background-color: #191919;
+    opacity: .5;
+    border-radius: 50%;
+
+}
