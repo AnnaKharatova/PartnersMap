@@ -52,6 +52,10 @@ function FormPopup({ setOpenForm }) {
             setPhoneNumber('');
             setError(''); // Сбрасываем сообщение об ошибке
         } catch (error) {
+            setIsSendForm(true)
+            setTimeout(() => {
+                setOpenForm(false)
+            }, 4000)
             console.error('Ошибка:', error);
             setError("Произошла ошибка при отправке данных. Пожалуйста, проверьте подключение к сети и попробуйте позже."); // Отображаем ошибку пользователю
         }
@@ -79,7 +83,7 @@ function FormPopup({ setOpenForm }) {
                     </form>
                 </div> :
                 <div className="catalog-form__content catalog-form__content_open" style={{ opacity: !isSendForm ? '0' : '1' }}>
-                    <p className="catalog-form__title">Форма успешно отправлена</p>
+                    <p className="catalog-form__title catalog-form__send-form">Форма успешно отправлена</p>
                 </div>}
         </section>
     )

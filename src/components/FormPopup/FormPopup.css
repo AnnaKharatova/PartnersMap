@@ -118,17 +118,6 @@
     transform: translate(0, -2px);
 }
 
-.catalog-form__widget {
-    position: absolute;
-    border: 20px;
-    border: 1px solid #191919;
-    background-color: #E8E8E8;
-    text-align: center;
-    width: 50%;
-    top: 30%;
-    left: 30%
-}
-
 @media screen and (max-width: 1240px) {
     .catalog-form__content {
         width: 55%;
@@ -145,8 +134,8 @@
     .catalog-form__content {
         width: 90%;
         padding: 0 15px;
-
     }
+
 
     .catalog-form__close {
         width: 20px;
@@ -158,6 +147,11 @@
         font-size: 18px;
         width: 95%;
         margin: 0 auto;
+    }
+
+    .catalog-form__send-form {
+        width: 60%;
+        padding: 10%;
     }
 
     .catalog-form__subtitle {
