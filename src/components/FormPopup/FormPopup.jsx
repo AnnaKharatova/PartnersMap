@@ -44,7 +44,7 @@ function FormPopup({ setOpenForm }) {
             setIsSendForm(true)
             setTimeout(() => {
                 setOpenForm(false)
-            }, 5000)
+            }, 4000)
             console.log('Успешно отправлено:', resData);
             // Очищаем поля формы после успешной отправки
             setRecipientName('');
@@ -52,10 +52,6 @@ function FormPopup({ setOpenForm }) {
             setPhoneNumber('');
             setError(''); // Сбрасываем сообщение об ошибке
         } catch (error) {
-            setIsSendForm(true)
-            setTimeout(() => {
-                setOpenForm(false)
-            }, 4000)
             console.error('Ошибка:', error);
             setError("Произошла ошибка при отправке данных. Пожалуйста, проверьте подключение к сети и попробуйте позже."); // Отображаем ошибку пользователю
         }
