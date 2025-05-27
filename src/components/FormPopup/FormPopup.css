@@ -1,178 +1,205 @@
 .catalog-form {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #191919;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #191919;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
 }
 
 .catalog-form__content {
-    background-color: #E8E8E8;
-    border-radius: 20px;
-    width: 41%;
-    padding: 50px 45px;
-    box-sizing: border-box;
-    text-align: center;
-    transition: opacity 0.7s ease;
+  background-color: #e8e8e8;
+  border-radius: 20px;
+  width: 41%;
+  padding: 50px 45px;
+  box-sizing: border-box;
+  text-align: center;
+  transition: opacity 0.7s ease;
 }
 
 .catalog-form__content_open {
-    position: absolute;
-    padding: 30px 25px;
-
+  position: absolute;
+  padding: 30px 25px;
 }
 
 .catalog-form__close {
-    background-image: url('../../images/Icon-close-cross.svg');
-    background-repeat: no-repeat;
-    background-position: cover;
-    width: 20px;
-    height: 20px;
-    border: none;
-    outline: none;
-    background-color: inherit;
-    display: flex;
-    justify-self: flex-end;
-    margin: -20px 0 20px;
-    cursor: pointer;
+  background-image: url("../../images/Icon-close-cross.svg");
+  background-repeat: no-repeat;
+  background-position: cover;
+  width: 20px;
+  height: 20px;
+  border: none;
+  outline: none;
+  background-color: inherit;
+  display: flex;
+  justify-self: flex-end;
+  margin: -20px 0 20px;
+  cursor: pointer;
 }
 
 .catalog-form__title {
-    color: #191919;
-    font-family: 'IBMPlexSans';
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 130%;
-    margin: 0 auto;
+  color: #191919;
+  font-family: "IBMPlexSans";
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 130%;
+  margin: 0 auto;
 }
 
 .catalog-form__subtitle {
-    margin: 0 auto;
-    color: #191919;
-    font-family: 'IBMPlexSans';
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 130%;
-    width: 65%;
-    padding: 15px 0 30px;
+  margin: 0 auto;
+  color: #191919;
+  font-family: "IBMPlexSans";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 130%;
+  width: 65%;
+  padding: 15px 0 30px;
 }
 
 .catalog-form__form {
-    display: flex;
-    flex-direction: column;
-    width: 75%;
-    margin: 0 auto;
-    gap: 25px;
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  margin: 0 auto;
+  gap: 25px;
 }
 
 .catalog-form__input {
-    outline: none;
-    border: none;
-    border-radius: 8px;
-    padding: 12px;
-    color: #191919;
-    font-family: 'IBMPlexSans';
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 130%;
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  color: #191919;
+  font-family: "IBMPlexSans";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 130%;
 }
 
 .catalog-form__caption {
-    color: #000000;
-    font-family: 'IBMPlexSans';
-    font-size: 10px;
-    font-weight: 400;
-    line-height: 130%;
-    width: 87%;
-    text-align: center;
-    margin: -10px auto 2px;
+  color: #000000;
+  font-family: "IBMPlexSans";
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 130%;
+  width: 87%;
+  text-align: center;
+  margin: -10px auto 2px;
 }
 
 .catalog-form__button {
-    background-image: url('../../images/2.0/bxs-paper-plane.svg');
-    background-repeat: no-repeat;
-    background-position: 20% center;
-    width: 201px;
-    box-sizing: border-box;
-    padding: 18px 18px 18px 28px;
-    border-radius: 20px;
-    color: #ffff;
-    background-color: #007DFF;
-    cursor: pointer;
-    outline: none;
-    border: none;
-    margin: 0 auto;
-    font-family: 'IBMPlexSans';
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 130%;
+  background-image: url("../../images/2.0/bxs-paper-plane.svg");
+  background-repeat: no-repeat;
+  background-position: 20% center;
+  width: 201px;
+  box-sizing: border-box;
+  padding: 18px 18px 18px 28px;
+  border-radius: 20px;
+  color: #ffff;
+  background-color: #007dff;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  margin: 0 auto;
+  font-family: "IBMPlexSans";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 130%;
 }
 
 .catalog-form__button:hover {
-    box-shadow: 0 4px 4px 0 #807f7f;
-    transform: translate(0, -2px);
+  box-shadow: 0 4px 4px 0 #807f7f;
+  transform: translate(0, -2px);
+}
+
+.catalog-form__button:disabled {
+  box-shadow: none;
+  transform: none;
+  background-color: #807f7f;
+}
+
+.catalog-form__checkbox {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: #191919;
+  font-family: "IBMPlexSans";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 130%;
+}
+
+.catalog-form__checkbox-item {
+  min-width: 17px;
+  min-height: 17px;
+  box-sizing: border-box;
+  margin-top: -32px;
+}
+
+.catalog-form__checkbox-link {
+  color: #007dff;
 }
 
 @media screen and (max-width: 1240px) {
-    .catalog-form__content {
-        width: 55%;
-    }
+  .catalog-form__content {
+    width: 55%;
+  }
 }
 
 @media screen and (max-width: 940px) {
-    .catalog-form__content {
-        width: 65%;
-    }
+  .catalog-form__content {
+    width: 65%;
+  }
 }
 
 @media screen and (max-width: 760px) {
-    .catalog-form__content {
-        width: 90%;
-        padding: 0 15px;
-    }
+  .catalog-form__content {
+    width: 90%;
+    padding: 0 15px;
+  }
 
+  .catalog-form__close {
+    width: 20px;
+    height: 20px;
+    margin: 10px 0 20px;
+  }
 
-    .catalog-form__close {
-        width: 20px;
-        height: 20px;
-        margin: 10px 0 20px;
-    }
+  .catalog-form__title {
+    font-size: 18px;
+    width: 95%;
+    margin: 0 auto;
+  }
 
-    .catalog-form__title {
-        font-size: 18px;
-        width: 95%;
-        margin: 0 auto;
-    }
+  .catalog-form__send-form {
+    width: 60%;
+    padding: 10%;
+  }
 
-    .catalog-form__send-form {
-        width: 60%;
-        padding: 10%;
-    }
+  .catalog-form__subtitle {
+    font-size: 14px;
+    width: 90%;
+    padding-top: 20px;
+  }
 
-    .catalog-form__subtitle {
-        font-size: 14px;
-        width: 90%;
-        padding-top: 20px;
-    }
+  .catalog-form__form {
+    width: 90%;
+    gap: 20px;
+  }
 
-    .catalog-form__form {
-        width: 90%;
-        gap: 20px;
-    }
+  .catalog-form__caption {
+    width: 85%;
+  }
 
-    .catalog-form__caption {
-        width: 85%;
-    }
-
-    .catalog-form__button {
-        width: 100%;
-        background-position: 30% center;
-        margin-bottom: 40px;
-        font-size: 16px;
-    }
+  .catalog-form__button {
+    width: 100%;
+    background-position: 30% center;
+    margin-bottom: 40px;
+    font-size: 16px;
+  }
 }

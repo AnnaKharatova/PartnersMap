@@ -36,6 +36,7 @@ function Footer({maxWidth760, setAgreementPopupOpen}) {
       <div className="footer__links">
         <a className="footer__item" onClick={handlePhoneClick}>{phoneNumber}</a>
         <a className="footer__item" onClick={handleMailClick}>{email}</a>
+        <a href="/privacy-policy" className="footer__item">Политика конфиденциальности</a>
         <a className="footer__item" onClick={()=>{setAgreementPopupOpen(true)}}>Пользовательское соглашение</a>
         <p className="footer__item" style={{cursor: 'auto'}}>© {currentYear} "Строймаш"</p>
       </div>

@@ -49,7 +49,7 @@ function MapPage({ maxWidth760 }) {
   const [popupPartnersListOpen, setPopupPartnersListOpen] = useState(false);
   const [showNoContentInfo, setshowNoContentInfo] = useState(false);
   const [buttonsShadow, setButtonsShadow] = useState(false);
-  const [openForm, setOpenForm] = useState(false)
+  const [openForm, setOpenForm] = useState(true)
   const [agreementPopupOpen, setAgreementPopupOpen] = useState(false)
   const [openVideo, setOpenVideo] = useState(false)
 
@@ -389,7 +389,7 @@ function MapPage({ maxWidth760 }) {
         </section>
         <InfoBlock setOpenForm={setOpenForm} maxWidth760={maxWidth760}/>
         <Footer maxWidth760={maxWidth760} setAgreementPopupOpen={setAgreementPopupOpen}/>
-        {openForm && <FormPopup setOpenForm={setOpenForm} />}
+        {openForm && <FormPopup setOpenForm={setOpenForm} setAgreementPopupOpen={setAgreementPopupOpen}/>}
         {openVideo && <VideoPopup setOpenVideo={setOpenVideo}/>}
       </main>
 
