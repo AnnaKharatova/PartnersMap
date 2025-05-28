@@ -12,13 +12,18 @@ function PrivacyPolicy() {
         <p className="policy__subtitle">
           Настоящая Политика конфиденциальности персональных данных (далее —
           Политика) действует в отношении всей информации, которую сайт{" "}
-          <a href="https://stroymash-partners.ru">
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://stroymash-partners.ru"
+            style={{color: '#007DFF'}}
+          >
             {" "}
             https://stroymash-partners.ru
           </a>
-          https://stroymash-partners.ru, расположенный на доменном имени
-          stroymash-partners.ru, может получить о Пользователе во время
-          использования сайта, его сервисов, форм и программ.
+          , расположенный на доменном имени stroymash-partners.ru, может
+          получить о Пользователе во время использования сайта, его сервисов,
+          форм и программ.
         </p>
         <div>
           <ol className="policy__list">
