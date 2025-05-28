@@ -49,7 +49,7 @@ function MapPage({ maxWidth760 }) {
   const [popupPartnersListOpen, setPopupPartnersListOpen] = useState(false);
   const [showNoContentInfo, setshowNoContentInfo] = useState(false);
   const [buttonsShadow, setButtonsShadow] = useState(false);
-  const [openForm, setOpenForm] = useState(true)
+  const [openForm, setOpenForm] = useState(false)
   const [agreementPopupOpen, setAgreementPopupOpen] = useState(false)
   const [openVideo, setOpenVideo] = useState(false)
 
